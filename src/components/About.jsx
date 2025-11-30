@@ -69,7 +69,7 @@ const About = () => {
           <motion.div variants={itemVariants} className="md:col-span-4 relative group overflow-hidden rounded-2xl border border-white/10 h-64 md:h-auto">
              <div className="absolute inset-0 bg-brand-blue-dark/20 group-hover:bg-transparent transition-colors z-10"></div>
              <img 
-               src="src\assets\AboutPhoto.jpg" 
+               src="/AboutPhoto.jpg" 
                alt="GilarWahidityaPhoto" 
                className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
              />

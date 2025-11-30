@@ -100,7 +100,7 @@ const Hero = () => {
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
             >
               <img 
-                src="src\assets\Photo.jpg" 
+                src="/Photo.jpg" 
                 alt="Gilar Wahiditya" 
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
               />
