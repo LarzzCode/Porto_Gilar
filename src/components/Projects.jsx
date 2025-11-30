@@ -1,37 +1,43 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, Github, Folder } from "lucide-react";
+import { Link } from "react-router-dom";
 
 // Data Dummy (Nanti bisa dipisah ke file sendiri)
 const projectsData = [
   {
     id: 1,
-    title: "E-Katalog Dashboard",
-    category: "Web Development",
-    desc: "Sistem manajemen inventaris modern dengan fitur real-time tracking dan pelaporan otomatis.",
-    tech: ["Laravel", "React", "MySQL", "Tailwind"],
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop",
-    link: "#",
-    github: "#"
+    title: "Lar-Movies",
+    category: "Web Application", 
+    desc: "Aplikasi eksplorasi film berbasis React yang memanfaatkan TMDB API untuk menampilkan film trending dan fitur pencarian real-time dengan UI modern.",
+    tech: ["Next JS", "Vite", "Tailwind", "TMDB API"],
+    image: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=2525&auto=format&fit=crop", // Ganti dengan Screenshot asli web Anda nanti
+    link: "https://lar-movies.vercel.app/", // Link Live
+    github: "https://github.com/USERNAME_ANDA/lar-movies" // Link Repo
   },
   {
     id: 2,
-    title: "Euro Car Service",
-    category: "System Administration",
-    desc: "Aplikasi administrasi bengkel mobil Eropa untuk mencatat riwayat servis dan stok sparepart.",
-    tech: ["PHP", "Bootstrap", "Javascript"],
-    image: "https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?q=80&w=2500&auto=format&fit=crop",
-    link: "#",
-    github: "#"
+    title: "Lar-Calculator",
+    category: "Utility Tool",
+    desc: "Kalkulator web responsif dengan logika aritmatika presisi. Mendukung operasi dasar, fitur history sementara, dan tampilan modern berbasis Grid Layout.",
+    tech: ["Html", "Css", "JS Logic"],
+    image: "https://images.unsplash.com/photo-1587145820266-a5951ee1f620?q=80&w=2000&auto=format&fit=crop", // SEMENTARA (Saran: Ganti dengan Screenshot Asli)
+    link: "https://calculator-lar.vercel.app/", 
+    github: "https://github.com/USERNAME_ANDA/calculator-lar" // Ganti link repo
   },
   {
     id: 3,
-    title: "Portfolio v1",
-    category: "Personal Branding",
-    desc: "Website portofolio personal yang dibangun dengan performa tinggi dan animasi interaktif.",
-    tech: ["Vite", "React", "Framer Motion"],
-    image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=2555&auto=format&fit=crop",
-    link: "#",
-    github: "#"
+    title: "Bagja College",
+    category: "Company Profile", // Atau "Education Platform" 
+    // Deskripsi (Saya gabungkan agar terdengar full-stack):
+    desc: "Website resmi lembaga pendidikan yang menyajikan informasi program dan pendaftaran. Saya berkontribusi dalam pengelolaan konten digital dan memastikan aksesibilitas informasi bagi calon siswa.",   
+    // Sesuaikan teknologi asli webnya (Contoh jika pakai WordPress):
+    tech: ["CMS / WordPress", "CodeIgniter", "MySQL"], 
+    // PENTING: Gunakan screenshot asli website Bagja College agar terlihat profesional
+    image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2000&auto=format&fit=crop",  
+    link: "https://bagjacollege.com/", 
+    // Karena ini web perusahaan, mungkin tidak ada repo publik. 
+    // Opsional: Ganti jadi link kosong atau hapus tombol github di kodenya nanti jika string kosong.
+    github: ""
   },
 ];
 
@@ -53,14 +59,18 @@ const Projects = () => {
               Featured <span className="text-brand-blue-dark">Projects</span>
             </h2>
           </div>
-          <p className="text-brand-cream/60 mt-4 md:mt-0 max-w-sm text-sm md:text-base">
-            Beberapa projek pilihan yang telah saya kerjakan, mulai dari sistem administrasi hingga web aplikasi modern.
-          </p>
+          
         </motion.div>
 
         {/* Grid Projects */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projectsData.map((project, index) => (
+            <a 
+              href={project.link}
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="block" // Agar area klik luas
+            >
             <motion.div
               key={project.id}
               initial={{ opacity: 0, y: 30 }}
@@ -109,15 +119,21 @@ const Projects = () => {
               </div>
               
             </motion.div>
+            </a>
           ))}
         </div>
         
         {/* Tombol Lihat Semua (Opsional) */}
+        {/* Tombol Lihat Semua (Sudah Aktif) */}
         <div className="mt-16 text-center">
-          <button className="px-8 py-3 rounded-full border border-brand-cream/20 text-brand-cream hover:bg-brand-cream hover:text-brand-black transition-all font-medium flex items-center gap-2 mx-auto">
-            <Folder size={18} />
-            Lihat Arsip Lengkap
-          </button>
+          <Link to="/archive">
+            <button className="px-8 py-3 rounded-full border border-brand-cream/20 text-brand-cream hover:bg-brand-cream hover:text-brand-black transition-all font-medium flex items-center gap-2 mx-auto group">
+              <Folder size={18} />
+              Lihat Arsip Lengkap
+              {/* Sedikit animasi panah saat hover */}
+              <ArrowUpRight size={16} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+            </button>
+          </Link>
         </div>
 
       </div>

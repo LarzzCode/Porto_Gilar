@@ -1,86 +1,130 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
+import { Link } from "react-scroll"; // Import Link dari react-scroll untuk tombol "Lihat Projek"
 
 const Hero = () => {
+  // DATA SOSIAL MEDIA (EDIT DISINI)
+  const socialLinks = [
+    {
+      Icon: Github,
+      href: "https://github.com/larzzCode", // Ganti dengan link Github Anda
+    },
+    {
+      Icon: Linkedin,
+      href: "https://www.linkedin.com/in/gilarwdy", // Ganti dengan link LinkedIn Anda
+    },
+    {
+      Icon: Mail,
+      href: "mailto:wahidityagilar6@gmail.com", // Sudah saya sesuaikan dengan screenshot Anda
+    }
+  ];
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.2, delayChildren: 0.3 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+  };
+
   return (
-    // Hapus bg-dark karena sudah di-set di body, tambahkan text-brand-cream
-    <section className="min-h-screen flex items-center px-6 pt-20 md:pt-0 overflow-hidden" id="home">
-      <div className="max-w-7xl mx-auto w-full flex flex-col md:flex-row items-center gap-10 md:gap-20">
+    <section className="min-h-screen flex items-center px-6 pt-24 md:pt-0 overflow-hidden" id="home">
+      <div className="max-w-7xl mx-auto w-full flex flex-col md:flex-row items-center gap-12 md:gap-20">
         
         {/* BAGIAN KIRI */}
         <motion.div 
           className="w-full md:w-1/2 order-2 md:order-1"
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
         >
-          {/* Warna Aksen Soft Blue */}
-          <span className="text-brand-blue-light font-mono text-lg mb-4 block">
+          <motion.span variants={itemVariants} className="text-brand-blue-light font-mono text-lg mb-4 block">
             Hi, my name is
-          </span>
+          </motion.span>
           
-          {/* Warna Judul Cream */}
-          <h1 className="text-4xl md:text-6xl font-bold mb-4 leading-tight text-brand-cream">
-            Gilar Wahiditya.
-          </h1>
+          <motion.h1 variants={itemVariants} className="text-4xl md:text-6xl font-bold mb-6 leading-tight text-brand-cream">
+            Gilar Wahiditya <br />
+            Eka Putra.
+          </motion.h1>
           
-          {/* Warna Sub-judul Biru Gelap/Deep */}
-          <h2 className="text-2xl md:text-4xl font-bold text-brand-blue-dark mb-6">
-            I build things for the web.
-          </h2>
+          <motion.p variants={itemVariants} className="text-brand-cream/70 text-base md:text-lg mb-8 leading-relaxed max-w-xl text-justify md:text-left">
+            My name is Gilar Wahiditya Eka Putra, with one year of experience at a tutoring institution, specializing in multidisciplinary skills including administration, graphic design, and video production.
+          </motion.p>
           
-          {/* Warna Deskripsi Cream dengan opacity agar tidak terlalu menohok */}
-          <p className="text-brand-cream/80 text-base md:text-lg mb-8 leading-relaxed max-w-lg">
-            Seorang pengembang web yang fokus menciptakan pengalaman digital yang *clean*, *responsive*, dan *user-friendly*. Saat ini sedang mendalami ekosistem React dan Modern Web Tech.
-          </p>
-          
-          <div className="flex flex-wrap gap-4">
-            {/* Tombol: Background Blue Dark -> Hover Blue Light, Text Black agar kontras */}
-            <button className="bg-brand-blue-dark hover:bg-brand-blue-light text-white hover:text-brand-black px-6 py-3 rounded-lg font-medium transition-all duration-300 flex items-center gap-2 group">
-              Lihat Projek 
-              <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-            </button>
+          <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-8">
             
-            {/* Social Icons */}
-            <div className="flex gap-4 items-center ml-2">
-              <a href="#" className="p-2 hover:bg-white/10 rounded-full transition-all text-brand-blue-light hover:text-white">
-                <Github size={24} />
-              </a>
-              <a href="#" className="p-2 hover:bg-white/10 rounded-full transition-all text-brand-blue-light hover:text-white">
-                <Linkedin size={24} />
-              </a>
-              <a href="#" className="p-2 hover:bg-white/10 rounded-full transition-all text-brand-blue-light hover:text-white">
-                <Mail size={24} />
-              </a>
+            {/* Tombol "Lihat Projek" -> Scroll ke Section Projects */}
+            <Link to="projects" smooth={true} duration={500} offset={-50}>
+              <motion.button 
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="group relative bg-brand-cream text-brand-black px-8 py-3 rounded-full font-semibold flex items-center gap-3 shadow-[0_0_15px_rgba(239,236,227,0.3)] hover:shadow-[0_0_25px_rgba(239,236,227,0.5)] transition-all duration-300"
+              >
+                Lihat Projek
+                <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform duration-300" />
+              </motion.button>
+            </Link>
+            
+            {/* Social Icons (Looping dari data socialLinks di atas) */}
+            <div className="flex gap-6 items-center">
+              {socialLinks.map((social, index) => (
+                <motion.a 
+                  key={index}
+                  href={social.href}         // Link tujuan
+                  target="_blank"            // Buka di tab baru
+                  rel="noopener noreferrer"  // Keamanan standar web
+                  whileHover={{ y: -5, color: "#8FABD4" }}
+                  className="text-brand-cream/60 transition-colors cursor-pointer"
+                >
+                  <social.Icon size={24} />
+                </motion.a>
+              ))}
             </div>
-          </div>
-        </motion.div>
 
-        {/* BAGIAN KANAN: Foto */}
-        <motion.div 
-          className="w-full md:w-1/2 flex justify-center order-1 md:order-2"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          <motion.div 
-            className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96"
-            animate={{ y: [0, -20, 0] }}
-            transition={{ duration: 4, repeat: Infinity, repeatType: "loop", ease: "easeInOut" }}
-          >
-            {/* Border Effect diganti menjadi Blue Dark */}
-            <div className="absolute inset-0 rounded-full translate-x-4 translate-y-4 opacity-50"></div>
-            
-            {/* Foto Container dengan Border Cream */}
-            <div className="w-full h-full rounded-full overflow-hidden border-4 border-brand-cream/20 shadow-2xl relative z-10">
-              <img 
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?fit=crop&w=800&q=80" 
-                alt="Gilar Wahiditya" 
-                className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
-              />
-            </div>
           </motion.div>
         </motion.div>
+
+        {/* BAGIAN KANAN: Foto & Badge (Tetap sama, tidak berubah) */}
+        <div className="w-full md:w-1/2 flex justify-center order-1 md:order-2">
+          <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96">
+            
+            {/* Foto Bouncing */}
+            <motion.div
+              className="w-full h-full rounded-full overflow-hidden border-[6px] border-white/10 shadow-2xl relative z-10"
+              animate={{ y: [0, -20, 0] }}
+              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <img 
+                src="src\assets\Photo.jpg" 
+                alt="Gilar Wahiditya" 
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+              />
+            </motion.div>
+
+            {/* Badge Bouncing */}
+            <motion.div 
+              className="absolute bottom-0 right-0 md:bottom-4 md:-right-4 z-20"
+              animate={{ x: [0, -25, 0] }}
+              transition={{ duration:3, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+            >
+              <div className="bg-brand-black/80 backdrop-blur-md border border-white/10 py-3 px-5 rounded-full flex items-center gap-3 shadow-xl cursor-default hover:scale-105 transition-transform duration-300">
+                <span className="relative flex h-3 w-3">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                </span>
+                <span className="text-brand-cream font-medium text-sm whitespace-nowrap">
+                  Available for hire
+                </span>
+              </div>
+            </motion.div>
+
+          </div>
+        </div>
 
       </div>
     </section>

@@ -1,21 +1,16 @@
 @import "tailwindcss";
 
 
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-}
-
+/* 2. Set Default Font di Body */
 body {
-  /* Default Background Hitam Pekat, Default Text Cream */
   background-color: #000000; 
   color: #EFECE3;
-  font-family: 'Inter', sans-serif; /* Pastikan font terlihat modern */
+  font-family: 'Poppins', sans-serif; /* Pastikan ini Poppins */
+  -webkit-font-smoothing: antialiased; /* Agar font terlihat tajam di Mac/iOS */
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom Scrollbar agar sesuai tema (Opsional tapi Keren) */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -29,12 +24,11 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #8FABD4;
 }
-/* ... kode sebelumnya ... */
 
-/* Style khusus saat Navbar Item aktif */
+/* Style khusus Navbar Active (dari langkah sebelumnya) */
 .nav-item-active {
-  background-color: #EFECE3 !important; /* Warna Cream */
-  color: #000000 !important;           /* Warna Hitam */
+  background-color: #EFECE3 !important;
+  color: #000000 !important;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   font-weight: 600;
 }

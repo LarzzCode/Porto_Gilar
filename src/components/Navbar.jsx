@@ -5,7 +5,7 @@ import { useState } from "react";
 
 const Navbar = () => {
   const [copied, setCopied] = useState(false);
-  const email = "gilar@gmail.com"; 
+  const email = "wahidityagilar6@gmail.com"; 
 
   const handleCopy = () => {
     navigator.clipboard.writeText(email);
@@ -17,7 +17,7 @@ const Navbar = () => {
     { name: "Home", to: "home" },
     { name: "About", to: "about" },
     { name: "Projects", to: "projects" },
-    { name: "Contact Me", to: "contact" },
+    { name: "Contact", to: "contact" },
   ];
 
   return (
