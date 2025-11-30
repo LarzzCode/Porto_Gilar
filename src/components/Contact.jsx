@@ -49,7 +49,7 @@ const Contact = () => {
           viewport={{ once: true }}
           className="mb-16 text-center md:text-left"
         >
-          <span className="text-brand-blue-light font-mono mb-2 block tracking-wider">03. / GET IN TOUCH</span>
+          <span className="text-brand-blue-light font-mono mb-2 block tracking-wider">04. / GET IN TOUCH</span>
           <h2 className="text-4xl md:text-5xl font-bold text-brand-cream">
             Let's build something <span className="text-brand-blue-dark">amazing.</span>
           </h2>
@@ -75,7 +75,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <p className="text-xs text-brand-cream/50 uppercase tracking-wider">Email Me</p>
-                  <p className="text-brand-cream font-medium">gilar@example.com</p>
+                  <p className="text-brand-cream font-medium">wahidityagilar6@gmail.com</p>
                 </div>
               </div>
 
@@ -95,7 +95,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <p className="text-xs text-brand-cream/50 uppercase tracking-wider">WhatsApp</p>
-                  <p className="text-brand-cream font-medium">+62 812-3456-7890</p>
+                  <p className="text-brand-cream font-medium">+62 851-7438-8765</p>
                 </div>
               </div>
             </div>

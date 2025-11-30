@@ -54,7 +54,7 @@ const Projects = () => {
           className="mb-16 md:flex justify-between items-end"
         >
           <div>
-            <span className="text-brand-blue-light font-mono mb-2 block tracking-wider">02. / MY WORKS</span>
+            <span className="text-brand-blue-light font-mono mb-2 block tracking-wider">03. / MY WORKS</span>
             <h2 className="text-4xl md:text-5xl font-bold text-brand-cream">
               Featured <span className="text-brand-blue-dark">Projects</span>
             </h2>

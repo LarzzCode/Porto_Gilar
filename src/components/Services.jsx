@@ -37,7 +37,7 @@ const Services = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <span className="text-brand-blue-light font-mono mb-2 block tracking-wider">04. / WHAT I OFFER</span>
+          <span className="text-brand-blue-light font-mono mb-2 block tracking-wider">02. / WHAT I OFFER</span>
           <h2 className="text-4xl md:text-5xl font-bold text-brand-cream">
             My <span className="text-brand-blue-dark">Specializations</span>
           </h2>
