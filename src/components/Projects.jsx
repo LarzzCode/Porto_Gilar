@@ -10,7 +10,7 @@ const projectsData = [
     category: "Web Application", 
     desc: "Aplikasi eksplorasi film berbasis React yang memanfaatkan TMDB API untuk menampilkan film trending dan fitur pencarian real-time dengan UI modern.",
     tech: ["Next JS", "Vite", "Tailwind", "TMDB API"],
-    image: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=2525&auto=format&fit=crop", // Ganti dengan Screenshot asli web Anda nanti
+    image: "/Project_Movie.jpg", // Ganti dengan Screenshot asli web Anda nanti
     link: "https://lar-movies.vercel.app/", // Link Live
     github: "https://github.com/USERNAME_ANDA/lar-movies" // Link Repo
   },
@@ -20,7 +20,7 @@ const projectsData = [
     category: "Utility Tool",
     desc: "Kalkulator web responsif dengan logika aritmatika presisi. Mendukung operasi dasar, fitur history sementara, dan tampilan modern berbasis Grid Layout.",
     tech: ["Html", "Css", "JS Logic"],
-    image: "https://images.unsplash.com/photo-1587145820266-a5951ee1f620?q=80&w=2000&auto=format&fit=crop", // SEMENTARA (Saran: Ganti dengan Screenshot Asli)
+    image: "/Project_Calculator.jpg", // SEMENTARA (Saran: Ganti dengan Screenshot Asli)
     link: "https://calculator-lar.vercel.app/", 
     github: "https://github.com/USERNAME_ANDA/calculator-lar" // Ganti link repo
   },
@@ -33,7 +33,7 @@ const projectsData = [
     // Sesuaikan teknologi asli webnya (Contoh jika pakai WordPress):
     tech: ["CMS / WordPress", "CodeIgniter", "MySQL"], 
     // PENTING: Gunakan screenshot asli website Bagja College agar terlihat profesional
-    image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2000&auto=format&fit=crop",  
+    image: "/Project_BC.jpg",  
     link: "https://bagjacollege.com/", 
     // Karena ini web perusahaan, mungkin tidak ada repo publik. 
     // Opsional: Ganti jadi link kosong atau hapus tombol github di kodenya nanti jika string kosong.
