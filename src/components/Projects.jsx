@@ -8,7 +8,7 @@ const projectsData = [
     id: 1,
     title: "Lar-Movies",
     category: "Web Application", 
-    desc: "Aplikasi eksplorasi film berbasis React yang memanfaatkan TMDB API untuk menampilkan film trending dan fitur pencarian real-time dengan UI modern.",
+    desc: "A React-based movie exploration app that leverages TMDB API to display trending movies and real-time search features with a modern UI.",
     tech: ["Next JS", "Vite", "Tailwind", "TMDB API"],
     image: "/Project_Movie.jpg", // Ganti dengan Screenshot asli web Anda nanti
     link: "https://lar-movies.vercel.app/", // Link Live
@@ -18,7 +18,7 @@ const projectsData = [
     id: 2,
     title: "Lar-Calculator",
     category: "Utility Tool",
-    desc: "Kalkulator web responsif dengan logika aritmatika presisi. Mendukung operasi dasar, fitur history sementara, dan tampilan modern berbasis Grid Layout.",
+    desc: "A responsive web calculator with precise arithmetic logic. Supports basic operations, a temporary history feature, and a modern grid-based layout.",
     tech: ["Html", "Css", "JS Logic"],
     image: "/Project_Calculator.jpg", // SEMENTARA (Saran: Ganti dengan Screenshot Asli)
     link: "https://calculator-lar.vercel.app/", 
@@ -29,7 +29,7 @@ const projectsData = [
     title: "Bagja College",
     category: "Company Profile", // Atau "Education Platform" 
     // Deskripsi (Saya gabungkan agar terdengar full-stack):
-    desc: "Website resmi lembaga pendidikan yang menyajikan informasi program dan pendaftaran. Saya berkontribusi dalam pengelolaan konten digital dan memastikan aksesibilitas informasi bagi calon siswa.",   
+    desc: "The official website of an educational institution providing program and registration information. I contribute to digital content management and ensure accessibility of information for prospective students.",   
     // Sesuaikan teknologi asli webnya (Contoh jika pakai WordPress):
     tech: ["CMS / WordPress", "CodeIgniter", "MySQL"], 
     // PENTING: Gunakan screenshot asli website Bagja College agar terlihat profesional
@@ -129,7 +129,7 @@ const Projects = () => {
           <Link to="/archive">
             <button className="px-8 py-3 rounded-full border border-brand-cream/20 text-brand-cream hover:bg-brand-cream hover:text-brand-black transition-all font-medium flex items-center gap-2 mx-auto group">
               <Folder size={18} />
-              Lihat Arsip Lengkap
+                See Full Archives
               {/* Sedikit animasi panah saat hover */}
               <ArrowUpRight size={16} className="opacity-0 group-hover:opacity-100 transition-opacity" />
             </button>

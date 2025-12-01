@@ -65,7 +65,7 @@ const Contact = () => {
             viewport={{ once: true }}
           >
             <p className="text-brand-cream/70 leading-relaxed mb-8 text-lg">
-              Saya selalu terbuka untuk diskusi mengenai peluang kerja, proyek freelance, atau sekadar berdiskusi tentang teknologi otomotif & web development.
+             I am always open to discussions about job opportunities, freelance projects, or simply discussing automotive technology & web development.
             </p>
 
             <div className="space-y-6">
@@ -120,7 +120,7 @@ const Contact = () => {
                   type="text" 
                   name="user_name" 
                   required
-                  placeholder="Nama Lengkap"
+                  placeholder="Full Name"
                   className="w-full bg-brand-black/50 border border-white/10 rounded-xl px-5 py-4 text-brand-cream placeholder:text-brand-cream/30 focus:outline-none focus:border-brand-blue-light focus:ring-1 focus:ring-brand-blue-light transition-all"
                 />
               </div>
@@ -131,7 +131,7 @@ const Contact = () => {
                   type="email" 
                   name="user_email" 
                   required
-                  placeholder="Alamat Email"
+                  placeholder="Email"
                   className="w-full bg-brand-black/50 border border-white/10 rounded-xl px-5 py-4 text-brand-cream placeholder:text-brand-cream/30 focus:outline-none focus:border-brand-blue-light focus:ring-1 focus:ring-brand-blue-light transition-all"
                 />
               </div>
@@ -142,7 +142,7 @@ const Contact = () => {
                   name="message" 
                   required
                   rows="4"
-                  placeholder="Tulis pesan Anda disini..."
+                  placeholder="Write your message here..."
                   className="w-full bg-brand-black/50 border border-white/10 rounded-xl px-5 py-4 text-brand-cream placeholder:text-brand-cream/30 focus:outline-none focus:border-brand-blue-light focus:ring-1 focus:ring-brand-blue-light transition-all resize-none"
                 ></textarea>
               </div>
@@ -157,7 +157,7 @@ const Contact = () => {
                   "Mengirim..."
                 ) : (
                   <>
-                    Kirim Pesan <Send size={18} className="group-hover:translate-x-1 transition-transform" />
+                    Send Message <Send size={18} className="group-hover:translate-x-1 transition-transform" />
                   </>
                 )}
               </button>
@@ -169,7 +169,7 @@ const Contact = () => {
                   animate={{ opacity: 1, y: 0 }}
                   className="p-4 bg-green-500/10 border border-green-500/20 text-green-400 rounded-xl text-center text-sm"
                 >
-                  Pesan berhasil terkirim! Saya akan segera membalasnya.
+                  Message sent successfully! I will reply soon.
                 </motion.div>
               )}
               {status === "error" && (
@@ -178,7 +178,7 @@ const Contact = () => {
                   animate={{ opacity: 1, y: 0 }}
                   className="p-4 bg-red-500/10 border border-red-500/20 text-red-400 rounded-xl text-center text-sm"
                 >
-                  Maaf, terjadi kesalahan. Silakan coba lagi nanti.
+                  Sorry, something went wrong. Please try again later.
                 </motion.div>
               )}
             </form>

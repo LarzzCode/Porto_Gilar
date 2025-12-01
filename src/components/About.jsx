@@ -1,18 +1,23 @@
 import { motion } from "framer-motion";
-import { Code2, Globe, Cpu, BookOpen } from "lucide-react";
+import { Code2, Bot, Cpu, BookOpen } from "lucide-react";
 
 // Data Logo Tech Stack (Menggunakan CDN Devicon agar ringan & tajam)
+// Data Logo Tech Stack (Updated: Menggunakan Icons8 PNG agar 100% Muncul)
 const techStack = [
-  { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
-  { name: "Laravel", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg" },
-  { name: "Tailwind", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" },
+  // Web Development
+  { name: "Git", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
   { name: "Javascript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
   { name: "PHP", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" },
   { name: "MySQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" },
-  { name: "Git", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
-  { name: "Vite", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg" },
+  { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+  { name: "Next.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-line.svg" },
   { name: "Bootstrap", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" },
-  { name: "Figma", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" },
+  { name: "Tailwind", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" },
+  
+  // Office Tools (Menggunakan Icons8 PNG)
+  { name: "MS Word", icon: "https://img.icons8.com/color/48/microsoft-word-2019--v2.png" },
+  { name: "MS Excel", icon: "https://img.icons8.com/color/48/microsoft-excel-2019--v1.png" },
+  { name: "PowerPoint", icon: "https://img.icons8.com/color/48/microsoft-powerpoint-2019--v1.png" },
 ];
 
 const About = () => {
@@ -58,10 +63,14 @@ const About = () => {
           <motion.div variants={itemVariants} className="md:col-span-8 bg-white/5 border border-white/10 p-8 rounded-2xl backdrop-blur-sm hover:border-brand-blue-light/30 transition-colors">
             <h3 className="text-2xl font-bold text-brand-cream mb-4">The Journey</h3>
             <p className="text-brand-cream/70 leading-relaxed mb-4">
-              My name is Gilar Wahiditya Ekaputra, a young professional with one year of experience in the education sector, particularly in tutoring institutions, where I have honed multidisciplinary expertise spanning administration, graphic design, and video production. With meticulous attention to detail and advanced skills, I excel at managing administrative systems efficiently, designing creative and captivating visual content, and contributing to institutional promotion through diverse media. I believe that my unique blend of organizational proficiency, technical mastery, and design aesthetics not only enhances operational efficiency but also strengthens corporate identity and branding with a professional and innovative touch. My dedication to quality and detail forms the foundation of every project I undertake, always striving to deliver added value to the growth of the institutions I serve.
+              I'm Gilar Wahiditya Ekaputra, a multidisciplinary professional with a strong background in the education sector. Over the past year, I've honed a unique blend of skills spanning administration, graphic design, and video production.
+
+              My experience has taught me the importance of precision both in streamlining administrative systems and in creating compelling visual content for institutional branding. I believe that combining organizational skills with design aesthetics is key to improving operational efficiency and corporate identity.
+
+             
             </p>
             <p className="text-brand-cream/70 leading-relaxed">
-              Kini, sebagai mahasiswa <span className="text-brand-blue-light font-semibold">Sistem Informasi UT</span>, saya memadukan logika bisnis dengan kode (React & Laravel) untuk membangun solusi digital yang nyata.
+               Currently, as an <span className="text-brand-blue-light font-semibold">Information Systems student at Universitas Terbuka, </span> I leverage this diverse background to bridge the gap between business logic and technology.
             </p>
           </motion.div>
 
@@ -93,8 +102,8 @@ const About = () => {
             <div className="p-3 bg-brand-cream/10 rounded-lg text-brand-cream"><Cpu size={24}/></div>
             <div>
                <span className="text-brand-cream/50 text-xs uppercase tracking-wider">Interest</span>
-               <h4 className="text-lg font-bold text-brand-cream">Automotive & EV</h4>
-               <p className="text-sm text-brand-cream/70">LCGC & Hybrid Tech Enthusiast</p>
+               <h4 className="text-lg font-bold text-brand-cream">Artificial Intelligence (AI)</h4>
+               <p className="text-sm text-brand-cream/70">Deeply curious about Artificial Intelligence and Emerging Tech. Constantly exploring how AI tools can streamline workflows and create smarter web applications.</p>
             </div>
           </motion.div>
         </motion.div>

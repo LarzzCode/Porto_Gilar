@@ -1,37 +1,37 @@
 import { motion } from "framer-motion";
-import { Briefcase, GraduationCap, Code, Star } from "lucide-react";
+import { Briefcase, GraduationCap, School, Star } from "lucide-react";
 
 const experiences = [
   {
-    year: "Present",
-    title: "Freelance Web Developer",
-    company: "Self-Employed",
-    desc: "Membangun website modern untuk klien UMKM dan mengerjakan projek pribadi menggunakan ekosistem React & Laravel.",
-    icon: <Code size={20} />,
+    year: "2025 - Present",
+    title: "Administrator",
+    company: "VR-Auto Service",
+    desc: "Manage customer database systems and workshop inventory. Analyze fast-moving stock requirements and ensure all technical documentation and transactions are digitally and accurately recorded.",
+    icon: <Briefcase size={20} />,
     color: "bg-blue-500"
   },
   {
-    year: "2025",
-    title: "Mahasiswa Sistem Informasi",
+    year: "2025 - 2029",
+    title: "Information Systems Student",
     company: "Universitas Terbuka",
-    desc: "Aktif mempelajari fundamental Computer Science, manajemen basis data, dan analisis sistem informasi.",
+    desc: "Pursue an education using a self-study method that fosters discipline and strong time management. Actively develop programming skills outside the academic curriculum to stay relevant to the industry.",
     icon: <GraduationCap size={20} />,
     color: "bg-yellow-500"
   },
   {
-    year: "2024 - 2025",
-    title: "Administrator",
-    company: "Bengkel Mobil Eropa & Bagja College",
-    desc: "Mengelola administrasi operasional, database inventaris, dan membuat konten digital untuk promosi lembaga.",
+    year: "Mei 2024 - Juni 2025",
+    title: "Administrator & Social Media Specialist",
+    company: "Bagja College",
+    desc: "Manage operational administration, inventory database, and create strategies, produce and schedule digital content for institutional promotions, and optimize the institutional website.",
     icon: <Briefcase size={20} />,
     color: "bg-purple-500"
   },
   {
-    year: "2023",
-    title: "Lulusan SMK RPL",
-    company: "SMK (Majalengka)",
-    desc: "Lulus dengan fokus pada Rekayasa Perangkat Lunak. Mempelajari dasar algoritma, HTML, CSS, dan PHP Native.",
-    icon: <Star size={20} />,
+    year: "2021 - 2024",
+    title: "Rekayasa Perangkat Lunak",
+    company: "SMKN 1 Kertajati",
+    desc: "Graduate with a focus on Software Engineering. Learn the basics of algorithms, HTML, CSS, and native PHP.",
+    icon: <School size={20} />,
     color: "bg-green-500"
   }
 ];

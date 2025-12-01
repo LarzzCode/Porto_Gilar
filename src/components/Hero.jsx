@@ -63,7 +63,7 @@ const Hero = () => {
                 whileTap={{ scale: 0.95 }}
                 className="group relative bg-brand-cream text-brand-black px-8 py-3 rounded-full font-semibold flex items-center gap-3 shadow-[0_0_15px_rgba(239,236,227,0.3)] hover:shadow-[0_0_25px_rgba(239,236,227,0.5)] transition-all duration-300"
               >
-                Lihat Projek
+                See Projects
                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform duration-300" />
               </motion.button>
             </Link>
