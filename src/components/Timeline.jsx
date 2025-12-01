@@ -35,11 +35,20 @@ const experiences = [
     color: "bg-green-500"
   }
 ];
-
 const Timeline = () => {
   return (
-    <section className="py-24 px-6 bg-brand-black relative" id="experience">
-      <div className="max-w-4xl mx-auto">
+    // Tambahkan overflow-hidden agar background tidak bocor
+    <section className="py-24 px-6 bg-brand-black relative overflow-hidden" id="experience">
+      
+      {/* --- BACKGROUND TECH GRID (Copied from Hero) --- */}
+      <div className="absolute inset-0 z-0 w-full h-full">
+        {/* Pola Grid */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#8FABD4_1px,transparent_1px),linear-gradient(to_bottom,#8FABD4_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-[0.15]"></div>
+      </div>
+      {/* ----------------------------------------------- */}
+
+      {/* Tambahkan relative z-10 agar konten muncul di ATAS background */}
+      <div className="max-w-4xl mx-auto relative z-10">
         
         {/* Header */}
         <motion.div 
@@ -48,6 +57,7 @@ const Timeline = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
+          <span className="text-brand-blue-light font-mono mb-2 block tracking-wider">02. / MY JOURNEY</span>
           <h2 className="text-4xl md:text-5xl font-bold text-brand-cream">
             Experience <span className="text-brand-blue-dark">Timeline</span>
           </h2>
@@ -74,7 +84,8 @@ const Timeline = () => {
                 
                 {/* 1. KONTEN (Card) */}
                 <div className="w-full md:w-1/2 pl-20 md:pl-0 md:px-12">
-                  <div className={`bg-white/5 border border-white/10 p-6 rounded-2xl hover:border-brand-blue-light/50 transition-colors text-left ${
+                  {/* Tambahkan backdrop-blur-sm agar teks lebih terbaca di atas grid */}
+                  <div className={`bg-brand-black/40 backdrop-blur-sm border border-white/10 p-6 rounded-2xl hover:border-brand-blue-light/50 transition-colors text-left ${
                       index % 2 === 0 ? "md:text-left" : "md:text-right"
                   }`}>
                     <span className="inline-block px-3 py-1 rounded-full bg-brand-black border border-white/10 text-brand-blue-light text-xs font-mono mb-3">
@@ -95,7 +106,7 @@ const Timeline = () => {
                   </div>
                 </div>
 
-                {/* 3. Spacer Kosong (Untuk menyeimbangkan flexbox) */}
+                {/* 3. Spacer Kosong */}
                 <div className="w-full md:w-1/2"></div>
 
               </motion.div>

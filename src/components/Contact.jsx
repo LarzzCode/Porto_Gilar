@@ -37,9 +37,16 @@ const Contact = () => {
 
   return (
     <section className="py-24 px-6 bg-brand-black relative overflow-hidden" id="contact">
-      {/* Background Gradient */}
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-brand-blue-dark/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
+      {/* --- 1. BACKGROUND TECH GRID (NEW) --- */}
+      <div className="absolute inset-0 z-0 w-full h-full">
+        {/* Pola Grid */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#8FABD4_1px,transparent_1px),linear-gradient(to_bottom,#8FABD4_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-[0.15]"></div>
+      </div>
 
+      {/* --- 2. EXISTING GRADIENT (Tetap dipertahankan untuk nuansa) --- */}
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-brand-blue-dark/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2 z-0"></div>
+
+      {/* --- 3. KONTEN UTAMA (Wajib z-10 agar bisa diklik) --- */}
       <div className="max-w-6xl mx-auto relative z-10">
         
         {/* Header */}
@@ -54,7 +61,6 @@ const Contact = () => {
             Let's build something <span className="text-brand-blue-dark">amazing.</span>
           </h2>
         </motion.div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20">
           
           {/* KOLOM KIRI: Informasi Kontak */}
