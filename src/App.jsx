@@ -15,6 +15,7 @@ import Preloader from "./components/Preloader"; // Import Preloader baru
 import Services from "./components/Services";
 import Testimonials from "./components/Testimonials";
 import Timeline from "./components/Timeline";
+import Certificates from "./components/Certificates";
 
 // Komponen Home
 const Home = () => (
@@ -22,9 +23,10 @@ const Home = () => (
     <Navbar />
     <div id="home"><Hero /></div>
     <div id="about"><About /></div>
-    <div id="timelines"><Timeline /></div>
+    <div id="timelines"><Timeline /></div> 
     <div id="services"><Services /></div>
     <div id="projects"><Projects /></div>
+    <div id="certificate"><Certificates /></div>
     <div id="contact"><Contact /></div>
     
     <Footer />

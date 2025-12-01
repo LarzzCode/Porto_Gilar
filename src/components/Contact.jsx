@@ -56,7 +56,7 @@ const Contact = () => {
           viewport={{ once: true }}
           className="mb-16 text-center md:text-left"
         >
-          <span className="text-brand-blue-light font-mono mb-2 block tracking-wider">04. / GET IN TOUCH</span>
+          <span className="text-brand-blue-light font-mono mb-2 block tracking-wider">06. / GET IN TOUCH</span>
           <h2 className="text-4xl md:text-5xl font-bold text-brand-cream">
             Let's build something <span className="text-brand-blue-dark">amazing.</span>
           </h2>
