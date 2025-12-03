@@ -5,10 +5,11 @@ import { Link } from "react-router-dom";
 const Archive = () => {
   // Data Dummy (Bisa ditambah sebanyak mungkin)
   const allProjects = [
-    { year: "2023", title: "Lar Movie", tech: ["Next JS", "Tailwind", "TMDB API"], link: "https://lar-movies.vercel.app/", mobile: false },
-    { year: "2023", title: "Lar-Calculator", tech: ["Html", "Css", "JS Logic"], link: "https://calculator-lar.vercel.app/", mobile: false },
+    { year: "2024", title: "Lar-Movie", tech: ["Next JS", "Tailwind", "TMDB API"], link: "https://lar-movies.vercel.app/", mobile: false },
+    { year: "2024", title: "Lar-Calculator", tech: ["Html", "Css", "JS Logic"], link: "https://calculator-lar.vercel.app/", mobile: false },
     { year: "2024", title: "Bagja College", tech: ["CMS / WordPress", "CodeIgniter", "MySQL"], link: "bagjacollege.com", mobile: true },
-    { year: "2023", title: "Lar-Todo", tech: ["React", "Vite", "Tailwind"], link: "https://todo-app-lar.vercel.app/", mobile: false },
+    { year: "2024", title: "Lar-Todo", tech: ["React", "Vite", "Tailwind"], link: "https://todo-app-lar.vercel.app/", mobile: false },
+    { year: "2025", title: "Lar-Finance", tech: ["React", "Vite", "Tailwind", "Supabase"], link: "https://larfinance.vercel.app/", mobile: false },
   ];
 
   return (

@@ -16,12 +16,12 @@ const projectsData = [
   },
   {
     id: 2,
-    title: "Lar-Calculator",
-    category: "Utility Tool",
-    desc: "A responsive web calculator with precise arithmetic logic. Supports basic operations, a temporary history feature, and a modern grid-based layout.",
-    tech: ["Html", "Css", "JS Logic"],
-    image: "/Project_Calculator.jpg", // SEMENTARA (Saran: Ganti dengan Screenshot Asli)
-    link: "https://calculator-lar.vercel.app/", 
+    title: "Lar-Finance",
+    category: "Finance App",
+    desc: "Aplikasi pencatat keuangan pribadi dengan fitur dashboard visual, manajemen kategori pengeluaran, dan laporan arus kas real-time.",
+    tech: ["React JS", "Tailwind", "Supabase"],
+    image: "/Project_Finance.jpg", // SEMENTARA (Saran: Ganti dengan Screenshot Asli)
+    link: "https://larfinance.vercel.app/", 
     github: "https://github.com/USERNAME_ANDA/calculator-lar" // Ganti link repo
   },
   {
