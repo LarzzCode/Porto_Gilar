@@ -10,6 +10,7 @@ const Archive = () => {
     { year: "2024", title: "Bagja College", tech: ["CMS / WordPress", "CodeIgniter", "MySQL"], link: "bagjacollege.com", mobile: true },
     { year: "2024", title: "Lar-Todo", tech: ["React", "Vite", "Tailwind"], link: "https://todo-app-lar.vercel.app/", mobile: false },
     { year: "2025", title: "Lar-Finance", tech: ["React", "Vite", "Tailwind", "Supabase"], link: "https://larfinance.vercel.app/", mobile: false },
+    { year: "2025", title: "Lar-Ai", tech: ["React", "Vite", "Tailwind", "Gemini/OpenAI API"], link: "https://lar-ai.vercel.app/", mobile: false },
   ];
 
   return (
