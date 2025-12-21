@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { 
-  Home, User, Briefcase, Mail, Award, Zap, Clock, Menu, X 
+  Home, User, Briefcase, Mail, Award, Zap, Clock, ChevronLeft 
 } from "lucide-react";
 
 const Navbar = () => {
   const [activeSection, setActiveSection] = useState("home");
-  const [isOpen, setIsOpen] = useState(false); // State mobile menu
+  const [isOpen, setIsOpen] = useState(false); 
+  const [isTouching, setIsTouching] = useState(false); 
+  const timerRef = useRef(null); 
 
   const navLinks = [
     { id: "home", label: "Home", icon: Home },
@@ -18,16 +20,26 @@ const Navbar = () => {
     { id: "contact", label: "Contact", icon: Mail },
   ];
 
-  // Logic Scroll Spy (Biar active state pindah sendiri saat discroll)
+  // 1. LOGIKA AUTO HIDE (3 DETIK)
+  useEffect(() => {
+    if (isOpen && !isTouching) {
+      timerRef.current = setTimeout(() => {
+        setIsOpen(false);
+      }, 3000);
+    }
+    return () => clearTimeout(timerRef.current);
+  }, [isOpen, isTouching]);
+
+  // 2. LOGIKA SCROLL SPY (Desktop)
   useEffect(() => {
     const handleScroll = () => {
       const sections = navLinks.map(link => document.getElementById(link.id));
-      const scrollPosition = window.scrollY + 150; // Offset biar ga terlalu mepet
+      const scrollPosition = window.scrollY + 150; 
 
       for (const section of sections) {
         if (section && section.offsetTop <= scrollPosition && (section.offsetTop + section.offsetHeight) > scrollPosition) {
           setActiveSection(section.id);
-          break; // Stop loop once found
+          break; 
         }
       }
     };
@@ -37,35 +49,46 @@ const Navbar = () => {
 
   const scrollToSection = (id) => {
     setActiveSection(id);
-    setIsOpen(false);
+    setIsOpen(false); 
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
   };
 
+  const handleInteractionStart = () => {
+    setIsTouching(true);
+    if (timerRef.current) clearTimeout(timerRef.current); 
+  };
+
+  const handleInteractionEnd = () => {
+    setIsTouching(false);
+  };
+
   return (
     <>
       {/* =======================================
-          1. DESKTOP VIEW (ULTRA MODERN)
-          Floating "Island" Style
+          1. DESKTOP VIEW (Floating Capsule)
       ======================================= */}
-      
-      {/* A. LOGO (Floating Independent di Kiri Atas) */}
- 
+      <div className="hidden md:flex fixed top-6 left-10 z-50">
+         <div 
+            className="text-2xl font-bold tracking-tighter text-white cursor-pointer hover:opacity-80 transition-opacity drop-shadow-lg" 
+            onClick={() => scrollToSection('home')}
+          >
+            Gilar<span className="text-indigo-500">.</span>
+          </div>
+      </div>
 
-      {/* B. NAVIGATION (Floating Capsule di Tengah Atas) */}
       <div className="hidden md:flex fixed top-6 left-1/2 -translate-x-1/2 z-50">
         <nav className="flex gap-1 bg-black/50 backdrop-blur-xl border border-white/10 rounded-full p-1 shadow-2xl ring-1 ring-white/5">
           {navLinks.map((item) => (
             <button
               key={item.id}
               onClick={() => scrollToSection(item.id)}
-              className={`cursor-pointer relative px-4 py-2 text-sm font-medium rounded-full transition-colors duration-300 ${
+              className={`relative px-4 py-2 text-sm font-medium rounded-full transition-colors duration-300 ${
                 activeSection === item.id ? "text-white" : "text-slate-400 hover:text-white"
               }`}
             >
-              {/* Animasi Background Berjalan (The "Magic" Part) */}
               {activeSection === item.id && (
                 <motion.span
                   layoutId="activeTab"
@@ -73,8 +96,6 @@ const Navbar = () => {
                   transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                 />
               )}
-              
-              {/* Text Label */}
               <span className="relative z-10">{item.label}</span>
             </button>
           ))}
@@ -82,47 +103,88 @@ const Navbar = () => {
       </div>
 
       {/* =======================================
-          2. MOBILE VIEW (Approved Style)
-          Hamburger + Vertical Icons
+          2. MOBILE VIEW (Bubble Drawer + Blur)
       ======================================= */}
-      <div className="md:hidden fixed top-5 right-5 z-50 flex flex-col items-end gap-3">
+      <div className="md:hidden">
         
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="p-3 rounded-full bg-indigo-600 text-white shadow-lg shadow-indigo-500/30 active:scale-95 transition-transform"
-        >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        {/* A. HANDLE KECIL (Lingkaran Melayang) */}
+        <AnimatePresence>
+          {!isOpen && (
+            <motion.div
+              initial={{ x: 50, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: 50, opacity: 0 }}
+              className="fixed top-1/2 -translate-y-1/2 right-2 z-50"
+            >
+              <motion.button
+                onClick={() => setIsOpen(true)}
+                animate={{ x: [0, -5, 0] }}
+                transition={{ repeat: Infinity, duration: 2, repeatDelay: 1 }}
+                className="w-10 h-10 bg-indigo-600/90 backdrop-blur-md rounded-full text-white shadow-lg border border-white/20 flex items-center justify-center active:scale-90 transition-transform"
+              >
+                <ChevronLeft size={20} />
+              </motion.button>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
+        {/* B. OVERLAY BLUR & MENU DRAWER */}
         <AnimatePresence>
           {isOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -20, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -20, scale: 0.95 }}
-              transition={{ duration: 0.2 }}
-              className="flex flex-col gap-3 bg-black/90 backdrop-blur-xl p-3 rounded-2xl border border-white/10 shadow-2xl"
-            >
-              {navLinks.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <button
-                    key={item.id}
-                    onClick={() => scrollToSection(item.id)}
-                    className={`relative group p-3 rounded-xl transition-all flex items-center justify-center ${
-                      activeSection === item.id 
-                        ? "bg-indigo-600 text-white shadow-md shadow-indigo-500/20" 
-                        : "text-slate-400 hover:text-white hover:bg-white/10"
-                    }`}
-                  >
-                    <Icon size={20} />
-                    <span className="absolute right-full mr-3 top-1/2 -translate-y-1/2 bg-white text-black px-2 py-1 rounded text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-                      {item.label}
-                    </span>
-                  </button>
-                );
-              })}
-            </motion.div>
+            <>
+              {/* 1. LAYER BACKGROUND BLUR (Muncul Pelan-pelan) */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                onClick={() => setIsOpen(false)} // Klik background untuk tutup
+                // 👇 CLASS KUNCI: backdrop-blur-sm (Blur) + bg-black/20 (Gelap Dikit)
+                className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm"
+              />
+
+              {/* 2. MENU DRAWER */}
+              <motion.div
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }} 
+                dragElastic={0.2}
+                onDragEnd={(event, info) => {
+                   if (info.offset.x > 30) setIsOpen(false); 
+                }}
+                
+                initial={{ x: "100%" }} 
+                animate={{ x: "0%" }} 
+                exit={{ x: "100%" }} // Animasi keluar saat unmount
+                transition={{ type: "spring", stiffness: 400, damping: 40 }}
+                
+                onMouseEnter={handleInteractionStart}
+                onMouseLeave={handleInteractionEnd}
+                onTouchStart={handleInteractionStart}
+                onTouchEnd={handleInteractionEnd}
+
+                className="fixed top-1/2 -translate-y-1/2 right-0 z-50 bg-black/80 backdrop-blur-xl border-l border-t border-b border-white/10 rounded-l-2xl p-2 shadow-2xl flex flex-col gap-2 min-w-[60px] items-center"
+              >
+                {/* Garis Indikator */}
+                <div className="w-1 h-8 bg-white/20 rounded-full mb-1" />
+
+                {navLinks.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <button
+                      key={item.id}
+                      onClick={() => scrollToSection(item.id)}
+                      className={`relative group p-2 rounded-xl transition-all flex items-center justify-center w-full aspect-square ${
+                        activeSection === item.id 
+                          ? "bg-indigo-600 text-white shadow-md shadow-indigo-500/30 scale-105" 
+                          : "text-slate-400 hover:text-white hover:bg-white/10"
+                      }`}
+                    >
+                      <Icon size={20} />
+                    </button>
+                  );
+                })}
+              </motion.div>
+            </>
           )}
         </AnimatePresence>
 
