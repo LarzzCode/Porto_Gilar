@@ -56,12 +56,12 @@ const Hero = () => {
             My name is Gilar Wahiditya Eka Putra, with one year of experience at a tutoring institution, specializing in multidisciplinary skills including administration, graphic design, and video production.
           </motion.p>
           
-          <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-8">
+          <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-8 p-2">
             <Link to="projects" smooth={true} duration={500} offset={-50}>
               <motion.button 
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="group relative bg-brand-cream text-brand-black px-8 py-3 rounded-full font-semibold flex items-center gap-3 shadow-[0_0_15px_rgba(239,236,227,0.3)] hover:shadow-[0_0_25px_rgba(239,236,227,0.5)] transition-all duration-300"
+                className="group relative bg-brand-cream text-brand-black px-8 py-3 rounded-full font-bold text-sm tracking-wide flex items-center gap-3 overflow-hidden shadow-[0_0_20px_-5px_rgba(239,236,227,0.4)] hover:shadow-[0_0_40px_-10px_rgba(239,236,227,0.7)] transition-all duration-300"
               >
                 See Projects
                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform duration-300" />

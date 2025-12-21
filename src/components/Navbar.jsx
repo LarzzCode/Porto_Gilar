@@ -7,7 +7,7 @@ import {
 const Navbar = () => {
   const [activeSection, setActiveSection] = useState("home");
   const [isOpen, setIsOpen] = useState(false); 
-  const [isTouching, setIsTouching] = useState(false); 
+  const [isTouching, setIsTouching] = useState(false); // Deteksi sentuhan user
   const timerRef = useRef(null); 
 
   const navLinks = [
@@ -20,17 +20,35 @@ const Navbar = () => {
     { id: "contact", label: "Contact", icon: Mail },
   ];
 
-  // 1. LOGIKA AUTO HIDE (3 DETIK)
+  // ===============================================
+  // 1. LOGIKA AUTO-HIDE (3 DETIK)
+  // ===============================================
   useEffect(() => {
+    // Hanya jalan jika menu TERBUKA dan TIDAK DISENTUH
     if (isOpen && !isTouching) {
       timerRef.current = setTimeout(() => {
-        setIsOpen(false);
+        setIsOpen(false); // Tutup otomatis
       }, 3000);
     }
+    
+    // Reset timer jika kondisi berubah (misal user menyentuh menu)
     return () => clearTimeout(timerRef.current);
   }, [isOpen, isTouching]);
 
+  // Handler saat user menyentuh menu (Stop Timer)
+  const handleInteractionStart = () => {
+    setIsTouching(true);
+    if (timerRef.current) clearTimeout(timerRef.current);
+  };
+
+  // Handler saat user melepas menu (Start Timer lagi)
+  const handleInteractionEnd = () => {
+    setIsTouching(false);
+  };
+
+  // ===============================================
   // 2. LOGIKA SCROLL SPY (Desktop)
+  // ===============================================
   useEffect(() => {
     const handleScroll = () => {
       const sections = navLinks.map(link => document.getElementById(link.id));
@@ -56,36 +74,18 @@ const Navbar = () => {
     }
   };
 
-  const handleInteractionStart = () => {
-    setIsTouching(true);
-    if (timerRef.current) clearTimeout(timerRef.current); 
-  };
-
-  const handleInteractionEnd = () => {
-    setIsTouching(false);
-  };
-
   return (
     <>
       {/* =======================================
           1. DESKTOP VIEW (Floating Capsule)
       ======================================= */}
-      <div className="hidden md:flex fixed top-6 left-10 z-50">
-         <div 
-            className="text-2xl font-bold tracking-tighter text-white cursor-pointer hover:opacity-80 transition-opacity drop-shadow-lg" 
-            onClick={() => scrollToSection('home')}
-          >
-            Gilar<span className="text-indigo-500">.</span>
-          </div>
-      </div>
-
       <div className="hidden md:flex fixed top-6 left-1/2 -translate-x-1/2 z-50">
         <nav className="flex gap-1 bg-black/50 backdrop-blur-xl border border-white/10 rounded-full p-1 shadow-2xl ring-1 ring-white/5">
           {navLinks.map((item) => (
             <button
               key={item.id}
               onClick={() => scrollToSection(item.id)}
-              className={`relative px-4 py-2 text-sm font-medium rounded-full transition-colors duration-300 ${
+              className={`cursor-pointer relative px-4 py-2 text-sm font-medium rounded-full transition-colors duration-300 ${
                 activeSection === item.id ? "text-white" : "text-slate-400 hover:text-white"
               }`}
             >
@@ -103,11 +103,11 @@ const Navbar = () => {
       </div>
 
       {/* =======================================
-          2. MOBILE VIEW (Bubble Drawer + Blur)
+          2. MOBILE VIEW (Auto-Hide Drawer + Blur)
       ======================================= */}
       <div className="md:hidden">
         
-        {/* A. HANDLE KECIL (Lingkaran Melayang) */}
+        {/* A. HANDLE PEMICU (Lingkaran Melayang) */}
         <AnimatePresence>
           {!isOpen && (
             <motion.div
@@ -118,7 +118,7 @@ const Navbar = () => {
             >
               <motion.button
                 onClick={() => setIsOpen(true)}
-                animate={{ x: [0, -5, 0] }}
+                animate={{ x: [0, -5, 0] }} // Efek bouncing "Panggil Aku"
                 transition={{ repeat: Infinity, duration: 2, repeatDelay: 1 }}
                 className="w-10 h-10 bg-indigo-600/90 backdrop-blur-md rounded-full text-white shadow-lg border border-white/20 flex items-center justify-center active:scale-90 transition-transform"
               >
@@ -128,23 +128,23 @@ const Navbar = () => {
           )}
         </AnimatePresence>
 
-        {/* B. OVERLAY BLUR & MENU DRAWER */}
+        {/* B. MENU DRAWER & BLUR OVERLAY */}
         <AnimatePresence>
           {isOpen && (
             <>
-              {/* 1. LAYER BACKGROUND BLUR (Muncul Pelan-pelan) */}
+              {/* Layer Blur (Background) */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3 }}
-                onClick={() => setIsOpen(false)} // Klik background untuk tutup
-                // 👇 CLASS KUNCI: backdrop-blur-sm (Blur) + bg-black/20 (Gelap Dikit)
+                onClick={() => setIsOpen(false)}
                 className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm"
               />
 
-              {/* 2. MENU DRAWER */}
+              {/* Menu Container */}
               <motion.div
+                // Gesture Drag
                 drag="x"
                 dragConstraints={{ left: 0, right: 0 }} 
                 dragElastic={0.2}
@@ -152,11 +152,13 @@ const Navbar = () => {
                    if (info.offset.x > 30) setIsOpen(false); 
                 }}
                 
+                // Animasi Masuk/Keluar
                 initial={{ x: "100%" }} 
                 animate={{ x: "0%" }} 
-                exit={{ x: "100%" }} // Animasi keluar saat unmount
+                exit={{ x: "100%" }} 
                 transition={{ type: "spring", stiffness: 400, damping: 40 }}
                 
+                // Event Listener untuk Pause Timer (PENTING!)
                 onMouseEnter={handleInteractionStart}
                 onMouseLeave={handleInteractionEnd}
                 onTouchStart={handleInteractionStart}
@@ -164,7 +166,7 @@ const Navbar = () => {
 
                 className="fixed top-1/2 -translate-y-1/2 right-0 z-50 bg-black/80 backdrop-blur-xl border-l border-t border-b border-white/10 rounded-l-2xl p-2 shadow-2xl flex flex-col gap-2 min-w-[60px] items-center"
               >
-                {/* Garis Indikator */}
+                {/* Indikator Garis Putih */}
                 <div className="w-1 h-8 bg-white/20 rounded-full mb-1" />
 
                 {navLinks.map((item) => {
