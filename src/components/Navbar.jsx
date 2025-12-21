@@ -1,74 +1,133 @@
-import { motion } from "framer-motion";
-import { Link } from "react-scroll";
-import { Copy, Check, Terminal } from "lucide-react";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { 
+  Home, User, Briefcase, Mail, Award, Zap, Clock, Menu, X 
+} from "lucide-react";
 
 const Navbar = () => {
-  const [copied, setCopied] = useState(false);
-  const email = "wahidityagilar6@gmail.com"; 
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(email);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
+  const [activeSection, setActiveSection] = useState("home");
+  const [isOpen, setIsOpen] = useState(false); // State mobile menu
 
   const navLinks = [
-    { name: "Home", to: "home" },
-    { name: "About", to: "about" },
-    { name: "Projects", to: "projects" },
-    { name: "Contact", to: "contact" },
+    { id: "home", label: "Home", icon: Home },
+    { id: "about", label: "About", icon: User },
+    { id: "timelines", label: "Timeline", icon: Clock },
+    { id: "services", label: "Services", icon: Zap },
+    { id: "projects", label: "Projects", icon: Briefcase },
+    { id: "certificate", label: "Certificates", icon: Award },
+    { id: "contact", label: "Contact", icon: Mail },
   ];
 
+  // Logic Scroll Spy (Biar active state pindah sendiri saat discroll)
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = navLinks.map(link => document.getElementById(link.id));
+      const scrollPosition = window.scrollY + 150; // Offset biar ga terlalu mepet
+
+      for (const section of sections) {
+        if (section && section.offsetTop <= scrollPosition && (section.offsetTop + section.offsetHeight) > scrollPosition) {
+          setActiveSection(section.id);
+          break; // Stop loop once found
+        }
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [navLinks]);
+
+  const scrollToSection = (id) => {
+    setActiveSection(id);
+    setIsOpen(false);
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
-    <motion.nav
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, type: "spring", stiffness: 100 }}
-      className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[90%] md:w-auto"
-    >
-      <div className="bg-brand-black/90 backdrop-blur-md border border-white/10 rounded-full pl-2 pr-2 py-2 flex items-center justify-between md:gap-2 shadow-2xl">
-        
-        {/* LOGO */}
-        <Link to="home" smooth={true} duration={500} className="cursor-pointer mr-4">
-          <div className="bg-brand-cream w-10 h-10 rounded-full flex items-center justify-center text-brand-black hover:scale-110 transition-transform">
-            <Terminal size={20} />
-          </div>
-        </Link>
+    <>
+      {/* =======================================
+          1. DESKTOP VIEW (ULTRA MODERN)
+          Floating "Island" Style
+      ======================================= */}
+      
+      {/* A. LOGO (Floating Independent di Kiri Atas) */}
+ 
 
-        {/* MENU TENGAH */}
-        <ul className="hidden md:flex bg-brand-black/50 rounded-full p-1 border border-white/5">
-          {navLinks.map((link) => (
-            <li key={link.name}>
-              <Link
-                to={link.to}
-                spy={true}          // WAJIB: Mengaktifkan deteksi scroll
-                smooth={true}
-                duration={500}
-                offset={-100}       // Mengatur titik potong agar tidak tertutup navbar
-                activeClass="nav-item-active" // NAMA CLASS YANG KITA BUAT DI CSS TADI
-                className="px-6 py-2 rounded-full text-sm font-medium text-brand-cream/60 hover:text-brand-cream hover:bg-white/5 cursor-pointer transition-all duration-300 block"
-              >
-                {link.name}
-              </Link>
-            </li>
+      {/* B. NAVIGATION (Floating Capsule di Tengah Atas) */}
+      <div className="hidden md:flex fixed top-6 left-1/2 -translate-x-1/2 z-50">
+        <nav className="flex gap-1 bg-black/50 backdrop-blur-xl border border-white/10 rounded-full p-1 shadow-2xl ring-1 ring-white/5">
+          {navLinks.map((item) => (
+            <button
+              key={item.id}
+              onClick={() => scrollToSection(item.id)}
+              className={`cursor-pointer relative px-4 py-2 text-sm font-medium rounded-full transition-colors duration-300 ${
+                activeSection === item.id ? "text-white" : "text-slate-400 hover:text-white"
+              }`}
+            >
+              {/* Animasi Background Berjalan (The "Magic" Part) */}
+              {activeSection === item.id && (
+                <motion.span
+                  layoutId="activeTab"
+                  className="absolute inset-0 bg-indigo-600 rounded-full -z-10"
+                  transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                />
+              )}
+              
+              {/* Text Label */}
+              <span className="relative z-10">{item.label}</span>
+            </button>
           ))}
-        </ul>
-
-        {/* EMAIL BUTTON */}
-        <div 
-          onClick={handleCopy}
-          className="ml-4 bg-brand-cream text-brand-black px-5 py-2.5 rounded-full text-sm font-semibold cursor-pointer hover:bg-white hover:text-black transition-colors flex items-center gap-2"
-        >
-          {copied ? (
-            <> <Check size={16} /> Copied! </>
-          ) : (
-            <> {email} <Copy size={14} className="opacity-50" /> </>
-          )}
-        </div>
-        
+        </nav>
       </div>
-    </motion.nav>
+
+      {/* =======================================
+          2. MOBILE VIEW (Approved Style)
+          Hamburger + Vertical Icons
+      ======================================= */}
+      <div className="md:hidden fixed top-5 right-5 z-50 flex flex-col items-end gap-3">
+        
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="p-3 rounded-full bg-indigo-600 text-white shadow-lg shadow-indigo-500/30 active:scale-95 transition-transform"
+        >
+          {isOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -20, scale: 0.95 }}
+              transition={{ duration: 0.2 }}
+              className="flex flex-col gap-3 bg-black/90 backdrop-blur-xl p-3 rounded-2xl border border-white/10 shadow-2xl"
+            >
+              {navLinks.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => scrollToSection(item.id)}
+                    className={`relative group p-3 rounded-xl transition-all flex items-center justify-center ${
+                      activeSection === item.id 
+                        ? "bg-indigo-600 text-white shadow-md shadow-indigo-500/20" 
+                        : "text-slate-400 hover:text-white hover:bg-white/10"
+                    }`}
+                  >
+                    <Icon size={20} />
+                    <span className="absolute right-full mr-3 top-1/2 -translate-y-1/2 bg-white text-black px-2 py-1 rounded text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                      {item.label}
+                    </span>
+                  </button>
+                );
+              })}
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+      </div>
+    </>
   );
 };
 

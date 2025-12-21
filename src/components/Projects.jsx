@@ -41,7 +41,7 @@ const projectsData = [
   },
 ];
 
-const Projects = () => {
+const Projects = ({ onOpenArchive }) => {
   return (
     <section className="py-24 px-6 bg-brand-black" id="projects">
       <div className="max-w-7xl mx-auto">
@@ -127,7 +127,7 @@ const Projects = () => {
         {/* Tombol Lihat Semua (Sudah Aktif) */}
         <div className="mt-16 text-center">
           <Link to="/archive">
-            <button className="px-8 py-3 rounded-full border border-brand-cream/20 text-brand-cream hover:bg-brand-cream hover:text-brand-black transition-all font-medium flex items-center gap-2 mx-auto group">
+            <button onClick={onOpenArchive} className="px-8 py-3 rounded-full border border-brand-cream/20 text-brand-cream hover:bg-brand-cream hover:text-brand-black transition-all font-medium flex items-center gap-2 mx-auto group">
               <Folder size={18} />
                 See Full Archives
               {/* Sedikit animasi panah saat hover */}
