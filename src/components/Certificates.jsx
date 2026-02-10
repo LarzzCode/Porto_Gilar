@@ -55,7 +55,7 @@ const Certificates = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <span className="text-brand-blue-light font-mono mb-2 block tracking-wider">05. / ACHIEVEMENTS</span>
+          <span className="text-brand-blue-light font-mono mb-2 block tracking-wider">04. / ACHIEVEMENTS</span>
           <h2 className="text-4xl md:text-5xl font-bold text-brand-cream">
             Certifications & <span className="text-brand-blue-dark">Awards</span>
           </h2>

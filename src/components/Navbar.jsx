@@ -14,7 +14,6 @@ const Navbar = () => {
     { id: "home", label: "Home", icon: Home },
     { id: "about", label: "About", icon: User },
     { id: "timelines", label: "Timeline", icon: Clock },
-    { id: "services", label: "Services", icon: Zap },
     { id: "projects", label: "Projects", icon: Briefcase },
     { id: "certificate", label: "Certificates", icon: Award },
     { id: "contact", label: "Contact", icon: Mail },
