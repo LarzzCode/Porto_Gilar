@@ -32,6 +32,11 @@ const Archive = ({ onBack }) => {
   // DATA 1: DEVELOPMENT
   const devProjects = [
     { 
+      year: "2025", title: "Lar-CoffeShop", tech: ["React JS", "Tailwind"], 
+      link: "https://landing-page-coffe-shop.vercel.app/", image: "Project_CoffeShop.jpg",
+      desc: "Landing page coffe shop."
+    },
+    { 
       year: "2024", title: "Lar-Movie", tech: ["Next JS", "Tailwind"], 
       link: "https://lar-movies.vercel.app/", image: "Project_Movie.jpg",
       desc: "Platform pencarian film sinematik dengan fitur dark mode dan integrasi API TMDB real-time."
