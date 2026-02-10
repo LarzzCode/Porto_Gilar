@@ -34,7 +34,12 @@ const Archive = ({ onBack }) => {
     { 
       year: "2025", title: "Lar-CoffeShop", tech: ["React JS", "Tailwind"], 
       link: "https://landing-page-coffe-shop.vercel.app/", image: "Project_CoffeShop.jpg",
-      desc: "Landing page coffe shop."
+      desc: "Landing Page Coffe Shop."
+    },
+    { 
+      year: "2025", title: "Lar-Carwash-And-Detailing", tech: ["React JS", "Tailwind"], 
+      link: "https://landing-page-car-wash.vercel.app/", image: "Project_CarWash.jpg",
+      desc: "Landing Page Car Wash and Detailing"
     },
     { 
       year: "2024", title: "Lar-Movie", tech: ["Next JS", "Tailwind"], 
