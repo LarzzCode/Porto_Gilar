@@ -3,7 +3,7 @@ import { Briefcase, GraduationCap, School, Star } from "lucide-react";
 
 const experiences = [
   {
-    year: "2025 - Present",
+    year: "Juli 2025 - Juli 2026",
     title: "Administrator",
     company: "VR-Auto Service",
     desc: "Manage customer database systems and workshop inventory. Analyze fast-moving stock requirements and ensure all technical documentation and transactions are digitally and accurately recorded.",

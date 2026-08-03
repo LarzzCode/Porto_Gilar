@@ -91,7 +91,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <p className="text-xs text-brand-cream/50 uppercase tracking-wider">Location</p>
-                  <p className="text-brand-cream font-medium">Tangerang Selatan, Indonesia</p>
+                  <p className="text-brand-cream font-medium">Kertajati, Majalengka, Indonesia</p>
                 </div>
               </div>
 
