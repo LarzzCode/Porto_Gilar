@@ -14,7 +14,6 @@ import Hero from "./components/Hero";
 import About from "./components/About";
 import Timeline from "./components/Timeline";
 import Projects from "./components/Projects";
-import CurrentlyBuilding from "./components/CurrentlyBuilding";
 import Services from "./components/Services";
 import Certificates from "./components/Certificates";
 import Contact from "./components/Contact";
@@ -56,13 +55,6 @@ const Home = ({ showScrollBtn, scrollToTop }) => (
       <About />
       <Timeline />
       <Projects />
-
-      <section className="bg-[#050505] px-4 md:px-6" aria-label="Currently building">
-        <div className="max-w-7xl mx-auto">
-          <CurrentlyBuilding />
-        </div>
-      </section>
-
       <Services />
       <Certificates />
       <Contact />
