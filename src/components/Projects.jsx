@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ExternalLink, ChevronRight, ChevronLeft, Sparkles } from "lucide-react";
 import { devProjects } from "../data/projectData";
+import CurrentlyBuilding from "./CurrentlyBuilding";
 
 const Projects = () => {
   const navigate = useNavigate();
@@ -209,6 +210,8 @@ const Projects = () => {
           <span>3 featured projects · full collection in Archive</span>
           <span>{String(currentIndex + 1).padStart(2, "0")} / {String(allProjects.length).padStart(2, "0")}</span>
         </div>
+
+        <CurrentlyBuilding />
       </div>
     </section>
   );
