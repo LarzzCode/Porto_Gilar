@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, FileText, Github, Linkedin, Mail, Sparkles } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-scroll";
+import { useLanguage } from "../i18n/LanguageContext";
 
 const socialLinks = [
   { Icon: Github, href: "https://github.com/LarzzCode", label: "GitHub" },
@@ -11,6 +12,31 @@ const socialLinks = [
 
 const Hero = () => {
   const navigate = useNavigate();
+  const { isId } = useLanguage();
+
+  const copy = isId
+    ? {
+        badge: "SISTEM INFORMASI • WEB DEVELOPMENT • SOLUSI DIGITAL",
+        headlineA: "Saya mengubah alur kerja dunia nyata menjadi",
+        headlineB: " produk digital yang praktis.",
+        intro: "Saya Gilar Wahiditya Eka Putra, mahasiswa Sistem Informasi yang menggabungkan web development, desain, dan pengalaman operasional langsung untuk membangun website, dashboard, dan tools digital yang benar-benar berguna—bukan hanya terlihat menarik.",
+        work: "Lihat Project Saya",
+        together: "Mari Bekerja Sama",
+        resume: "Lihat Resume",
+        connect: "Terhubung",
+        status: "Terbuka untuk kerja & project",
+      }
+    : {
+        badge: "INFORMATION SYSTEMS • WEB DEVELOPMENT • DIGITAL SOLUTIONS",
+        headlineA: "I turn real-world workflows into",
+        headlineB: " practical digital products.",
+        intro: "I'm Gilar Wahiditya Eka Putra, an Information Systems student who combines web development, design, and hands-on operational experience to build websites, dashboards, and digital tools that are useful—not just visually impressive.",
+        work: "Explore My Work",
+        together: "Let's Work Together",
+        resume: "View Resume",
+        connect: "Connect",
+        status: "Open to work & projects",
+      };
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -45,7 +71,7 @@ const Hero = () => {
           >
             <Sparkles size={14} className="text-brand-blue-light shrink-0 mt-0.5 sm:mt-0" />
             <span className="text-brand-blue-light font-mono text-[10px] sm:text-xs lg:text-sm tracking-wide leading-relaxed whitespace-normal">
-              INFORMATION SYSTEMS • WEB DEVELOPMENT • DIGITAL SOLUTIONS
+              {copy.badge}
             </span>
           </motion.div>
 
@@ -53,15 +79,15 @@ const Hero = () => {
             variants={itemVariants}
             className="text-[2.5rem] sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 leading-[1.05] text-brand-cream tracking-tight break-words"
           >
-            I turn real-world workflows into
-            <span className="text-brand-blue-light"> practical digital products.</span>
+            {copy.headlineA}
+            <span className="text-brand-blue-light">{copy.headlineB}</span>
           </motion.h1>
 
           <motion.p
             variants={itemVariants}
             className="text-brand-cream/65 text-sm sm:text-base lg:text-lg mb-8 leading-relaxed max-w-2xl"
           >
-            I'm Gilar Wahiditya Eka Putra, an Information Systems student who combines web development, design, and hands-on operational experience to build websites, dashboards, and digital tools that are useful—not just visually impressive.
+            {copy.intro}
           </motion.p>
 
           <motion.div variants={itemVariants} className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-3 mb-8">
@@ -71,7 +97,7 @@ const Hero = () => {
                 whileTap={{ scale: 0.97 }}
                 className="w-full sm:w-auto group bg-brand-cream text-brand-black px-7 py-3.5 rounded-full font-bold text-sm tracking-wide flex items-center justify-center gap-3 shadow-[0_0_20px_-5px_rgba(239,236,227,0.4)] hover:shadow-[0_0_40px_-10px_rgba(239,236,227,0.7)] transition-all duration-300"
               >
-                Explore My Work
+                {copy.work}
                 <ArrowRight size={19} className="group-hover:translate-x-1 transition-transform duration-300" />
               </motion.button>
             </Link>
@@ -82,7 +108,7 @@ const Hero = () => {
                 whileTap={{ scale: 0.97 }}
                 className="w-full sm:w-auto px-7 py-3.5 rounded-full font-semibold text-sm border border-white/10 bg-white/5 text-brand-cream hover:bg-white/10 hover:border-brand-blue-light/30 transition-all"
               >
-                Let's Work Together
+                {copy.together}
               </motion.button>
             </Link>
 
@@ -92,14 +118,14 @@ const Hero = () => {
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               className="w-full sm:w-auto px-7 py-3.5 rounded-full font-semibold text-sm border border-brand-blue-light/20 bg-brand-blue-dark/10 text-brand-blue-light hover:bg-brand-blue-dark/20 hover:border-brand-blue-light/40 transition-all inline-flex items-center justify-center gap-2"
-              aria-label="View Gilar Wahiditya resume"
+              aria-label={copy.resume}
             >
-              <FileText size={17} /> View Resume
+              <FileText size={17} /> {copy.resume}
             </motion.button>
           </motion.div>
 
           <motion.div variants={itemVariants} className="flex items-center gap-5">
-            <span className="text-xs uppercase tracking-[0.2em] text-brand-cream/35 hidden sm:inline">Connect</span>
+            <span className="text-xs uppercase tracking-[0.2em] text-brand-cream/35 hidden sm:inline">{copy.connect}</span>
             <div className="flex gap-5 items-center">
               {socialLinks.map((social) => (
                 <motion.a
@@ -148,9 +174,7 @@ const Hero = () => {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-full w-full bg-green-500"></span>
                 </span>
-                <span className="text-brand-cream font-medium text-xs sm:text-sm whitespace-nowrap">
-                  Open to work & projects
-                </span>
+                <span className="text-brand-cream font-medium text-xs sm:text-sm whitespace-nowrap">{copy.status}</span>
               </div>
             </motion.div>
           </div>
