@@ -35,7 +35,7 @@ function App() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 2500);
+    }, 1000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -73,21 +73,19 @@ function App() {
 
   return (
     <div className="bg-[#050505] min-h-screen text-slate-200 font-sans selection:bg-indigo-500 selection:text-white">
+      <Router>
+        <Routes>
+          <Route
+            path="/"
+            element={<Home onViewArchive={() => setView("archive")} />}
+          />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </Router>
+
       <AnimatePresence mode="wait">
         {loading && <Preloader key="preloader" />}
       </AnimatePresence>
-
-      {!loading && (
-        <Router>
-          <Routes>
-            <Route
-              path="/"
-              element={<Home onViewArchive={() => setView("archive")} />}
-            />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </Router>
-      )}
 
       <AnimatePresence>
         {showScrollBtn && (
