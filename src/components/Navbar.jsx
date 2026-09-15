@@ -1,23 +1,23 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   Home, User, Briefcase, Mail, Award, Clock, ChevronLeft
 } from "lucide-react";
+
+const navLinks = [
+  { id: "home", label: "Home", icon: Home },
+  { id: "about", label: "About", icon: User },
+  { id: "timelines", label: "Timeline", icon: Clock },
+  { id: "projects", label: "Projects", icon: Briefcase },
+  { id: "certificates", label: "Certificates", icon: Award },
+  { id: "contact", label: "Contact", icon: Mail },
+];
 
 const Navbar = () => {
   const [activeSection, setActiveSection] = useState("home");
   const [isOpen, setIsOpen] = useState(false);
   const [isTouching, setIsTouching] = useState(false);
   const timerRef = useRef(null);
-
-  const navLinks = [
-    { id: "home", label: "Home", icon: Home },
-    { id: "about", label: "About", icon: User },
-    { id: "timelines", label: "Timeline", icon: Clock },
-    { id: "projects", label: "Projects", icon: Briefcase },
-    { id: "certificates", label: "Certificates", icon: Award },
-    { id: "contact", label: "Contact", icon: Mail },
-  ];
 
   useEffect(() => {
     if (isOpen && !isTouching) {
@@ -56,8 +56,10 @@ const Navbar = () => {
     };
 
     window.addEventListener("scroll", handleScroll);
+    handleScroll();
+
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [navLinks]);
+  }, []);
 
   const scrollToSection = (id) => {
     setActiveSection(id);
@@ -132,7 +134,7 @@ const Navbar = () => {
                 drag="x"
                 dragConstraints={{ left: 0, right: 0 }}
                 dragElastic={0.2}
-                onDragEnd={(event, info) => {
+                onDragEnd={(_, info) => {
                   if (info.offset.x > 30) setIsOpen(false);
                 }}
                 initial={{ x: "100%" }}
