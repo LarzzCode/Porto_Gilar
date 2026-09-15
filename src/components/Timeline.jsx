@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Briefcase, GraduationCap, School, Star } from "lucide-react";
+import { Briefcase, GraduationCap, School } from "lucide-react";
 
 const experiences = [
   {
@@ -35,23 +35,16 @@ const experiences = [
     color: "bg-green-500"
   }
 ];
+
 const Timeline = () => {
   return (
-    // Tambahkan overflow-hidden agar background tidak bocor
-    <section className="py-24 px-6 bg-brand-black relative overflow-hidden" id="experience">
-      
-      {/* --- BACKGROUND TECH GRID (Copied from Hero) --- */}
+    <section className="py-24 px-6 bg-brand-black relative overflow-hidden" id="timelines">
       <div className="absolute inset-0 z-0 w-full h-full">
-        {/* Pola Grid */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#8FABD4_1px,transparent_1px),linear-gradient(to_bottom,#8FABD4_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-[0.15]"></div>
       </div>
-      {/* ----------------------------------------------- */}
 
-      {/* Tambahkan relative z-10 agar konten muncul di ATAS background */}
       <div className="max-w-4xl mx-auto relative z-10">
-        
-        {/* Header */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -63,12 +56,9 @@ const Timeline = () => {
           </h2>
         </motion.div>
 
-        {/* Garis Tengah Vertikal */}
         <div className="relative">
-          {/* Garis Putih Panjang */}
           <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-white/10 -translate-x-1/2"></div>
 
-          {/* Items */}
           <div className="space-y-12">
             {experiences.map((exp, index) => (
               <motion.div
@@ -78,16 +68,15 @@ const Timeline = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
                 className={`relative flex flex-col md:flex-row gap-8 md:gap-0 ${
-                  index % 2 === 0 ? "md:flex-row-reverse" : "" // Selang-seling Kiri/Kanan
+                  index % 2 === 0 ? "md:flex-row-reverse" : ""
                 }`}
               >
-                
-                {/* 1. KONTEN (Card) */}
                 <div className="w-full md:w-1/2 pl-20 md:pl-0 md:px-12">
-                  {/* Tambahkan backdrop-blur-sm agar teks lebih terbaca di atas grid */}
-                  <div className={`bg-brand-black/40 backdrop-blur-sm border border-white/10 p-6 rounded-2xl hover:border-brand-blue-light/50 transition-colors text-left ${
+                  <div
+                    className={`bg-brand-black/40 backdrop-blur-sm border border-white/10 p-6 rounded-2xl hover:border-brand-blue-light/50 transition-colors text-left ${
                       index % 2 === 0 ? "md:text-left" : "md:text-right"
-                  }`}>
+                    }`}
+                  >
                     <span className="inline-block px-3 py-1 rounded-full bg-brand-black border border-white/10 text-brand-blue-light text-xs font-mono mb-3">
                       {exp.year}
                     </span>
@@ -99,22 +88,17 @@ const Timeline = () => {
                   </div>
                 </div>
 
-                {/* 2. TITIK TENGAH (Icon) */}
                 <div className="absolute left-8 md:left-1/2 -translate-x-1/2 top-0 flex items-center justify-center">
                   <div className={`w-12 h-12 rounded-full border-4 border-brand-black flex items-center justify-center text-white shadow-[0_0_20px_rgba(255,255,255,0.2)] z-10 ${exp.color}`}>
                     {exp.icon}
                   </div>
                 </div>
 
-                {/* 3. Spacer Kosong */}
                 <div className="w-full md:w-1/2"></div>
-
               </motion.div>
             ))}
           </div>
-
         </div>
-
       </div>
     </section>
   );
