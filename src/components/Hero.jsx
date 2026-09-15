@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Github, Linkedin, Mail, Sparkles } from "lucide-react";
+import { ArrowRight, Download, Github, Linkedin, Mail, Sparkles } from "lucide-react";
 import { Link } from "react-scroll";
 
 const socialLinks = [
@@ -61,7 +61,7 @@ const Hero = () => {
             I'm Gilar Wahiditya Eka Putra, an Information Systems student who combines web development, design, and hands-on operational experience to build websites, dashboards, and digital tools that are useful—not just visually impressive.
           </motion.p>
 
-          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row sm:items-center gap-3 mb-8">
+          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-3 mb-8">
             <Link to="projects" smooth={true} duration={500} offset={-80} className="w-full sm:w-auto">
               <motion.button
                 whileHover={{ scale: 1.03 }}
@@ -82,6 +82,17 @@ const Hero = () => {
                 Let's Work Together
               </motion.button>
             </Link>
+
+            <motion.a
+              href="/CV_GILAR_WAHIDITYA.pdf"
+              download="CV_GILAR_WAHIDITYA.pdf"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className="w-full sm:w-auto px-7 py-3.5 rounded-full font-semibold text-sm border border-brand-blue-light/20 bg-brand-blue-dark/10 text-brand-blue-light hover:bg-brand-blue-dark/20 hover:border-brand-blue-light/40 transition-all inline-flex items-center justify-center gap-2"
+              aria-label="Download Gilar Wahiditya CV"
+            >
+              <Download size={17} /> Download CV
+            </motion.a>
           </motion.div>
 
           <motion.div variants={itemVariants} className="flex items-center gap-5">
