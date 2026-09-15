@@ -1,32 +1,40 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Home, User, Briefcase, Mail, Award, Clock, Monitor } from "lucide-react";
-
-const navLinks = [
-  { id: "home", label: "Home", icon: Home },
-  { id: "about", label: "About", icon: User },
-  { id: "timelines", label: "Timeline", icon: Clock },
-  { id: "projects", label: "Projects", icon: Briefcase },
-  { id: "services", label: "Services", icon: Monitor },
-  { id: "certificates", label: "Certificates", icon: Award },
-  { id: "contact", label: "Contact", icon: Mail },
-];
-
-const mobileLinks = [
-  { id: "home", label: "Home", icon: Home },
-  { id: "about", label: "About", icon: User },
-  { id: "projects", label: "Work", icon: Briefcase },
-  { id: "services", label: "Services", icon: Monitor },
-  { id: "certificates", label: "Certs", icon: Award },
-  { id: "contact", label: "Contact", icon: Mail },
-];
+import { useLanguage } from "../i18n/LanguageContext";
 
 const mobileSectionMap = {
   timelines: "about",
 };
 
 const Navbar = () => {
+  const { isId } = useLanguage();
   const [activeSection, setActiveSection] = useState("home");
+
+  const navLinks = useMemo(
+    () => [
+      { id: "home", label: "Home", icon: Home },
+      { id: "about", label: isId ? "Tentang" : "About", icon: User },
+      { id: "timelines", label: isId ? "Perjalanan" : "Timeline", icon: Clock },
+      { id: "projects", label: isId ? "Project" : "Projects", icon: Briefcase },
+      { id: "services", label: isId ? "Layanan" : "Services", icon: Monitor },
+      { id: "certificates", label: isId ? "Sertifikat" : "Certificates", icon: Award },
+      { id: "contact", label: isId ? "Kontak" : "Contact", icon: Mail },
+    ],
+    [isId],
+  );
+
+  const mobileLinks = useMemo(
+    () => [
+      { id: "home", label: "Home", icon: Home },
+      { id: "about", label: isId ? "Tentang" : "About", icon: User },
+      { id: "projects", label: isId ? "Karya" : "Work", icon: Briefcase },
+      { id: "services", label: isId ? "Jasa" : "Services", icon: Monitor },
+      { id: "certificates", label: isId ? "Sertif" : "Certs", icon: Award },
+      { id: "contact", label: isId ? "Kontak" : "Contact", icon: Mail },
+    ],
+    [isId],
+  );
 
   useEffect(() => {
     let ticking = false;
@@ -92,15 +100,11 @@ const Navbar = () => {
       window.visualViewport?.removeEventListener("resize", requestUpdate);
       window.visualViewport?.removeEventListener("scroll", requestUpdate);
     };
-  }, []);
+  }, [navLinks]);
 
   const scrollToSection = (id) => {
     setActiveSection(id);
-    const element = document.getElementById(id);
-
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   const mobileActiveSection = mobileSectionMap[activeSection] || activeSection;
@@ -109,7 +113,7 @@ const Navbar = () => {
     <>
       <div className="hidden xl:flex fixed top-6 left-1/2 -translate-x-1/2 z-50 max-w-[calc(100vw-2rem)]">
         <nav
-          aria-label="Primary navigation"
+          aria-label={isId ? "Navigasi utama" : "Primary navigation"}
           className="flex gap-1 bg-black/60 backdrop-blur-xl border border-white/10 rounded-full p-1 shadow-2xl ring-1 ring-white/5 whitespace-nowrap"
         >
           {navLinks.map((item) => (
@@ -134,7 +138,7 @@ const Navbar = () => {
       </div>
 
       <nav
-        aria-label="Mobile and tablet navigation"
+        aria-label={isId ? "Navigasi mobile dan tablet" : "Mobile and tablet navigation"}
         className="xl:hidden fixed left-3 right-3 sm:left-6 sm:right-6 md:left-1/2 md:right-auto md:-translate-x-1/2 md:w-[min(680px,calc(100vw-3rem))] bottom-[calc(env(safe-area-inset-bottom)+12px)] z-50 rounded-2xl border border-white/10 bg-black/80 backdrop-blur-2xl shadow-2xl shadow-black/40 p-1.5"
       >
         <div className="grid grid-cols-6 gap-0.5 sm:gap-1">
@@ -146,7 +150,7 @@ const Navbar = () => {
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                aria-label={`Go to ${item.label}`}
+                aria-label={`${isId ? "Ke" : "Go to"} ${item.label}`}
                 aria-current={isActive ? "page" : undefined}
                 className={`relative min-w-0 rounded-xl py-2.5 px-0.5 sm:px-1 flex flex-col items-center justify-center gap-1 transition-colors ${
                   isActive ? "text-white" : "text-slate-500 active:text-slate-200"
