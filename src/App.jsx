@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUp } from "lucide-react";
@@ -12,23 +12,39 @@ import Certificates from "./components/Certificates";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import Archive from "./components/Archive";
+import ProjectDetail from "./components/ProjectDetail";
 import Preloader from "./components/Preloader";
 
-const Home = ({ onViewArchive }) => (
+const Home = ({ showScrollBtn, scrollToTop }) => (
   <>
     <Navbar />
     <Hero />
     <About />
     <Timeline />
-    <Projects onViewArchive={onViewArchive} />
+    <Projects />
     <Certificates />
     <Contact />
     <Footer />
+
+    <AnimatePresence>
+      {showScrollBtn && (
+        <motion.button
+          initial={{ opacity: 0, scale: 0, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0, y: 20 }}
+          transition={{ duration: 0.3 }}
+          onClick={scrollToTop}
+          className="fixed bottom-8 right-8 z-50 p-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white shadow-lg hover:bg-indigo-600 hover:border-indigo-500 hover:scale-110 transition-all duration-300 group"
+          aria-label="Scroll to top"
+        >
+          <ArrowUp size={24} className="group-hover:-translate-y-1 transition-transform duration-300" />
+        </motion.button>
+      )}
+    </AnimatePresence>
   </>
 );
 
 function App() {
-  const [view, setView] = useState("home");
   const [loading, setLoading] = useState(true);
   const [showScrollBtn, setShowScrollBtn] = useState(false);
 
@@ -56,51 +72,22 @@ function App() {
     });
   };
 
-  const handleBackFromArchive = () => {
-    setView("home");
-
-    setTimeout(() => {
-      const section = document.getElementById("projects");
-      if (section) {
-        section.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-    }, 100);
-  };
-
-  if (view === "archive") {
-    return <Archive onBack={handleBackFromArchive} />;
-  }
-
   return (
     <div className="bg-[#050505] min-h-screen text-slate-200 font-sans selection:bg-indigo-500 selection:text-white">
       <Router>
         <Routes>
           <Route
             path="/"
-            element={<Home onViewArchive={() => setView("archive")} />}
+            element={<Home showScrollBtn={showScrollBtn} scrollToTop={scrollToTop} />}
           />
+          <Route path="/archive" element={<Archive />} />
+          <Route path="/projects/:slug" element={<ProjectDetail />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Router>
 
       <AnimatePresence mode="wait">
         {loading && <Preloader key="preloader" />}
-      </AnimatePresence>
-
-      <AnimatePresence>
-        {showScrollBtn && (
-          <motion.button
-            initial={{ opacity: 0, scale: 0, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0, y: 20 }}
-            transition={{ duration: 0.3 }}
-            onClick={scrollToTop}
-            className="fixed bottom-8 right-8 z-50 p-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white shadow-lg hover:bg-indigo-600 hover:border-indigo-500 hover:scale-110 transition-all duration-300 group"
-            aria-label="Scroll to top"
-          >
-            <ArrowUp size={24} className="group-hover:-translate-y-1 transition-transform duration-300" />
-          </motion.button>
-        )}
       </AnimatePresence>
     </div>
   );
