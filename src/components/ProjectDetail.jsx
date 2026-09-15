@@ -27,8 +27,8 @@ const ProjectDetail = () => {
       <main className="min-h-screen bg-[#050505] text-white flex items-center justify-center px-6">
         <div className="text-center max-w-lg">
           <p className="text-indigo-400 font-mono mb-4">404 / PROJECT NOT FOUND</p>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Project tidak ditemukan.</h1>
-          <p className="text-slate-400 mb-8">Project yang kamu cari mungkin sudah dipindahkan atau URL-nya tidak valid.</p>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">Project not found.</h1>
+          <p className="text-slate-400 mb-8">The project may have moved or the URL is no longer valid.</p>
           <button
             onClick={() => navigate("/archive")}
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-indigo-600 hover:bg-indigo-500 transition-colors font-semibold"
@@ -62,7 +62,7 @@ const ProjectDetail = () => {
           className="grid lg:grid-cols-[1.15fr_0.85fr] gap-10 lg:gap-16 items-end mb-12"
         >
           <div>
-            <span className="text-indigo-400 font-mono text-sm tracking-wider block mb-4">PROJECT / CASE STUDY</span>
+            <span className="text-indigo-400 font-mono text-sm tracking-wider block mb-4">PROJECT / DETAIL</span>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight leading-[1.05] mb-6">
               {project.title}
             </h1>
@@ -129,13 +129,21 @@ const ProjectDetail = () => {
         <section className="grid md:grid-cols-[0.8fr_1.2fr] gap-8 md:gap-16 py-12 border-y border-white/10">
           <div>
             <span className="text-indigo-400 font-mono text-sm">PROJECT SNAPSHOT</span>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mt-3">What this project is.</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mt-3">Built as a working product.</h2>
           </div>
           <div className="text-slate-400 text-base md:text-lg leading-relaxed">
             <p>{project.desc}</p>
-            <p className="mt-5 text-sm text-slate-500">
-              Detail problem, process, keputusan teknis, dan hasil akan ditambahkan ketika case study project ini dilengkapi dengan dokumentasi yang terverifikasi.
+            <p className="mt-5 text-sm md:text-base text-slate-500">
+              Explore the live implementation to see the current interface, interaction flow, and product experience directly.
             </p>
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 mt-6 text-indigo-400 hover:text-indigo-300 font-semibold transition-colors"
+            >
+              Open live implementation <ExternalLink size={16} />
+            </a>
           </div>
         </section>
 
