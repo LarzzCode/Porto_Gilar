@@ -1,8 +1,6 @@
-import { useState, useEffect, useRef } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import {
-  Home, User, Briefcase, Mail, Award, Clock, ChevronLeft, Monitor
-} from "lucide-react";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { Home, User, Briefcase, Mail, Award, Clock, Monitor } from "lucide-react";
 
 const navLinks = [
   { id: "home", label: "Home", icon: Home },
@@ -14,35 +12,26 @@ const navLinks = [
   { id: "contact", label: "Contact", icon: Mail },
 ];
 
+const mobileLinks = [
+  { id: "home", label: "Home", icon: Home },
+  { id: "about", label: "About", icon: User },
+  { id: "projects", label: "Work", icon: Briefcase },
+  { id: "services", label: "Services", icon: Monitor },
+  { id: "contact", label: "Contact", icon: Mail },
+];
+
+const mobileSectionMap = {
+  timelines: "about",
+  certificates: "projects",
+};
+
 const Navbar = () => {
   const [activeSection, setActiveSection] = useState("home");
-  const [isOpen, setIsOpen] = useState(false);
-  const [isTouching, setIsTouching] = useState(false);
-  const timerRef = useRef(null);
-
-  useEffect(() => {
-    if (isOpen && !isTouching) {
-      timerRef.current = setTimeout(() => {
-        setIsOpen(false);
-      }, 3000);
-    }
-
-    return () => clearTimeout(timerRef.current);
-  }, [isOpen, isTouching]);
-
-  const handleInteractionStart = () => {
-    setIsTouching(true);
-    if (timerRef.current) clearTimeout(timerRef.current);
-  };
-
-  const handleInteractionEnd = () => {
-    setIsTouching(false);
-  };
 
   useEffect(() => {
     const handleScroll = () => {
       const sections = navLinks.map((link) => document.getElementById(link.id));
-      const scrollPosition = window.scrollY + 150;
+      const scrollPosition = window.scrollY + 180;
 
       for (const section of sections) {
         if (
@@ -56,7 +45,7 @@ const Navbar = () => {
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
@@ -64,18 +53,22 @@ const Navbar = () => {
 
   const scrollToSection = (id) => {
     setActiveSection(id);
-    setIsOpen(false);
-
     const element = document.getElementById(id);
+
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
+
+  const mobileActiveSection = mobileSectionMap[activeSection] || activeSection;
 
   return (
     <>
       <div className="hidden md:flex fixed top-6 left-1/2 -translate-x-1/2 z-50">
-        <nav className="flex gap-1 bg-black/50 backdrop-blur-xl border border-white/10 rounded-full p-1 shadow-2xl ring-1 ring-white/5">
+        <nav
+          aria-label="Primary navigation"
+          className="flex gap-1 bg-black/50 backdrop-blur-xl border border-white/10 rounded-full p-1 shadow-2xl ring-1 ring-white/5"
+        >
           {navLinks.map((item) => (
             <button
               key={item.id}
@@ -86,7 +79,7 @@ const Navbar = () => {
             >
               {activeSection === item.id && (
                 <motion.span
-                  layoutId="activeTab"
+                  layoutId="activeDesktopTab"
                   className="absolute inset-0 bg-indigo-600 rounded-full -z-10"
                   transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                 />
@@ -97,81 +90,39 @@ const Navbar = () => {
         </nav>
       </div>
 
-      <div className="md:hidden">
-        <AnimatePresence>
-          {!isOpen && (
-            <motion.div
-              initial={{ x: 50, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              exit={{ x: 50, opacity: 0 }}
-              className="fixed top-1/2 -translate-y-1/2 right-2 z-50"
-            >
-              <motion.button
-                onClick={() => setIsOpen(true)}
-                animate={{ x: [0, -5, 0] }}
-                transition={{ repeat: Infinity, duration: 2, repeatDelay: 1 }}
-                className="w-10 h-10 bg-indigo-600/90 backdrop-blur-md rounded-full text-white shadow-lg border border-white/20 flex items-center justify-center active:scale-90 transition-transform"
-                aria-label="Open navigation"
+      <nav
+        aria-label="Mobile navigation"
+        className="md:hidden fixed left-3 right-3 bottom-[calc(env(safe-area-inset-bottom)+12px)] z-50 rounded-2xl border border-white/10 bg-black/75 backdrop-blur-2xl shadow-2xl shadow-black/40 p-1.5"
+      >
+        <div className="grid grid-cols-5 gap-1">
+          {mobileLinks.map((item) => {
+            const Icon = item.icon;
+            const isActive = mobileActiveSection === item.id;
+
+            return (
+              <button
+                key={item.id}
+                onClick={() => scrollToSection(item.id)}
+                aria-label={`Go to ${item.label}`}
+                aria-current={isActive ? "page" : undefined}
+                className={`relative min-w-0 rounded-xl py-2.5 px-1 flex flex-col items-center justify-center gap-1 transition-colors ${
+                  isActive ? "text-white" : "text-slate-500 active:text-slate-200"
+                }`}
               >
-                <ChevronLeft size={20} />
-              </motion.button>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        <AnimatePresence>
-          {isOpen && (
-            <>
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                onClick={() => setIsOpen(false)}
-                className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm"
-              />
-
-              <motion.div
-                drag="x"
-                dragConstraints={{ left: 0, right: 0 }}
-                dragElastic={0.2}
-                onDragEnd={(_, info) => {
-                  if (info.offset.x > 30) setIsOpen(false);
-                }}
-                initial={{ x: "100%" }}
-                animate={{ x: "0%" }}
-                exit={{ x: "100%" }}
-                transition={{ type: "spring", stiffness: 400, damping: 40 }}
-                onMouseEnter={handleInteractionStart}
-                onMouseLeave={handleInteractionEnd}
-                onTouchStart={handleInteractionStart}
-                onTouchEnd={handleInteractionEnd}
-                className="fixed top-1/2 -translate-y-1/2 right-0 z-50 bg-black/80 backdrop-blur-xl border-l border-t border-b border-white/10 rounded-l-2xl p-2 shadow-2xl flex flex-col gap-2 min-w-[60px] items-center"
-              >
-                <div className="w-1 h-8 bg-white/20 rounded-full mb-1" />
-
-                {navLinks.map((item) => {
-                  const Icon = item.icon;
-                  return (
-                    <button
-                      key={item.id}
-                      onClick={() => scrollToSection(item.id)}
-                      className={`relative group p-2 rounded-xl transition-all flex items-center justify-center w-full aspect-square ${
-                        activeSection === item.id
-                          ? "bg-indigo-600 text-white shadow-md shadow-indigo-500/30 scale-105"
-                          : "text-slate-400 hover:text-white hover:bg-white/10"
-                      }`}
-                      aria-label={`Go to ${item.label}`}
-                    >
-                      <Icon size={20} />
-                    </button>
-                  );
-                })}
-              </motion.div>
-            </>
-          )}
-        </AnimatePresence>
-      </div>
+                {isActive && (
+                  <motion.span
+                    layoutId="activeMobileTab"
+                    className="absolute inset-0 bg-indigo-600/90 rounded-xl -z-10 shadow-lg shadow-indigo-600/20"
+                    transition={{ type: "spring", bounce: 0.25, duration: 0.5 }}
+                  />
+                )}
+                <Icon size={18} strokeWidth={isActive ? 2.4 : 2} />
+                <span className="text-[10px] font-medium leading-none truncate max-w-full">{item.label}</span>
+              </button>
+            );
+          })}
+        </div>
+      </nav>
     </>
   );
 };
