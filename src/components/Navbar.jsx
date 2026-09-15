@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
-  Home, User, Briefcase, Mail, Award, Clock, ChevronLeft
+  Home, User, Briefcase, Mail, Award, Clock, ChevronLeft, Monitor
 } from "lucide-react";
 
 const navLinks = [
@@ -9,6 +9,7 @@ const navLinks = [
   { id: "about", label: "About", icon: User },
   { id: "timelines", label: "Timeline", icon: Clock },
   { id: "projects", label: "Projects", icon: Briefcase },
+  { id: "services", label: "Services", icon: Monitor },
   { id: "certificates", label: "Certificates", icon: Award },
   { id: "contact", label: "Contact", icon: Mail },
 ];
@@ -79,7 +80,7 @@ const Navbar = () => {
             <button
               key={item.id}
               onClick={() => scrollToSection(item.id)}
-              className={`cursor-pointer relative px-4 py-2 text-sm font-medium rounded-full transition-colors duration-300 ${
+              className={`cursor-pointer relative px-3.5 lg:px-4 py-2 text-xs lg:text-sm font-medium rounded-full transition-colors duration-300 ${
                 activeSection === item.id ? "text-white" : "text-slate-400 hover:text-white"
               }`}
             >
