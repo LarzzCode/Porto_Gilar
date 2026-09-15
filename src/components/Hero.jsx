@@ -1,10 +1,11 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Github, Mail } from "lucide-react";
+import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
 import { Link } from "react-scroll";
 
 const Hero = () => {
   const socialLinks = [
     { Icon: Github, href: "https://github.com/LarzzCode", label: "GitHub" },
+    { Icon: Linkedin, href: "https://linkedin.com/in/gilarwdy", label: "LinkedIn" },
     { Icon: Mail, href: "mailto:wahidityagilar6@gmail.com", label: "Email" }
   ];
 
@@ -58,9 +59,9 @@ const Hero = () => {
             </Link>
 
             <div className="flex gap-6 items-center">
-              {socialLinks.map((social, index) => (
+              {socialLinks.map((social) => (
                 <motion.a
-                  key={index}
+                  key={social.label}
                   href={social.href}
                   target={social.href.startsWith("mailto:") ? undefined : "_blank"}
                   rel={social.href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
@@ -85,6 +86,11 @@ const Hero = () => {
               <img
                 src="/Photo.jpg"
                 alt="Gilar Wahiditya"
+                width="384"
+                height="384"
+                loading="eager"
+                decoding="async"
+                fetchPriority="high"
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
               />
             </motion.div>
