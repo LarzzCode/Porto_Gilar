@@ -1,13 +1,36 @@
 @import "tailwindcss";
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+  overflow-x: hidden;
+}
 
-/* 2. Set Default Font di Body */
 body {
-  background-color: #000000; 
+  margin: 0;
+  min-width: 320px;
+  min-height: 100%;
+  background-color: #000000;
   color: #EFECE3;
-  font-family: 'Poppins', sans-serif; /* Pastikan ini Poppins */
-  -webkit-font-smoothing: antialiased; /* Agar font terlihat tajam di Mac/iOS */
+  font-family: 'Poppins', sans-serif;
+  -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: clip;
+}
+
+section[id] {
+  scroll-margin-top: 6rem;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Custom Scrollbar */
@@ -25,7 +48,6 @@ body {
   background: #8FABD4;
 }
 
-/* Style khusus Navbar Active (dari langkah sebelumnya) */
 .nav-item-active {
   background-color: #EFECE3 !important;
   color: #000000 !important;
