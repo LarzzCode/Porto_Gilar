@@ -1,8 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, ArrowUpRight, Code, Palette, X, Maximize2, ArrowUp } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Code, Palette, X, Maximize2, ArrowUp, Sparkles } from "lucide-react";
 import { devProjects, designProjects } from "../data/projectData";
+
+const featuredFirst = [...devProjects].sort(
+  (a, b) => Number(Boolean(b.featuredCaseStudy)) - Number(Boolean(a.featuredCaseStudy))
+);
 
 const Archive = () => {
   const navigate = useNavigate();
@@ -34,7 +38,7 @@ const Archive = () => {
     }, 100);
   };
 
-  const projectsToDisplay = activeTab === "dev" ? devProjects : designProjects;
+  const projectsToDisplay = activeTab === "dev" ? featuredFirst : designProjects;
 
   return (
     <section className="min-h-screen bg-[#050505] text-slate-200 py-24 px-6 font-sans relative overflow-x-hidden">
@@ -54,7 +58,7 @@ const Archive = () => {
               Archive<span className="text-indigo-500">.</span>
             </h1>
             <p className="text-slate-500 mt-3 max-w-xl">
-              Development projects open into a dedicated case-study page. Design work can be previewed directly here.
+              Featured development case studies appear first. The complete development and design collection remains available below.
             </p>
           </div>
 
@@ -108,9 +112,11 @@ const Archive = () => {
                       navigate(`/projects/${project.slug}`);
                     }
                   }}
-                  className={`w-full text-left flex flex-col h-full bg-[#0F0F0F] rounded-2xl overflow-hidden border border-white/5 hover:border-white/10 transition-all duration-300 relative hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/50 ${
-                    isDesignMode ? "cursor-zoom-in" : "cursor-pointer"
-                  }`}
+                  className={`w-full text-left flex flex-col h-full bg-[#0F0F0F] rounded-2xl overflow-hidden border transition-all duration-300 relative hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/50 ${
+                    project.featuredCaseStudy && !isDesignMode
+                      ? "border-indigo-500/25 hover:border-indigo-400/50"
+                      : "border-white/5 hover:border-white/10"
+                  } ${isDesignMode ? "cursor-zoom-in" : "cursor-pointer"}`}
                 >
                   <div className="p-2 shrink-0 w-full">
                     <div className="relative w-full aspect-[16/9] rounded-xl overflow-hidden bg-black/50 border border-white/5">
@@ -126,6 +132,13 @@ const Archive = () => {
                           e.currentTarget.src = "https://placehold.co/600x400/1e1e1e/FFF?text=No+Preview";
                         }}
                       />
+
+                      {!isDesignMode && project.featuredCaseStudy && (
+                        <div className="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-indigo-600/90 backdrop-blur-md border border-indigo-300/20 px-2.5 py-1.5 rounded-lg text-[10px] font-semibold uppercase tracking-wider text-white">
+                          <Sparkles size={12} /> Featured Case Study
+                        </div>
+                      )}
+
                       <div className="absolute top-3 right-3 bg-black/60 backdrop-blur-md border border-white/10 px-2 py-1 rounded-md text-[10px] font-mono text-white">
                         {project.year}
                       </div>
@@ -143,7 +156,9 @@ const Archive = () => {
                         <ArrowUpRight size={18} className="text-slate-600 group-hover:text-white shrink-0" />
                       )}
                     </div>
-                    <p className="text-slate-400 text-sm leading-relaxed line-clamp-2 mb-6">{project.desc}</p>
+                    <p className="text-slate-400 text-sm leading-relaxed line-clamp-2 mb-6">
+                      {project.caseStudy?.summary || project.desc}
+                    </p>
                     <div className="mt-auto flex flex-wrap gap-2">
                       {project.tech.map((tech) => (
                         <span key={tech} className="text-[11px] font-medium px-2.5 py-1 rounded-full bg-white/5 text-slate-300 border border-white/5">
