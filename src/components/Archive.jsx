@@ -13,17 +13,63 @@ import {
   Search,
 } from "lucide-react";
 import { devProjects, designProjects } from "../data/projectData";
+import { latestProjects } from "../data/latestProjects";
+import { useLanguage } from "../i18n/LanguageContext";
+import { localizeProject } from "../i18n/projectTranslations";
 
-const featuredFirst = [...devProjects].sort(
-  (a, b) => Number(Boolean(b.featuredCaseStudy)) - Number(Boolean(a.featuredCaseStudy))
-);
+const allDevelopmentProjects = [...latestProjects, ...devProjects].sort((a, b) => {
+  const featuredDiff = Number(Boolean(b.featuredCaseStudy)) - Number(Boolean(a.featuredCaseStudy));
+  if (featuredDiff !== 0) return featuredDiff;
+
+  const newDiff = Number(Boolean(b.isNew)) - Number(Boolean(a.isNew));
+  if (newDiff !== 0) return newDiff;
+
+  return Number(b.year) - Number(a.year);
+});
 
 const Archive = () => {
   const navigate = useNavigate();
+  const { language, isId } = useLanguage();
   const [activeTab, setActiveTab] = useState("dev");
   const [selectedImage, setSelectedImage] = useState(null);
   const [showScrollBtn, setShowScrollBtn] = useState(false);
   const [query, setQuery] = useState("");
+
+  const copy = isId
+    ? {
+        back: "Kembali ke Projects",
+        title: "Arsip",
+        intro: "Case study development unggulan tampil lebih dulu. Cari seluruh koleksi development dan design berdasarkan project, teknologi, atau topik.",
+        development: "Development",
+        design: "Design",
+        searchDev: "Cari React, AI, Finance...",
+        searchDesign: "Cari Canva, poster, banner...",
+        result: "hasil",
+        results: "hasil",
+        featured: "Case Study Unggulan",
+        newest: "Project Baru",
+        emptyTitle: "Project tidak ditemukan.",
+        emptyText: "Coba nama project, teknologi, atau kata kunci lain.",
+        clear: "Hapus pencarian",
+        footer: "Semua project dibuat dan dikembangkan dengan perhatian pada detail.",
+      }
+    : {
+        back: "Back to Projects",
+        title: "Archive",
+        intro: "Featured development case studies appear first. Search the full development and design collection by project, technology, or topic.",
+        development: "Development",
+        design: "Design",
+        searchDev: "Search React, AI, Finance...",
+        searchDesign: "Search Canva, poster, banner...",
+        result: "result",
+        results: "results",
+        featured: "Featured Case Study",
+        newest: "New Project",
+        emptyTitle: "No projects found.",
+        emptyText: "Try a different project name, technology, or keyword.",
+        clear: "Clear search",
+        footer: "All projects are crafted with care.",
+      };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -49,13 +95,16 @@ const Archive = () => {
     }, 100);
   };
 
-  const baseProjects = activeTab === "dev" ? featuredFirst : designProjects;
+  const localizedProjects = useMemo(() => {
+    const baseProjects = activeTab === "dev" ? allDevelopmentProjects : designProjects;
+    return baseProjects.map((project) => localizeProject(project, language));
+  }, [activeTab, language]);
 
   const projectsToDisplay = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
-    if (!normalizedQuery) return baseProjects;
+    if (!normalizedQuery) return localizedProjects;
 
-    return baseProjects.filter((project) => {
+    return localizedProjects.filter((project) => {
       const searchableText = [
         project.title,
         project.desc,
@@ -69,7 +118,7 @@ const Archive = () => {
 
       return searchableText.includes(normalizedQuery);
     });
-  }, [activeTab, query]);
+  }, [localizedProjects, query]);
 
   return (
     <section className="min-h-screen bg-[#050505] text-slate-200 py-16 sm:py-20 md:py-24 px-4 sm:px-6 font-sans relative overflow-x-hidden">
@@ -83,14 +132,12 @@ const Archive = () => {
               className="group flex items-center gap-2 text-slate-400 hover:text-white mb-6 transition-colors text-sm font-medium"
             >
               <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-              Back to Projects
+              {copy.back}
             </button>
             <h1 className="text-4xl md:text-6xl font-bold text-white tracking-tight">
-              Archive<span className="text-indigo-500">.</span>
+              {copy.title}<span className="text-indigo-500">.</span>
             </h1>
-            <p className="text-slate-500 mt-3 max-w-xl">
-              Featured development case studies appear first. Search the full development and design collection by project, technology, or topic.
-            </p>
+            <p className="text-slate-500 mt-3 max-w-xl">{copy.intro}</p>
           </div>
 
           <div className="w-full md:w-auto flex flex-col items-stretch md:items-end gap-4">
@@ -101,7 +148,7 @@ const Archive = () => {
                   activeTab === "dev" ? "bg-indigo-600 text-white shadow-lg" : "text-slate-400 hover:text-white"
                 }`}
               >
-                <Code size={16} /> Development
+                <Code size={16} /> {copy.development}
               </button>
               <button
                 onClick={() => setActiveTab("design")}
@@ -109,7 +156,7 @@ const Archive = () => {
                   activeTab === "design" ? "bg-purple-600 text-white shadow-lg" : "text-slate-400 hover:text-white"
                 }`}
               >
-                <Palette size={16} /> Design
+                <Palette size={16} /> {copy.design}
               </button>
             </div>
           </div>
@@ -122,19 +169,19 @@ const Archive = () => {
               type="search"
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              placeholder={activeTab === "dev" ? "Search React, AI, Finance..." : "Search Canva, poster, banner..."}
+              placeholder={activeTab === "dev" ? copy.searchDev : copy.searchDesign}
               className="w-full rounded-2xl border border-white/10 bg-white/[0.04] pl-11 pr-4 py-3.5 text-sm text-white placeholder:text-slate-600 outline-none focus:border-indigo-500/50 focus:bg-white/[0.06] transition-colors"
             />
           </label>
 
           <p className="text-xs sm:text-sm text-slate-600 font-mono">
-            {projectsToDisplay.length} {projectsToDisplay.length === 1 ? "result" : "results"}
+            {projectsToDisplay.length} {projectsToDisplay.length === 1 ? copy.result : copy.results}
           </p>
         </div>
 
         {projectsToDisplay.length > 0 ? (
           <motion.div
-            key={`${activeTab}-${query}`}
+            key={`${activeTab}-${query}-${language}`}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.35 }}
@@ -145,7 +192,7 @@ const Archive = () => {
 
               return (
                 <motion.div
-                  key={`${activeTab}-${project.title}-${project.image}-${index}`}
+                  key={`${activeTab}-${project.slug || project.title}-${project.image || "no-image"}-${index}`}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: Math.min(index * 0.04, 0.2), duration: 0.45 }}
@@ -156,7 +203,7 @@ const Archive = () => {
                     type="button"
                     onClick={() => {
                       if (isDesignMode) {
-                        setSelectedImage(project.image);
+                        if (project.image) setSelectedImage(project.image);
                       } else {
                         navigate(`/projects/${project.slug}`);
                       }
@@ -164,27 +211,45 @@ const Archive = () => {
                     className={`w-full text-left flex flex-col h-full bg-[#0F0F0F] rounded-2xl overflow-hidden border transition-all duration-300 relative hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/50 ${
                       project.featuredCaseStudy && !isDesignMode
                         ? "border-indigo-500/25 hover:border-indigo-400/50"
-                        : "border-white/5 hover:border-white/10"
-                    } ${isDesignMode ? "cursor-zoom-in" : "cursor-pointer"}`}
+                        : project.isNew && !isDesignMode
+                          ? "border-emerald-500/20 hover:border-emerald-400/40"
+                          : "border-white/5 hover:border-white/10"
+                    } ${isDesignMode && project.image ? "cursor-zoom-in" : "cursor-pointer"}`}
                   >
                     <div className="p-2 shrink-0 w-full">
                       <div className="relative w-full aspect-[16/9] rounded-xl overflow-hidden bg-black/50 border border-white/5">
-                        <img
-                          src={project.image}
-                          alt={project.title}
-                          loading="lazy"
-                          decoding="async"
-                          fetchPriority="low"
-                          className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
-                          onError={(e) => {
-                            e.currentTarget.onerror = null;
-                            e.currentTarget.src = "https://placehold.co/600x400/1e1e1e/FFF?text=No+Preview";
-                          }}
-                        />
+                        {project.image ? (
+                          <img
+                            src={project.image}
+                            alt={project.title}
+                            loading="lazy"
+                            decoding="async"
+                            fetchPriority="low"
+                            className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
+                            onError={(e) => {
+                              e.currentTarget.onerror = null;
+                              e.currentTarget.src = "https://placehold.co/600x400/1e1e1e/FFF?text=No+Preview";
+                            }}
+                          />
+                        ) : (
+                          <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-[radial-gradient(circle_at_50%_20%,rgba(79,70,229,0.22),transparent_45%),linear-gradient(135deg,#111114,#08080a)] text-center px-6">
+                            <div className="h-14 w-14 rounded-2xl border border-indigo-400/20 bg-indigo-500/10 flex items-center justify-center text-indigo-300">
+                              <Code size={27} />
+                            </div>
+                            <p className="text-lg font-bold text-white">{project.title}</p>
+                            <p className="text-xs font-mono text-slate-600">LIVE PRODUCT / {project.year}</p>
+                          </div>
+                        )}
 
                         {!isDesignMode && project.featuredCaseStudy && (
                           <div className="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-indigo-600/90 backdrop-blur-md border border-indigo-300/20 px-2.5 py-1.5 rounded-lg text-[10px] font-semibold uppercase tracking-wider text-white">
-                            <Sparkles size={12} /> Featured Case Study
+                            <Sparkles size={12} /> {copy.featured}
+                          </div>
+                        )}
+
+                        {!isDesignMode && project.isNew && !project.featuredCaseStudy && (
+                          <div className="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-emerald-600/90 backdrop-blur-md border border-emerald-300/20 px-2.5 py-1.5 rounded-lg text-[10px] font-semibold uppercase tracking-wider text-white">
+                            <Sparkles size={12} /> {copy.newest}
                           </div>
                         )}
 
@@ -224,20 +289,20 @@ const Archive = () => {
         ) : (
           <div className="rounded-3xl border border-dashed border-white/10 bg-white/[0.02] px-6 py-16 text-center">
             <Search size={28} className="mx-auto text-slate-600 mb-4" />
-            <h2 className="text-xl font-semibold text-white mb-2">No projects found.</h2>
-            <p className="text-slate-500 text-sm mb-6">Try a different project name, technology, or keyword.</p>
+            <h2 className="text-xl font-semibold text-white mb-2">{copy.emptyTitle}</h2>
+            <p className="text-slate-500 text-sm mb-6">{copy.emptyText}</p>
             <button
               type="button"
               onClick={() => setQuery("")}
               className="px-5 py-2.5 rounded-full bg-white/5 border border-white/10 text-sm text-slate-300 hover:text-white hover:bg-white/10 transition-colors"
             >
-              Clear search
+              {copy.clear}
             </button>
           </div>
         )}
 
         <div className="mt-20 text-center border-t border-white/5 pt-8 pb-8">
-          <p className="text-slate-600 text-sm">&copy; {new Date().getFullYear()} Gilar Wahiditya. All projects are crafted with care.</p>
+          <p className="text-slate-600 text-sm">&copy; {new Date().getFullYear()} Gilar Wahiditya. {copy.footer}</p>
         </div>
       </div>
 
