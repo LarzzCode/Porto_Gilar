@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Download, Github, Linkedin, Mail, Sparkles } from "lucide-react";
 import { Link } from "react-scroll";
+import { downloadCv } from "../utils/downloadCv";
 
 const socialLinks = [
   { Icon: Github, href: "https://github.com/LarzzCode", label: "GitHub" },
@@ -17,6 +18,15 @@ const Hero = () => {
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.55 } },
+  };
+
+  const handleCvDownload = async () => {
+    try {
+      await downloadCv();
+    } catch (error) {
+      console.error("CV download failed:", error);
+      window.alert("CV belum bisa diunduh. Silakan coba lagi.");
+    }
   };
 
   return (
@@ -83,16 +93,16 @@ const Hero = () => {
               </motion.button>
             </Link>
 
-            <motion.a
-              href="/CV_GILAR_WAHIDITYA.pdf"
-              download="CV_GILAR_WAHIDITYA.pdf"
+            <motion.button
+              type="button"
+              onClick={handleCvDownload}
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               className="w-full sm:w-auto px-7 py-3.5 rounded-full font-semibold text-sm border border-brand-blue-light/20 bg-brand-blue-dark/10 text-brand-blue-light hover:bg-brand-blue-dark/20 hover:border-brand-blue-light/40 transition-all inline-flex items-center justify-center gap-2"
               aria-label="Download Gilar Wahiditya CV"
             >
               <Download size={17} /> Download CV
-            </motion.a>
+            </motion.button>
           </motion.div>
 
           <motion.div variants={itemVariants} className="flex items-center gap-5">
