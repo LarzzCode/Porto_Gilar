@@ -29,26 +29,69 @@ const Navbar = () => {
   const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
-    const handleScroll = () => {
-      const sections = navLinks.map((link) => document.getElementById(link.id));
-      const scrollPosition = window.scrollY + 180;
+    let ticking = false;
 
-      for (const section of sections) {
-        if (
-          section &&
-          section.offsetTop <= scrollPosition &&
-          section.offsetTop + section.offsetHeight > scrollPosition
-        ) {
-          setActiveSection(section.id);
-          break;
-        }
+    const updateActiveSection = () => {
+      const viewportHeight = window.visualViewport?.height || window.innerHeight;
+      const focusY = viewportHeight * 0.42;
+
+      const sections = navLinks
+        .map((link) => document.getElementById(link.id))
+        .filter(Boolean);
+
+      const sectionAtFocus = sections.find((section) => {
+        const rect = section.getBoundingClientRect();
+        return rect.top <= focusY && rect.bottom > focusY;
+      });
+
+      if (sectionAtFocus) {
+        setActiveSection(sectionAtFocus.id);
+        ticking = false;
+        return;
+      }
+
+      const visibleSections = sections
+        .map((section) => ({
+          section,
+          rect: section.getBoundingClientRect(),
+        }))
+        .filter(({ rect }) => rect.bottom > 0 && rect.top < viewportHeight);
+
+      if (visibleSections.length > 0) {
+        const closest = visibleSections.reduce((best, current) => {
+          const bestDistance = Math.abs(best.rect.top - focusY);
+          const currentDistance = Math.abs(current.rect.top - focusY);
+          return currentDistance < bestDistance ? current : best;
+        });
+
+        setActiveSection(closest.section.id);
+      } else if (window.scrollY <= 8) {
+        setActiveSection("home");
+      }
+
+      ticking = false;
+    };
+
+    const requestUpdate = () => {
+      if (!ticking) {
+        ticking = true;
+        window.requestAnimationFrame(updateActiveSection);
       }
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate, { passive: true });
+    window.visualViewport?.addEventListener("resize", requestUpdate, { passive: true });
+    window.visualViewport?.addEventListener("scroll", requestUpdate, { passive: true });
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    requestUpdate();
+
+    return () => {
+      window.removeEventListener("scroll", requestUpdate);
+      window.removeEventListener("resize", requestUpdate);
+      window.visualViewport?.removeEventListener("resize", requestUpdate);
+      window.visualViewport?.removeEventListener("scroll", requestUpdate);
+    };
   }, []);
 
   const scrollToSection = (id) => {
