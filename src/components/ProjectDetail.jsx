@@ -1,8 +1,38 @@
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, Calendar, ExternalLink, Layers3 } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  Calendar,
+  CheckCircle2,
+  ExternalLink,
+  Github,
+  Layers3,
+  Lightbulb,
+  Target,
+  Trophy,
+  UserRound,
+  Wrench,
+} from "lucide-react";
 import { devProjects } from "../data/projectData";
+
+const InfoBlock = ({ icon: Icon, label, title, children }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, margin: "-80px" }}
+    className="grid md:grid-cols-[0.72fr_1.28fr] gap-6 md:gap-14 py-10 md:py-14 border-t border-white/10"
+  >
+    <div>
+      <div className="flex items-center gap-2 text-indigo-400 font-mono text-xs md:text-sm uppercase tracking-wider mb-3">
+        <Icon size={16} /> {label}
+      </div>
+      <h2 className="text-2xl md:text-3xl font-bold text-white leading-tight">{title}</h2>
+    </div>
+    <div className="text-slate-400 text-base md:text-lg leading-relaxed">{children}</div>
+  </motion.div>
+);
 
 const ProjectDetail = () => {
   const { slug } = useParams();
@@ -41,6 +71,7 @@ const ProjectDetail = () => {
   }
 
   const nextProject = devProjects[(projectIndex + 1) % devProjects.length];
+  const caseStudy = project.caseStudy;
 
   return (
     <main className="min-h-screen bg-[#050505] text-slate-200 overflow-hidden">
@@ -62,21 +93,41 @@ const ProjectDetail = () => {
           className="grid lg:grid-cols-[1.15fr_0.85fr] gap-10 lg:gap-16 items-end mb-12"
         >
           <div>
-            <span className="text-indigo-400 font-mono text-sm tracking-wider block mb-4">PROJECT / DETAIL</span>
+            <div className="flex flex-wrap items-center gap-3 mb-5">
+              <span className="text-indigo-400 font-mono text-sm tracking-wider">
+                {caseStudy ? "FEATURED / CASE STUDY" : "PROJECT / DETAIL"}
+              </span>
+              {caseStudy?.eyebrow && (
+                <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-slate-400">
+                  {caseStudy.eyebrow}
+                </span>
+              )}
+            </div>
+
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight leading-[1.05] mb-6">
               {project.title}
             </h1>
             <p className="text-slate-400 text-base md:text-lg leading-relaxed max-w-2xl">
-              {project.desc}
+              {caseStudy?.summary || project.desc}
             </p>
           </div>
 
-          <div className="flex lg:justify-end">
+          <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row lg:items-end gap-3 lg:justify-end">
+            {project.source && (
+              <a
+                href={project.source}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 text-white font-semibold transition-all"
+              >
+                <Github size={18} /> Source Code
+              </a>
+            )}
             <a
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-7 py-3.5 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold transition-all hover:-translate-y-0.5 shadow-lg shadow-indigo-500/20"
+              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold transition-all hover:-translate-y-0.5 shadow-lg shadow-indigo-500/20"
             >
               View Live Project <ExternalLink size={18} />
             </a>
@@ -104,7 +155,7 @@ const ProjectDetail = () => {
           <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent pointer-events-none" />
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-4 mb-16">
+        <div className="grid md:grid-cols-3 gap-4 mb-12 md:mb-16">
           <div className="rounded-2xl bg-white/[0.04] border border-white/10 p-6">
             <div className="flex items-center gap-2 text-slate-500 text-xs uppercase tracking-wider mb-3">
               <Calendar size={15} /> Year
@@ -126,26 +177,81 @@ const ProjectDetail = () => {
           </div>
         </div>
 
-        <section className="grid md:grid-cols-[0.8fr_1.2fr] gap-8 md:gap-16 py-12 border-y border-white/10">
-          <div>
-            <span className="text-indigo-400 font-mono text-sm">PROJECT SNAPSHOT</span>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mt-3">Built as a working product.</h2>
+        {caseStudy ? (
+          <div className="border-b border-white/10">
+            <InfoBlock icon={Target} label="01 / Problem" title="The problem I wanted to solve.">
+              <p>{caseStudy.problem}</p>
+            </InfoBlock>
+
+            <InfoBlock icon={Lightbulb} label="02 / Solution" title="Turning the problem into a product.">
+              <p>{caseStudy.solution}</p>
+            </InfoBlock>
+
+            <InfoBlock icon={UserRound} label="03 / My Role" title="What I was responsible for.">
+              <p>{caseStudy.role}</p>
+            </InfoBlock>
+
+            <InfoBlock icon={CheckCircle2} label="04 / Key Features" title="The core experience I built.">
+              <div className="grid sm:grid-cols-2 gap-3">
+                {caseStudy.features.map((feature) => (
+                  <div key={feature} className="flex items-start gap-3 rounded-xl bg-white/[0.03] border border-white/[0.07] p-4">
+                    <CheckCircle2 size={17} className="text-indigo-400 shrink-0 mt-0.5" />
+                    <span className="text-sm md:text-base text-slate-300 leading-relaxed">{feature}</span>
+                  </div>
+                ))}
+              </div>
+            </InfoBlock>
+
+            <InfoBlock icon={Wrench} label="05 / Challenge" title="The main design and technical challenge.">
+              <p>{caseStudy.challenge}</p>
+            </InfoBlock>
+
+            <InfoBlock icon={Trophy} label="06 / Outcome" title="What the project achieved.">
+              <p>{caseStudy.outcome}</p>
+              <div className="flex flex-wrap gap-3 mt-7">
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-indigo-400 hover:text-indigo-300 font-semibold transition-colors"
+                >
+                  Explore live project <ExternalLink size={16} />
+                </a>
+                {project.source && (
+                  <a
+                    href={project.source}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-slate-400 hover:text-white font-semibold transition-colors"
+                  >
+                    Inspect source code <Github size={16} />
+                  </a>
+                )}
+              </div>
+            </InfoBlock>
           </div>
-          <div className="text-slate-400 text-base md:text-lg leading-relaxed">
-            <p>{project.desc}</p>
-            <p className="mt-5 text-sm md:text-base text-slate-500">
-              Explore the live implementation to see the current interface, interaction flow, and product experience directly.
-            </p>
-            <a
-              href={project.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 mt-6 text-indigo-400 hover:text-indigo-300 font-semibold transition-colors"
-            >
-              Open live implementation <ExternalLink size={16} />
-            </a>
-          </div>
-        </section>
+        ) : (
+          <section className="grid md:grid-cols-[0.8fr_1.2fr] gap-8 md:gap-16 py-12 border-y border-white/10">
+            <div>
+              <span className="text-indigo-400 font-mono text-sm">PROJECT SNAPSHOT</span>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mt-3">Built as a working product.</h2>
+            </div>
+            <div className="text-slate-400 text-base md:text-lg leading-relaxed">
+              <p>{project.desc}</p>
+              <p className="mt-5 text-sm md:text-base text-slate-500">
+                Explore the live implementation to see the current interface, interaction flow, and product experience directly.
+              </p>
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 mt-6 text-indigo-400 hover:text-indigo-300 font-semibold transition-colors"
+              >
+                Open live implementation <ExternalLink size={16} />
+              </a>
+            </div>
+          </section>
+        )}
 
         <button
           onClick={() => navigate(`/projects/${nextProject.slug}`)}
