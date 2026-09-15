@@ -15,6 +15,21 @@ const techStack = [
   { name: "PowerPoint", icon: "https://img.icons8.com/color/48/microsoft-powerpoint-2019--v1.png" },
 ];
 
+const strengths = [
+  {
+    label: "Operations Mindset",
+    text: "I understand workflows from hands-on administrative experience, not only from code.",
+  },
+  {
+    label: "Visual Communication",
+    text: "Design and content experience help me keep interfaces clear, practical, and approachable.",
+  },
+  {
+    label: "Digital Products",
+    text: "I turn everyday problems into websites, dashboards, and tools people can actually use.",
+  },
+];
+
 const About = () => {
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -52,12 +67,24 @@ const About = () => {
         >
           <motion.div variants={itemVariants} className="md:col-span-8 bg-white/5 border border-white/10 p-5 sm:p-6 md:p-8 rounded-2xl backdrop-blur-sm hover:border-brand-blue-light/30 transition-colors">
             <h3 className="text-xl sm:text-2xl font-bold text-brand-cream mb-4">The Journey</h3>
-            <p className="text-brand-cream/70 text-sm sm:text-base leading-7 sm:leading-relaxed mb-5">
-              I'm Gilar Wahiditya Ekaputra, a multidisciplinary professional with a strong background in the education sector. Over the past year, I've honed a unique blend of skills spanning administration, graphic design, and video production. My experience has taught me the importance of precision both in streamlining administrative systems and in creating compelling visual content for institutional branding. I believe that combining organizational skills with design aesthetics is key to improving operational efficiency and corporate identity.
-            </p>
-            <p className="text-brand-cream/70 text-sm sm:text-base leading-7 sm:leading-relaxed">
-              Currently, as an <span className="text-brand-blue-light font-semibold">Information Systems student at Universitas Terbuka, </span> I leverage this diverse background to bridge the gap between business logic and technology.
-            </p>
+
+            <div className="space-y-4 text-brand-cream/70 text-sm sm:text-base leading-7 sm:leading-relaxed">
+              <p>
+                I'm <span className="text-brand-cream font-semibold">Gilar Wahiditya Eka Putra</span>. My background combines administration, digital content, graphic design, and hands-on experience supporting day-to-day operations in the education and automotive sectors.
+              </p>
+              <p>
+                Today, as an <span className="text-brand-blue-light font-semibold">Information Systems student at Universitas Terbuka</span>, I use that operational perspective to build practical digital solutions—connecting business needs, clear interfaces, and web technology.
+              </p>
+            </div>
+
+            <div className="grid sm:grid-cols-3 gap-3 mt-6">
+              {strengths.map((item) => (
+                <div key={item.label} className="rounded-xl border border-white/10 bg-black/20 p-4">
+                  <p className="text-brand-blue-light text-xs font-mono uppercase tracking-wider mb-2">{item.label}</p>
+                  <p className="text-brand-cream/55 text-xs sm:text-sm leading-relaxed">{item.text}</p>
+                </div>
+              ))}
+            </div>
           </motion.div>
 
           <motion.div variants={itemVariants} className="md:col-span-4 relative group overflow-hidden rounded-2xl border border-white/10 h-72 sm:h-80 md:h-auto min-h-0">
@@ -89,7 +116,7 @@ const About = () => {
             <div className="min-w-0">
               <span className="text-brand-cream/50 text-xs uppercase tracking-wider">Interest</span>
               <h4 className="text-base sm:text-lg font-bold text-brand-cream">Artificial Intelligence (AI)</h4>
-              <p className="text-sm text-brand-cream/70 leading-relaxed mt-1">Deeply curious about Artificial Intelligence and Emerging Tech. Constantly exploring how AI tools can streamline workflows and create smarter web applications.</p>
+              <p className="text-sm text-brand-cream/70 leading-relaxed mt-1">Exploring how AI can streamline repetitive workflows and make web applications more useful, responsive, and intelligent.</p>
             </div>
           </motion.div>
         </motion.div>
