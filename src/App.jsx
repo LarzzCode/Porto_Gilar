@@ -16,7 +16,7 @@ import Timeline from "./components/Timeline";
 import Projects from "./components/Projects";
 import Services from "./components/Services";
 import Certificates from "./components/Certificates";
-import Contact from "./components/Contact";
+import ContactV2 from "./components/ContactV2";
 import Footer from "./components/Footer";
 import Archive from "./components/Archive";
 import ProjectDetail from "./components/ProjectDetail";
@@ -57,7 +57,7 @@ const Home = ({ showScrollBtn, scrollToTop }) => (
       <Projects />
       <Services />
       <Certificates />
-      <Contact />
+      <ContactV2 />
       <Footer />
     </main>
 
