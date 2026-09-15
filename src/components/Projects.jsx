@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ExternalLink, ChevronRight, ChevronLeft } from "lucide-react";
+import { ArrowRight, ExternalLink, ChevronRight, ChevronLeft, Sparkles } from "lucide-react";
 import { devProjects } from "../data/projectData";
 
 const Projects = () => {
   const navigate = useNavigate();
-  const allProjects = devProjects;
+  const allProjects = devProjects.filter((project) => project.featuredCaseStudy);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
 
@@ -22,7 +22,7 @@ const Projects = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       paginate(1);
-    }, 5000);
+    }, 6000);
 
     return () => clearInterval(timer);
   }, [currentIndex]);
@@ -57,19 +57,22 @@ const Projects = () => {
           >
             <span className="text-indigo-500 font-mono mb-2 block tracking-wider text-sm md:text-base">03. / FEATURED WORKS</span>
             <h2 className="text-3xl md:text-5xl font-bold text-white">
-              Selected <span className="text-indigo-500">Projects</span>
+              Selected <span className="text-indigo-500">Case Studies</span>
             </h2>
+            <p className="text-slate-500 mt-3 max-w-2xl text-sm md:text-base">
+              A closer look at projects where the problem, product decisions, and implementation matter as much as the final interface.
+            </p>
           </motion.div>
 
           <button
             onClick={() => navigate("/archive")}
             className="group flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-xs md:text-sm font-bold tracking-widest uppercase border-b border-white/10 hover:border-white pb-2"
           >
-            View All Archives <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            View All Projects <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
           </button>
         </div>
 
-        <div className="relative w-full h-[620px] md:h-[500px] rounded-2xl md:rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-[#0F0F0F]">
+        <div className="relative w-full h-[640px] md:h-[520px] rounded-2xl md:rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-[#0F0F0F]">
           <AnimatePresence initial={false} custom={direction}>
             <motion.div
               key={currentProject.title}
@@ -98,19 +101,24 @@ const Projects = () => {
                   }}
                 />
 
-                <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent md:via-[#050505]/60" />
-                <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/90 via-transparent to-transparent hidden md:block" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/85 to-transparent md:via-[#050505]/60" />
+                <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/95 via-[#050505]/45 to-transparent hidden md:block" />
               </div>
 
               <div className="absolute inset-0 p-6 md:p-12 flex flex-col justify-end md:justify-center items-start w-full md:w-2/3">
-                <motion.span
+                <motion.div
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.2 }}
-                  className="text-indigo-400 font-mono mb-3 md:mb-4 bg-indigo-500/10 px-2 py-1 md:px-3 rounded border border-indigo-500/20 text-xs md:text-sm"
+                  className="flex flex-wrap items-center gap-2 mb-3 md:mb-4"
                 >
-                  {currentProject.year}
-                </motion.span>
+                  <span className="text-indigo-300 font-mono bg-indigo-500/10 px-2 py-1 md:px-3 rounded border border-indigo-500/20 text-xs md:text-sm">
+                    {currentProject.year}
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 text-amber-200/90 bg-amber-400/10 border border-amber-300/15 px-2.5 py-1 rounded text-xs font-medium">
+                    <Sparkles size={13} /> {currentProject.caseStudy?.eyebrow || "Featured Case Study"}
+                  </span>
+                </motion.div>
 
                 <motion.h3
                   initial={{ y: 20, opacity: 0 }}
@@ -125,9 +133,9 @@ const Projects = () => {
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.4 }}
-                  className="text-slate-300 text-sm md:text-lg mb-6 md:mb-8 max-w-lg leading-relaxed line-clamp-3 md:line-clamp-none"
+                  className="text-slate-300 text-sm md:text-lg mb-6 md:mb-8 max-w-xl leading-relaxed line-clamp-4 md:line-clamp-none"
                 >
-                  {currentProject.desc}
+                  {currentProject.caseStudy?.summary || currentProject.desc}
                 </motion.p>
 
                 <motion.div
@@ -153,7 +161,7 @@ const Projects = () => {
                     onClick={() => navigate(`/projects/${currentProject.slug}`)}
                     className="w-full sm:w-auto px-6 py-3 md:px-8 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl md:rounded-full font-bold transition-all shadow-lg shadow-indigo-500/30 flex items-center justify-center gap-2 group text-sm md:text-base"
                   >
-                    View Case Study <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                    Read Case Study <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                   </button>
 
                   <a
@@ -191,14 +199,15 @@ const Projects = () => {
               key={currentIndex}
               initial={{ width: "0%" }}
               animate={{ width: "100%" }}
-              transition={{ duration: 5, ease: "linear" }}
+              transition={{ duration: 6, ease: "linear" }}
               className="h-full bg-indigo-500"
             />
           </div>
         </div>
 
-        <div className="flex justify-end mt-4 font-mono text-slate-500 text-xs md:text-sm">
-          {currentIndex + 1} / {allProjects.length}
+        <div className="flex justify-between items-center mt-4 font-mono text-slate-500 text-xs md:text-sm">
+          <span>3 featured projects · full collection in Archive</span>
+          <span>{String(currentIndex + 1).padStart(2, "0")} / {String(allProjects.length).padStart(2, "0")}</span>
         </div>
       </div>
     </section>
