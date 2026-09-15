@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
 import { Mail, MapPin, Send, Phone, Linkedin, Github, ArrowUpRight, Download } from "lucide-react";
+import { downloadCv } from "../utils/downloadCv";
 
 const contactLinks = [
   {
@@ -60,6 +61,15 @@ const Contact = () => {
           console.error("EmailJS failed:", error.text);
         }
       );
+  };
+
+  const handleCvDownload = async () => {
+    try {
+      await downloadCv();
+    } catch (error) {
+      console.error("CV download failed:", error);
+      window.alert("CV belum bisa diunduh. Silakan coba lagi.");
+    }
   };
 
   return (
@@ -126,14 +136,14 @@ const Contact = () => {
               </div>
             </div>
 
-            <a
-              href="/CV_GILAR_WAHIDITYA.pdf"
-              download="CV_GILAR_WAHIDITYA.pdf"
+            <button
+              type="button"
+              onClick={handleCvDownload}
               className="w-full mb-8 inline-flex items-center justify-center gap-2 rounded-2xl border border-brand-blue-light/20 bg-brand-blue-dark/10 px-5 py-4 text-brand-blue-light font-semibold hover:bg-brand-blue-dark/20 hover:border-brand-blue-light/40 transition-all"
               aria-label="Download Gilar Wahiditya CV"
             >
               <Download size={18} /> Download CV
-            </a>
+            </button>
 
             <div className="border-t border-white/10 pt-6">
               <p className="text-xs uppercase tracking-[0.2em] text-brand-cream/40 mb-4">Find me online</p>
