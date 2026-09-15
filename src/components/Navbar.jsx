@@ -17,12 +17,12 @@ const mobileLinks = [
   { id: "about", label: "About", icon: User },
   { id: "projects", label: "Work", icon: Briefcase },
   { id: "services", label: "Services", icon: Monitor },
+  { id: "certificates", label: "Certs", icon: Award },
   { id: "contact", label: "Contact", icon: Mail },
 ];
 
 const mobileSectionMap = {
   timelines: "about",
-  certificates: "projects",
 };
 
 const Navbar = () => {
@@ -135,9 +135,9 @@ const Navbar = () => {
 
       <nav
         aria-label="Mobile and tablet navigation"
-        className="xl:hidden fixed left-3 right-3 sm:left-6 sm:right-6 md:left-1/2 md:right-auto md:-translate-x-1/2 md:w-[min(620px,calc(100vw-3rem))] bottom-[calc(env(safe-area-inset-bottom)+12px)] z-50 rounded-2xl border border-white/10 bg-black/80 backdrop-blur-2xl shadow-2xl shadow-black/40 p-1.5"
+        className="xl:hidden fixed left-3 right-3 sm:left-6 sm:right-6 md:left-1/2 md:right-auto md:-translate-x-1/2 md:w-[min(680px,calc(100vw-3rem))] bottom-[calc(env(safe-area-inset-bottom)+12px)] z-50 rounded-2xl border border-white/10 bg-black/80 backdrop-blur-2xl shadow-2xl shadow-black/40 p-1.5"
       >
-        <div className="grid grid-cols-5 gap-1">
+        <div className="grid grid-cols-6 gap-0.5 sm:gap-1">
           {mobileLinks.map((item) => {
             const Icon = item.icon;
             const isActive = mobileActiveSection === item.id;
@@ -148,7 +148,7 @@ const Navbar = () => {
                 onClick={() => scrollToSection(item.id)}
                 aria-label={`Go to ${item.label}`}
                 aria-current={isActive ? "page" : undefined}
-                className={`relative min-w-0 rounded-xl py-2.5 px-1 flex flex-col items-center justify-center gap-1 transition-colors ${
+                className={`relative min-w-0 rounded-xl py-2.5 px-0.5 sm:px-1 flex flex-col items-center justify-center gap-1 transition-colors ${
                   isActive ? "text-white" : "text-slate-500 active:text-slate-200"
                 }`}
               >
@@ -159,8 +159,10 @@ const Navbar = () => {
                     transition={{ type: "spring", bounce: 0.25, duration: 0.5 }}
                   />
                 )}
-                <Icon size={18} strokeWidth={isActive ? 2.4 : 2} />
-                <span className="text-[10px] sm:text-[11px] font-medium leading-none truncate max-w-full">{item.label}</span>
+                <Icon size={17} strokeWidth={isActive ? 2.4 : 2} />
+                <span className="text-[9px] min-[390px]:text-[10px] sm:text-[11px] font-medium leading-none truncate max-w-full">
+                  {item.label}
+                </span>
               </button>
             );
           })}
