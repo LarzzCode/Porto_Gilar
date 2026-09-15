@@ -2,11 +2,11 @@ export const devProjects = [
   {
     slug: "lar-coffeeshop",
     year: "2025",
-    title: "Lar-CoffeShop",
+    title: "Lar-CoffeeShop",
     tech: ["React JS", "Tailwind"],
     link: "https://landing-page-coffe-shop.vercel.app/",
     image: "/Project_CoffeShop.jpg",
-    desc: "Landing page coffee shop modern dan responsif."
+    desc: "A modern, responsive coffee shop landing page focused on presenting products and brand atmosphere."
   },
   {
     slug: "lar-carwash-and-detailing",
@@ -15,25 +15,25 @@ export const devProjects = [
     tech: ["React JS", "Tailwind"],
     link: "https://landing-page-car-wash.vercel.app/",
     image: "/Project_CarWash.jpg",
-    desc: "Landing page untuk bisnis car wash dan detailing dengan fokus pada presentasi layanan."
+    desc: "A service-focused landing page for a car wash and detailing business."
   },
   {
     slug: "lar-movie",
     year: "2024",
     title: "Lar-Movie",
-    tech: ["Next JS", "Tailwind"],
+    tech: ["Next.js", "Tailwind"],
     link: "https://lar-movies.vercel.app/",
     image: "/Project_Movie.jpg",
-    desc: "Platform pencarian film sinematik dengan dark mode dan integrasi API TMDB real-time."
+    desc: "A cinematic movie discovery platform with dark mode and real-time TMDB API integration."
   },
   {
     slug: "lar-calculator",
     year: "2024",
     title: "Lar-Calculator",
-    tech: ["HTML", "CSS", "JS"],
+    tech: ["HTML", "CSS", "JavaScript"],
     link: "https://calculator-lar.vercel.app/",
     image: "/Project_Calculator.jpg",
-    desc: "Tools kalkulasi digital dengan antarmuka neumorphism yang responsif."
+    desc: "A responsive digital calculator with a neumorphic interface."
   },
   {
     slug: "bagja-college",
@@ -43,23 +43,23 @@ export const devProjects = [
     link: "https://bagjacollege.com",
     source: "https://github.com/LarzzCode/BagjaCollegeDev",
     image: "/Project_BC.jpg",
-    desc: "Portal akses tes digital untuk membantu siswa membuka ujian berdasarkan kelas dan program secara lebih terstruktur.",
+    desc: "A digital test-access portal that helps students open exams based on class and program through a clearer, more structured flow.",
     featuredCaseStudy: true,
     caseStudy: {
       eyebrow: "Education Workflow",
-      summary: "Mengubah proses akses ujian yang sebelumnya lebih manual menjadi portal digital sederhana yang mudah digunakan siswa dari perangkat mobile maupun desktop.",
-      problem: "Akses ujian dan informasi tes perlu dibuat lebih praktis. Siswa membutuhkan satu titik masuk yang jelas untuk memilih kelas dan membuka tes yang sesuai tanpa bergantung pada alur manual.",
-      solution: "Saya membuat portal Bagja College Test dengan pengelompokan kelas, dropdown program, dan tautan langsung menuju form ujian. Antarmukanya dibuat ringan dan responsif agar mudah dibuka dari perangkat siswa.",
-      role: "Mengusulkan solusi digital, menyusun alur akses ujian, merancang antarmuka, dan mengimplementasikan front-end portal.",
+      summary: "A lightweight portal that turned a more manual exam-access process into a simple digital entry point for students on mobile and desktop.",
+      problem: "Students needed a clearer way to access the correct exam. The existing flow depended too much on manual guidance and did not provide one obvious place to choose a class and open the right test.",
+      solution: "I built the Bagja College Test portal with class grouping, program dropdowns, and direct links to the relevant exam forms. The interface was intentionally kept lightweight and responsive so students could open it easily from their own devices.",
+      role: "I proposed the digital approach, mapped the exam-access flow, designed the interface, and implemented the front-end portal.",
       features: [
-        "Navigasi ujian berdasarkan kelas X, XI, dan XII",
-        "Pengelompokan program atau jurusan di dalam dropdown",
-        "Integrasi tautan Google Forms sebagai media ujian",
-        "Responsive layout untuk desktop dan mobile",
-        "Micro-interaction dan animated welcome message"
+        "Exam navigation for grades X, XI, and XII",
+        "Program grouping inside class-based dropdowns",
+        "Google Forms integration for exam delivery",
+        "Responsive layout for desktop and mobile",
+        "Small interactions and an animated welcome message"
       ],
-      challenge: "Tantangan utamanya adalah membuat alur yang sesederhana mungkin untuk siswa. Solusinya bukan menambah banyak fitur, tetapi mengurangi langkah: pilih kelas, pilih program, lalu masuk ke tes.",
-      outcome: "Portal menjadi bagian dari digitalisasi workflow tes Bagja College dan memberi siswa akses ujian yang lebih terstruktur dibanding alur manual sebelumnya."
+      challenge: "The main challenge was keeping the student journey as simple as possible. Instead of adding more features, the flow was reduced to three actions: choose a class, choose a program, then open the test.",
+      outcome: "The portal became part of Bagja College's exam workflow and gave students a more structured way to reach their tests than the previous manual approach."
     }
   },
   {
@@ -69,7 +69,7 @@ export const devProjects = [
     tech: ["React", "Vite"],
     link: "https://todo-app-lar.vercel.app/",
     image: "/Project_Todo.jpg",
-    desc: "Aplikasi produktivitas manajemen tugas dengan persistensi data lokal."
+    desc: "A task-management application with local data persistence for lightweight daily productivity."
   },
   {
     slug: "lar-finance",
@@ -79,26 +79,26 @@ export const devProjects = [
     link: "https://larfinance.vercel.app/",
     source: "https://github.com/LarzzCode/Lar_Finance",
     image: "/Project_Finance.jpg",
-    desc: "Personal finance app untuk mencatat transaksi, mengelola dompet, budgeting, tabungan, laporan, dan insight keuangan dalam satu dashboard.",
+    desc: "A personal finance app for transactions, wallets, budgeting, savings, reports, subscriptions, and financial insights in one dashboard.",
     featuredCaseStudy: true,
     caseStudy: {
       eyebrow: "Personal Finance Platform",
-      summary: "Project ini berawal dari kebutuhan pribadi untuk memahami ke mana uang bulanan pergi, lalu berkembang dari pencatatan sederhana menjadi aplikasi keuangan multi-fitur.",
-      problem: "Pencatatan pengeluaran yang tersebar membuat kondisi keuangan sulit dibaca. Spreadsheet membantu, tetapi semakin banyak kategori, dompet, pemasukan, dan pengeluaran, semakin tinggi friksi untuk menjaga data tetap rapi dan mudah dianalisis.",
-      solution: "Saya membangun Lar-Finance sebagai pusat pencatatan keuangan personal berbasis React dan Supabase. Data transaksi dihubungkan dengan dompet dan kategori, lalu disajikan kembali melalui dashboard, budgeting, laporan, savings, subscription tracking, dan financial insight.",
-      role: "Merancang produk dari kebutuhan pribadi, membangun antarmuka React, menyusun alur fitur, mengintegrasikan autentikasi dan database Supabase, serta mengembangkan visualisasi dan reporting.",
+      summary: "What started as a personal need to understand where monthly money was going grew into a multi-feature personal finance application.",
+      problem: "Scattered expense tracking made it difficult to understand the overall financial picture. A spreadsheet helped at first, but as wallets, categories, income, and expenses grew, maintaining clean and useful records created more friction.",
+      solution: "I built Lar-Finance as a personal finance hub using React and Supabase. Transactions connect to wallets and categories, then flow into dashboards, budgeting, reports, savings, subscription tracking, and financial insights.",
+      role: "I shaped the product from a personal pain point, built the React interface, designed the feature flow, integrated Supabase authentication and data, and developed reporting and visualization experiences.",
       features: [
-        "Authentication dan profile pengguna",
-        "Pencatatan pemasukan dan pengeluaran",
-        "Wallet / dompet dan kategori transaksi",
-        "Budgeting dan target keuangan",
-        "Savings dan subscription tracking",
-        "Rekap, report, dan visualisasi menggunakan Recharts",
-        "AI Insight untuk membantu membaca pola keuangan",
-        "PWA support untuk pengalaman seperti aplikasi"
+        "User authentication and profile management",
+        "Income and expense tracking",
+        "Wallet and transaction-category management",
+        "Budgeting and financial targets",
+        "Savings and subscription tracking",
+        "Recaps, reports, and Recharts visualizations",
+        "AI Insight for interpreting financial patterns",
+        "PWA support for an app-like experience"
       ],
-      challenge: "Tantangan terbesar adalah menjaga banyak modul tetap terasa sebagai satu produk. Struktur data transaksi, dompet, kategori, budget, dan laporan harus saling terhubung tanpa membuat flow input menjadi rumit.",
-      outcome: "Lar-Finance menggantikan workflow pencatatan yang sebelumnya lebih manual menjadi satu dashboard yang bisa dipakai untuk mencatat, melihat ringkasan, dan mengevaluasi kondisi keuangan dari berbagai perangkat."
+      challenge: "The biggest challenge was making many modules feel like one coherent product. Transactions, wallets, categories, budgets, and reports had to stay connected without making the input flow feel complicated.",
+      outcome: "Lar-Finance replaced a more manual tracking workflow with one dashboard for recording activity, reviewing summaries, and evaluating personal finances across devices."
     }
   },
   {
@@ -108,26 +108,26 @@ export const devProjects = [
     tech: ["React", "Gemini API", "Web Speech API"],
     link: "https://lar-ai.vercel.app/",
     image: "/Project_Ai.jpg",
-    desc: "AI assistant berbasis Gemini dengan chat history, persona, input gambar, voice interaction, markdown, dan image-generation mode.",
+    desc: "A Gemini-powered AI assistant with chat history, personas, image input, voice interaction, Markdown rendering, and an image-generation mode.",
     featuredCaseStudy: true,
     caseStudy: {
       eyebrow: "AI Assistant Experience",
-      summary: "Eksperimen untuk mengubah Gemini API dari sekadar endpoint text generation menjadi pengalaman assistant yang lebih interaktif di browser.",
-      problem: "Chatbot dasar hanya mengirim teks dan menampilkan teks. Saya ingin membuat pengalaman yang lebih dekat dengan assistant: punya mode kerja, mengingat percakapan lokal, menerima gambar, memahami input suara, dan menyajikan jawaban teknis dengan format yang nyaman dibaca.",
-      solution: "Lar-Ai dibangun dengan React dan Google Generative AI SDK. Aplikasi menambahkan persona, local chat history, multimodal image input, speech recognition, text-to-speech, markdown rendering, syntax highlighting, dan mode image generation.",
-      role: "Merancang UI chat, mengintegrasikan Gemini API, menyusun persona dan context handling, serta membangun fitur multimodal dan browser-native voice interaction.",
+      summary: "An experiment in turning the Gemini API from a simple text-generation endpoint into a more interactive browser-based assistant experience.",
+      problem: "A basic chatbot only sends text and displays text. I wanted an experience closer to an assistant: different working modes, local conversation memory, image input, voice interaction, and technical responses that remain comfortable to read.",
+      solution: "Lar-Ai uses React and the Google Generative AI SDK, then layers in personas, local chat history, multimodal image input, speech recognition, text-to-speech, Markdown rendering, syntax highlighting, and an image-generation mode.",
+      role: "I designed the chat interface, integrated the Gemini API, structured persona and context handling, and built the multimodal and browser-native voice interactions.",
       features: [
         "Gemini 2.0 Flash integration",
         "Multiple assistant personas",
-        "Persistent chat history menggunakan localStorage",
-        "Image upload sebagai multimodal input",
-        "Speech-to-text menggunakan Web Speech API",
-        "Text-to-speech untuk membacakan respons",
-        "Markdown dan syntax highlighting untuk jawaban teknis",
-        "Image-generation mode dengan downloadable output"
+        "Persistent chat history with localStorage",
+        "Image upload for multimodal input",
+        "Speech-to-text with the Web Speech API",
+        "Text-to-speech for assistant responses",
+        "Markdown and syntax highlighting for technical answers",
+        "Image-generation mode with downloadable output"
       ],
-      challenge: "Tantangan teknisnya adalah menggabungkan beberapa jenis input dan output ke satu flow chat tanpa membuat state menjadi sulit dikelola, sambil tetap membawa beberapa pesan terakhir sebagai context ke model.",
-      outcome: "Hasilnya adalah prototype AI assistant yang menunjukkan integrasi model generatif, multimodal input, persistent client state, dan browser APIs dalam satu interface."
+      challenge: "The technical challenge was combining different input and output modes into one chat flow without letting state become difficult to manage, while still passing recent conversation context back to the model.",
+      outcome: "The result is an AI assistant prototype that demonstrates generative-model integration, multimodal input, persistent client-side state, and browser APIs in one interface."
     }
   },
   {
@@ -137,16 +137,16 @@ export const devProjects = [
     tech: ["React", "Supabase"],
     link: "https://lar-garage.vercel.app/",
     image: "/Project_Garage.jpg",
-    desc: "Sistem manajemen operasional bengkel terintegrasi untuk tracking servis."
+    desc: "An integrated workshop-management system for tracking service operations and related records."
   },
   {
     slug: "lar-english-story",
     year: "2025",
     title: "Lar-EnglishStory",
-    tech: ["React", "Storage"],
+    tech: ["React", "Local Storage"],
     link: "https://lar-story.vercel.app/",
     image: "/Project_EnglishStory.jpg",
-    desc: "Platform literasi digital bahasa Inggris dengan koleksi cerita interaktif."
+    desc: "An English-literacy platform with an interactive collection of digital stories."
   },
   {
     slug: "lar-inventory",
@@ -155,149 +155,65 @@ export const devProjects = [
     tech: ["React", "Firebase"],
     link: "https://lar-inventory-stok.vercel.app/",
     image: "/Project_Inventory.jpg",
-    desc: "Sistem kontrol stok barang real-time berbasis cloud database."
+    desc: "A real-time inventory-control system backed by a cloud database."
   },
 ];
 
 export const designProjects = [
   {
     year: "2023",
-    title: "Poster Hari Kemerdekaan",
+    title: "Independence Day Poster",
     tech: ["Canva"],
     image: "/Project_Poster.png",
-    desc: "Lomba Membuat Poster di SMKN 1 Kertajati"
+    desc: "Poster created for a design competition at SMKN 1 Kertajati."
   },
   {
     year: "2024",
-    title: "Poster Super Camp BC",
+    title: "Bagja College Super Camp Poster",
     tech: ["Canva"],
     image: "/Project_Poster.jpg",
-    desc: "Poster Super Camp Bagja College"
+    desc: "Promotional poster for the Bagja College Super Camp program."
   },
-  {
+  ...Array.from({ length: 10 }, (_, index) => ({
     year: "2024",
-    title: "Feeds Instagram",
+    title: "Instagram Feed Design",
     tech: ["Canva"],
-    image: "/Project_Feeds (1).jpg",
-    desc: "Project Feeds Instagram Bagja College"
-  },
+    image: `/Project_Feeds (${index + 1}).jpg`,
+    desc: "Instagram feed content designed for Bagja College."
+  })),
   {
     year: "2024",
-    title: "Feeds Instagram",
-    tech: ["Canva"],
-    image: "/Project_Feeds (2).jpg",
-    desc: "Project Feeds Instagram Bagja College"
-  },
-  {
-    year: "2024",
-    title: "Feeds Instagram",
-    tech: ["Canva"],
-    image: "/Project_Feeds (3).jpg",
-    desc: "Project Feeds Instagram Bagja College"
-  },
-  {
-    year: "2024",
-    title: "Feeds Instagram",
-    tech: ["Canva"],
-    image: "/Project_Feeds (4).jpg",
-    desc: "Project Feeds Instagram Bagja College"
-  },
-  {
-    year: "2024",
-    title: "Feeds Instagram",
-    tech: ["Canva"],
-    image: "/Project_Feeds (5).jpg",
-    desc: "Project Feeds Instagram Bagja College"
-  },
-  {
-    year: "2024",
-    title: "Feeds Instagram",
-    tech: ["Canva"],
-    image: "/Project_Feeds (6).jpg",
-    desc: "Project Feeds Instagram Bagja College"
-  },
-  {
-    year: "2024",
-    title: "Feeds Instagram",
-    tech: ["Canva"],
-    image: "/Project_Feeds (7).jpg",
-    desc: "Project Feeds Instagram Bagja College"
-  },
-  {
-    year: "2024",
-    title: "Feeds Instagram",
-    tech: ["Canva"],
-    image: "/Project_Feeds (8).jpg",
-    desc: "Project Feeds Instagram Bagja College"
-  },
-  {
-    year: "2024",
-    title: "Feeds Instagram",
-    tech: ["Canva"],
-    image: "/Project_Feeds (9).jpg",
-    desc: "Project Feeds Instagram Bagja College"
-  },
-  {
-    year: "2024",
-    title: "Feeds Instagram",
-    tech: ["Canva"],
-    image: "/Project_Feeds (10).jpg",
-    desc: "Project Feeds Instagram Bagja College"
-  },
-  {
-    year: "2024",
-    title: "Feeds Instagram",
+    title: "Instagram Feed Design",
     tech: ["Canva"],
     image: "/Project_Feeds (1).png",
-    desc: "Project Feeds Instagram Bagja College"
+    desc: "Instagram feed content designed for Bagja College."
   },
-  {
+  ...Array.from({ length: 4 }, (_, index) => ({
     year: "2024",
-    title: "Brosur Penerimaan Siswa Baru",
+    title: "Student Admission Brochure",
     tech: ["Canva"],
-    image: "/Project_Brosur (1).png",
-    desc: "Project Brosur PPDB Bagja College"
-  },
+    image: `/Project_Brosur (${index + 1}).png`,
+    desc: "Student-admission brochure designed for Bagja College."
+  })),
   {
     year: "2024",
-    title: "Brosur Penerimaan Siswa Baru",
-    tech: ["Canva"],
-    image: "/Project_Brosur (2).png",
-    desc: "Project Brosur PPDB Bagja College"
-  },
-  {
-    year: "2024",
-    title: "Brosur Penerimaan Siswa Baru",
-    tech: ["Canva"],
-    image: "/Project_Brosur (3).png",
-    desc: "Project Brosur PPDB Bagja College"
-  },
-  {
-    year: "2024",
-    title: "Brosur Penerimaan Siswa Baru",
-    tech: ["Canva"],
-    image: "/Project_Brosur (4).png",
-    desc: "Project Brosur PPDB Bagja College"
-  },
-  {
-    year: "2024",
-    title: "Banner",
+    title: "Admission Banner",
     tech: ["Canva"],
     image: "/Project_Banner (1).png",
-    desc: "Project Banner PPDB Bagja College"
+    desc: "Student-admission banner designed for Bagja College."
   },
   {
     year: "2024",
-    title: "Banner",
+    title: "Admission Banner",
     tech: ["Canva"],
     image: "/Project_Banner (3).png",
-    desc: "Project Banner PPDB Bagja College"
+    desc: "Student-admission banner designed for Bagja College."
   },
   {
     year: "2024",
-    title: "Banner",
+    title: "Super Camp Banner",
     tech: ["Canva"],
     image: "/Project_Banner (2).png",
-    desc: "Project Banner SuperCamp Bagja College"
+    desc: "Promotional banner for the Bagja College Super Camp program."
   },
 ];
