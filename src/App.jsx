@@ -24,6 +24,8 @@ import ProjectDetail from "./components/ProjectDetail";
 import Resume from "./components/Resume";
 import Preloader from "./components/Preloader";
 import CommandPalette from "./components/CommandPalette";
+import LanguageToggle from "./components/LanguageToggle";
+import { LanguageProvider } from "./i18n/LanguageContext";
 
 const SectionJumpHandler = () => {
   const location = useLocation();
@@ -85,7 +87,7 @@ const Home = ({ showScrollBtn, scrollToTop }) => (
   </>
 );
 
-function App() {
+function AppContent() {
   const [loading, setLoading] = useState(true);
   const [showScrollBtn, setShowScrollBtn] = useState(false);
 
@@ -117,6 +119,7 @@ function App() {
     <div className="bg-[#050505] min-h-screen text-slate-200 font-sans selection:bg-indigo-500 selection:text-white overflow-x-hidden">
       <Router>
         <SectionJumpHandler />
+        <LanguageToggle />
         <CommandPalette />
 
         <Routes>
@@ -135,6 +138,14 @@ function App() {
         {loading && <Preloader key="preloader" />}
       </AnimatePresence>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <LanguageProvider>
+      <AppContent />
+    </LanguageProvider>
   );
 }
 
