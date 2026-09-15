@@ -1,5 +1,11 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+  useLocation,
+} from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUp } from "lucide-react";
 
@@ -8,6 +14,7 @@ import Hero from "./components/Hero";
 import About from "./components/About";
 import Timeline from "./components/Timeline";
 import Projects from "./components/Projects";
+import CurrentlyBuilding from "./components/CurrentlyBuilding";
 import Services from "./components/Services";
 import Certificates from "./components/Certificates";
 import Contact from "./components/Contact";
@@ -16,6 +23,27 @@ import Archive from "./components/Archive";
 import ProjectDetail from "./components/ProjectDetail";
 import Resume from "./components/Resume";
 import Preloader from "./components/Preloader";
+import CommandPalette from "./components/CommandPalette";
+
+const SectionJumpHandler = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    const target = location.state?.scrollTo;
+    if (location.pathname !== "/" || !target) return undefined;
+
+    const timer = window.setTimeout(() => {
+      document.getElementById(target)?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }, 140);
+
+    return () => window.clearTimeout(timer);
+  }, [location.pathname, location.state]);
+
+  return null;
+};
 
 const Home = ({ showScrollBtn, scrollToTop }) => (
   <>
@@ -26,6 +54,13 @@ const Home = ({ showScrollBtn, scrollToTop }) => (
       <About />
       <Timeline />
       <Projects />
+
+      <section className="bg-[#050505] px-4 md:px-6" aria-label="Currently building">
+        <div className="max-w-7xl mx-auto">
+          <CurrentlyBuilding />
+        </div>
+      </section>
+
       <Services />
       <Certificates />
       <Contact />
@@ -81,6 +116,9 @@ function App() {
   return (
     <div className="bg-[#050505] min-h-screen text-slate-200 font-sans selection:bg-indigo-500 selection:text-white overflow-x-hidden">
       <Router>
+        <SectionJumpHandler />
+        <CommandPalette />
+
         <Routes>
           <Route
             path="/"
