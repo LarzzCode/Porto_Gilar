@@ -19,14 +19,17 @@ import Preloader from "./components/Preloader";
 const Home = ({ showScrollBtn, scrollToTop }) => (
   <>
     <Navbar />
-    <Hero />
-    <About />
-    <Timeline />
-    <Projects />
-    <Services />
-    <Certificates />
-    <Contact />
-    <Footer />
+
+    <main className="pb-[calc(env(safe-area-inset-bottom)+7rem)] md:pb-0">
+      <Hero />
+      <About />
+      <Timeline />
+      <Projects />
+      <Services />
+      <Certificates />
+      <Contact />
+      <Footer />
+    </main>
 
     <AnimatePresence>
       {showScrollBtn && (
@@ -36,10 +39,10 @@ const Home = ({ showScrollBtn, scrollToTop }) => (
           exit={{ opacity: 0, scale: 0, y: 20 }}
           transition={{ duration: 0.3 }}
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 z-50 p-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white shadow-lg hover:bg-indigo-600 hover:border-indigo-500 hover:scale-110 transition-all duration-300 group"
+          className="fixed bottom-[calc(env(safe-area-inset-bottom)+6.75rem)] right-4 md:bottom-8 md:right-8 z-40 md:z-50 p-3 rounded-full bg-[#151515]/90 backdrop-blur-md border border-white/20 text-white shadow-xl hover:bg-indigo-600 hover:border-indigo-500 hover:scale-110 transition-all duration-300 group"
           aria-label="Scroll to top"
         >
-          <ArrowUp size={24} className="group-hover:-translate-y-1 transition-transform duration-300" />
+          <ArrowUp size={22} className="group-hover:-translate-y-1 transition-transform duration-300" />
         </motion.button>
       )}
     </AnimatePresence>
@@ -63,7 +66,7 @@ function App() {
       setShowScrollBtn(window.scrollY > 300);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -75,7 +78,7 @@ function App() {
   };
 
   return (
-    <div className="bg-[#050505] min-h-screen text-slate-200 font-sans selection:bg-indigo-500 selection:text-white">
+    <div className="bg-[#050505] min-h-screen text-slate-200 font-sans selection:bg-indigo-500 selection:text-white overflow-x-hidden">
       <Router>
         <Routes>
           <Route
