@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ExternalLink, ChevronRight, ChevronLeft } from "lucide-react";
 import { devProjects } from "../data/projectData";
 
-const Projects = ({ onViewArchive }) => {
+const Projects = () => {
+  const navigate = useNavigate();
   const allProjects = devProjects;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
@@ -60,14 +62,14 @@ const Projects = ({ onViewArchive }) => {
           </motion.div>
 
           <button
-            onClick={onViewArchive}
+            onClick={() => navigate("/archive")}
             className="group flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-xs md:text-sm font-bold tracking-widest uppercase border-b border-white/10 hover:border-white pb-2"
           >
             View All Archives <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
           </button>
         </div>
 
-        <div className="relative w-full h-[580px] md:h-[500px] rounded-2xl md:rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-[#0F0F0F]">
+        <div className="relative w-full h-[620px] md:h-[500px] rounded-2xl md:rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-[#0F0F0F]">
           <AnimatePresence initial={false} custom={direction}>
             <motion.div
               key={currentProject.title}
@@ -132,7 +134,7 @@ const Projects = ({ onViewArchive }) => {
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.5 }}
-                  className="flex flex-wrap gap-2 md:gap-3 mb-8 md:mb-10 pr-16 md:pr-0"
+                  className="flex flex-wrap gap-2 md:gap-3 mb-7 md:mb-8 pr-16 md:pr-0"
                 >
                   {currentProject.tech.map((tech) => (
                     <span key={tech} className="px-3 py-1 md:px-4 md:py-2 bg-white/10 backdrop-blur-md rounded-full text-xs md:text-sm font-medium border border-white/10 text-white">
@@ -141,22 +143,33 @@ const Projects = ({ onViewArchive }) => {
                   ))}
                 </motion.div>
 
-                <motion.a
+                <motion.div
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.6 }}
-                  href={currentProject.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full md:w-auto text-center px-6 py-3 md:px-8 md:py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl md:rounded-full font-bold transition-all shadow-lg shadow-indigo-500/30 flex items-center justify-center gap-2 group text-sm md:text-base"
+                  className="w-full flex flex-col sm:flex-row gap-3"
                 >
-                  View Live Project <ExternalLink size={16} className="group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" />
-                </motion.a>
+                  <button
+                    onClick={() => navigate(`/projects/${currentProject.slug}`)}
+                    className="w-full sm:w-auto px-6 py-3 md:px-8 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl md:rounded-full font-bold transition-all shadow-lg shadow-indigo-500/30 flex items-center justify-center gap-2 group text-sm md:text-base"
+                  >
+                    View Case Study <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                  </button>
+
+                  <a
+                    href={currentProject.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full sm:w-auto px-6 py-3 md:px-8 bg-white/10 hover:bg-white/15 border border-white/10 text-white rounded-xl md:rounded-full font-bold transition-all flex items-center justify-center gap-2 group text-sm md:text-base"
+                  >
+                    Live Project <ExternalLink size={16} className="group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" />
+                  </a>
+                </motion.div>
               </div>
             </motion.div>
           </AnimatePresence>
 
-          <div className="absolute bottom-28 md:bottom-8 right-6 md:right-8 flex flex-col md:flex-row gap-3 md:gap-4 z-20">
+          <div className="absolute bottom-32 md:bottom-8 right-6 md:right-8 flex flex-col md:flex-row gap-3 md:gap-4 z-20">
             <button
               onClick={() => paginate(1)}
               aria-label="Next project"
