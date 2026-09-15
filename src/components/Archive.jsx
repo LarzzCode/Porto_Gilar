@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ArrowUpRight, Code, Palette, X, Maximize2, ArrowUp } from "lucide-react";
 import { devProjects, designProjects } from "../data/projectData";
 
-const Archive = ({ onBack }) => {
+const Archive = () => {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("dev");
   const [selectedImage, setSelectedImage] = useState(null);
   const [showScrollBtn, setShowScrollBtn] = useState(false);
@@ -25,6 +27,13 @@ const Archive = ({ onBack }) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const handleBack = () => {
+    navigate("/");
+    setTimeout(() => {
+      document.getElementById("projects")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 100);
+  };
+
   const projectsToDisplay = activeTab === "dev" ? devProjects : designProjects;
 
   return (
@@ -35,15 +44,18 @@ const Archive = ({ onBack }) => {
         <div className="mb-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-b border-white/5 pb-8">
           <div>
             <button
-              onClick={onBack}
+              onClick={handleBack}
               className="group flex items-center gap-2 text-slate-400 hover:text-white mb-6 transition-colors text-sm font-medium"
             >
               <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-              Back
+              Back to Projects
             </button>
             <h1 className="text-4xl md:text-6xl font-bold text-white tracking-tight">
               Archive<span className="text-indigo-500">.</span>
             </h1>
+            <p className="text-slate-500 mt-3 max-w-xl">
+              Development projects open into a dedicated case-study page. Design work can be previewed directly here.
+            </p>
           </div>
 
           <div className="flex flex-col items-end gap-4">
@@ -77,10 +89,6 @@ const Archive = ({ onBack }) => {
         >
           {projectsToDisplay.map((project, index) => {
             const isDesignMode = activeTab === "design";
-            const CardWrapper = isDesignMode ? "div" : "a";
-            const wrapperProps = isDesignMode
-              ? { onClick: () => setSelectedImage(project.image), className: "cursor-zoom-in" }
-              : { href: project.link, target: "_blank", rel: "noreferrer", className: "cursor-pointer" };
 
             return (
               <motion.div
@@ -91,11 +99,20 @@ const Archive = ({ onBack }) => {
                 viewport={{ once: true, margin: "100px" }}
                 className="group h-full [content-visibility:auto] [contain-intrinsic-size:420px]"
               >
-                <CardWrapper
-                  {...wrapperProps}
-                  className={`flex flex-col h-full bg-[#0F0F0F] rounded-2xl overflow-hidden border border-white/5 hover:border-white/10 transition-all duration-300 relative hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/50 ${wrapperProps.className}`}
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (isDesignMode) {
+                      setSelectedImage(project.image);
+                    } else {
+                      navigate(`/projects/${project.slug}`);
+                    }
+                  }}
+                  className={`w-full text-left flex flex-col h-full bg-[#0F0F0F] rounded-2xl overflow-hidden border border-white/5 hover:border-white/10 transition-all duration-300 relative hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/50 ${
+                    isDesignMode ? "cursor-zoom-in" : "cursor-pointer"
+                  }`}
                 >
-                  <div className="p-2 shrink-0">
+                  <div className="p-2 shrink-0 w-full">
                     <div className="relative w-full aspect-[16/9] rounded-xl overflow-hidden bg-black/50 border border-white/5">
                       <img
                         src={project.image}
@@ -115,15 +132,15 @@ const Archive = ({ onBack }) => {
                     </div>
                   </div>
 
-                  <div className="p-5 pt-2 flex flex-col flex-1">
-                    <div className="flex justify-between items-center mb-3">
+                  <div className="p-5 pt-2 flex flex-col flex-1 w-full">
+                    <div className="flex justify-between items-center mb-3 gap-3">
                       <h3 className="text-lg font-bold text-white group-hover:text-indigo-400 transition-colors">
                         {project.title}
                       </h3>
                       {isDesignMode ? (
-                        <Maximize2 size={18} className="text-purple-500" />
+                        <Maximize2 size={18} className="text-purple-500 shrink-0" />
                       ) : (
-                        <ArrowUpRight size={18} className="text-slate-600 group-hover:text-white" />
+                        <ArrowUpRight size={18} className="text-slate-600 group-hover:text-white shrink-0" />
                       )}
                     </div>
                     <p className="text-slate-400 text-sm leading-relaxed line-clamp-2 mb-6">{project.desc}</p>
@@ -135,7 +152,7 @@ const Archive = ({ onBack }) => {
                       ))}
                     </div>
                   </div>
-                </CardWrapper>
+                </button>
               </motion.div>
             );
           })}
