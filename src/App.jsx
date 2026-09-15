@@ -14,6 +14,7 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import Archive from "./components/Archive";
 import ProjectDetail from "./components/ProjectDetail";
+import Resume from "./components/Resume";
 import Preloader from "./components/Preloader";
 
 const Home = ({ showScrollBtn, scrollToTop }) => (
@@ -87,6 +88,7 @@ function App() {
           />
           <Route path="/archive" element={<Archive />} />
           <Route path="/projects/:slug" element={<ProjectDetail />} />
+          <Route path="/resume" element={<Resume />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Router>
