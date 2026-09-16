@@ -1,3 +1,6 @@
+import collegeCommandCenterPreview from "./collegeCommandCenterPreview";
+import dityaToolsPreview from "./dityaToolsPreview";
+
 export const latestProjects = [
   {
     slug: "college-command-center",
@@ -6,7 +9,7 @@ export const latestProjects = [
     tech: ["React", "TypeScript", "Vite", "PWA"],
     link: "https://college-command-center-lar.vercel.app/",
     source: "https://github.com/LarzzCode/college-command-center",
-    image: null,
+    image: collegeCommandCenterPreview,
     isNew: true,
     desc: "A personal study command center for Universitas Terbuka that organizes courses, Tuton activities, deadlines, targets, progress, and installable PWA workflows in one dashboard.",
   },
@@ -17,7 +20,7 @@ export const latestProjects = [
     tech: ["React", "TypeScript", "Tailwind CSS", "Vite"],
     link: "https://ditya-tools.vercel.app/",
     source: "https://github.com/LarzzCode/ap-tools",
-    image: null,
+    image: dityaToolsPreview,
     isNew: true,
     desc: "An ad-free browser utility suite built for practical everyday tasks, combining multiple lightweight tools inside one clean and responsive interface.",
   },
