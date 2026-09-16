@@ -23,7 +23,6 @@ import ProjectDetail from "./components/ProjectDetail";
 import Resume from "./components/Resume";
 import Preloader from "./components/Preloader";
 import CommandPalette from "./components/CommandPalette";
-import LanguageToggle from "./components/LanguageToggle";
 import { LanguageProvider } from "./i18n/LanguageContext";
 
 const SectionJumpHandler = () => {
@@ -84,34 +83,24 @@ function AppContent() {
   const [showScrollBtn, setShowScrollBtn] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-
+    const timer = setTimeout(() => setLoading(false), 1000);
     return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setShowScrollBtn(window.scrollY > 300);
-    };
-
+    const handleScroll = () => setShowScrollBtn(window.scrollY > 300);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
     <div className="bg-[#050505] min-h-screen text-slate-200 font-sans selection:bg-indigo-500 selection:text-white overflow-x-hidden">
       <Router>
         <SectionJumpHandler />
-        <LanguageToggle />
         <CommandPalette />
 
         <Routes>
