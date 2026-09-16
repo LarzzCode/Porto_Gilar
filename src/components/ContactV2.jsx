@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Mail, MapPin, Send, Phone, Linkedin, Github, ArrowUpRight, FileText } from "lucide-react";
+import { Mail, MapPin, Send, Phone, Linkedin, Github, ArrowUpRight, FileText, Languages } from "lucide-react";
 import { useLanguage } from "../i18n/LanguageContext";
 
 const socials = [
@@ -11,7 +11,7 @@ const socials = [
 
 const ContactV2 = () => {
   const navigate = useNavigate();
-  const { isId } = useLanguage();
+  const { isId, language, toggleLanguage } = useLanguage();
   const [form, setForm] = useState({ name: "", email: "", message: "" });
 
   const copy = isId
@@ -24,6 +24,7 @@ const ContactV2 = () => {
         location: "Lokasi",
         resume: "Lihat Resume",
         online: "Temukan saya online",
+        language: "Bahasa",
         messageLabel: "KIRIM PESAN",
         messageTitle: "Ceritakan apa yang ingin Anda bangun.",
         name: "Nama Lengkap",
@@ -40,6 +41,7 @@ const ContactV2 = () => {
         location: "Location",
         resume: "View Resume",
         online: "Find me online",
+        language: "Language",
         messageLabel: "SEND A MESSAGE",
         messageTitle: "Tell me what you want to build.",
         name: "Full Name",
@@ -92,7 +94,18 @@ const ContactV2 = () => {
             <button type="button" onClick={() => navigate("/resume")} className="w-full mb-8 inline-flex items-center justify-center gap-2 rounded-2xl border border-brand-blue-light/20 bg-brand-blue-dark/10 px-5 py-4 text-brand-blue-light font-semibold hover:bg-brand-blue-dark/20 hover:border-brand-blue-light/40 transition-all"><FileText size={18} /> {copy.resume}</button>
 
             <div className="border-t border-white/10 pt-6">
-              <p className="text-xs uppercase tracking-[0.2em] text-brand-cream/40 mb-4">{copy.online}</p>
+              <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
+                <p className="text-xs uppercase tracking-[0.2em] text-brand-cream/40">{copy.online}</p>
+                <button
+                  type="button"
+                  onClick={toggleLanguage}
+                  className="xl:hidden inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-2 text-xs font-semibold text-brand-cream/55 hover:text-white hover:border-brand-blue-light/30 transition-colors"
+                  aria-label={language === "en" ? "Switch to Indonesian" : "Ganti ke bahasa Inggris"}
+                >
+                  <Languages size={14} /> {copy.language}: {language.toUpperCase()}
+                </button>
+              </div>
+
               <div className="flex flex-wrap gap-3">
                 {socials.map((social) => {
                   const Icon = social.icon;
