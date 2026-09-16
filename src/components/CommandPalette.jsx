@@ -35,14 +35,20 @@ const CommandPalette = () => {
   );
 
   const copy = isId
-    ? { trigger: "Cari", placeholder: "Cari portfolio…", close: "Tutup command palette", noMatch: "Perintah tidak ditemukan", try: "Coba “finance”, “resume”, “layanan”, atau “kontak”.", open: "Buka", page: "Halaman", jump: "Lompat", footer: "↑ ↓ Navigasi · Enter Buka · Esc Tutup" }
-    : { trigger: "Search", placeholder: "Search portfolio…", close: "Close command palette", noMatch: "No matching command", try: "Try “finance”, “resume”, “services”, or “contact”.", open: "Open", page: "Page", jump: "Jump", footer: "↑ ↓ Navigate · Enter Open · Esc Close" };
+    ? { placeholder: "Cari portfolio…", close: "Tutup command palette", noMatch: "Perintah tidak ditemukan", try: "Coba ‘finance’, ‘resume’, ‘layanan’, atau ‘kontak’.", open: "Buka", page: "Halaman", jump: "Lompat", footer: "↑ ↓ Navigasi · Enter Buka · Esc Tutup" }
+    : { placeholder: "Search portfolio…", close: "Close command palette", noMatch: "No matching command", try: "Try ‘finance’, ‘resume’, ‘services’, or ‘contact’.", open: "Open", page: "Page", jump: "Jump", footer: "↑ ↓ Navigate · Enter Open · Esc Close" };
 
   const filteredCommands = useMemo(() => {
     const normalized = query.trim().toLowerCase();
     if (!normalized) return commands;
     return commands.filter((command) => `${command.label} ${command.description} ${command.keywords}`.toLowerCase().includes(normalized));
   }, [commands, query]);
+
+  useEffect(() => {
+    const openPalette = () => setOpen(true);
+    window.addEventListener("portfolio:command-palette", openPalette);
+    return () => window.removeEventListener("portfolio:command-palette", openPalette);
+  }, []);
 
   useEffect(() => {
     if (!open) return undefined;
@@ -95,45 +101,39 @@ const CommandPalette = () => {
   }, [activeIndex, filteredCommands, location.pathname, open]);
 
   return (
-    <>
-      <button type="button" onClick={() => setOpen(true)} className="fixed bottom-[calc(env(safe-area-inset-bottom)+6.75rem)] left-4 sm:left-6 xl:bottom-8 xl:left-8 z-40 xl:z-50 inline-flex items-center gap-2 rounded-full border border-white/15 bg-[#151515]/90 px-3.5 py-3 text-slate-200 shadow-xl backdrop-blur-md transition-all hover:border-indigo-400/40 hover:bg-[#1a1a1f] hover:text-white" aria-label={copy.trigger}>
-        <Search size={19} /><span className="hidden sm:inline text-xs font-semibold">{copy.trigger}</span><kbd className="hidden xl:inline rounded-md border border-white/10 bg-white/5 px-1.5 py-0.5 font-mono text-[10px] text-slate-500">Ctrl K</kbd>
-      </button>
+    <AnimatePresence>
+      {open && (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[120] bg-black/70 px-3 pt-[8vh] sm:px-6 sm:pt-[12vh] backdrop-blur-sm" onMouseDown={(event) => { if (event.target === event.currentTarget) closePalette(); }}>
+          <motion.div initial={{ opacity: 0, y: -16, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -12, scale: 0.98 }} transition={{ duration: 0.18 }} className="mx-auto w-full max-w-2xl overflow-hidden rounded-2xl border border-white/10 bg-[#0b0b0d] shadow-2xl shadow-black/60" role="dialog" aria-modal="true" aria-label="Portfolio command palette">
+            <div className="flex items-center gap-3 border-b border-white/8 px-4 sm:px-5">
+              <Search size={20} className="shrink-0 text-indigo-400" />
+              <input ref={inputRef} value={query} onChange={(event) => setQuery(event.target.value)} placeholder={copy.placeholder} className="h-14 sm:h-16 flex-1 bg-transparent text-base text-white outline-none placeholder:text-slate-600" aria-label={copy.placeholder} />
+              <button type="button" onClick={closePalette} className="rounded-lg p-2 text-slate-500 transition-colors hover:bg-white/5 hover:text-white" aria-label={copy.close}><X size={18} /></button>
+            </div>
 
-      <AnimatePresence>
-        {open && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[120] bg-black/70 px-3 pt-[8vh] sm:px-6 sm:pt-[12vh] backdrop-blur-sm" onMouseDown={(event) => { if (event.target === event.currentTarget) closePalette(); }}>
-            <motion.div initial={{ opacity: 0, y: -16, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -12, scale: 0.98 }} transition={{ duration: 0.18 }} className="mx-auto w-full max-w-2xl overflow-hidden rounded-2xl border border-white/10 bg-[#0b0b0d] shadow-2xl shadow-black/60" role="dialog" aria-modal="true" aria-label="Portfolio command palette">
-              <div className="flex items-center gap-3 border-b border-white/8 px-4 sm:px-5">
-                <Search size={20} className="shrink-0 text-indigo-400" />
-                <input ref={inputRef} value={query} onChange={(event) => setQuery(event.target.value)} placeholder={copy.placeholder} className="h-14 sm:h-16 flex-1 bg-transparent text-base text-white outline-none placeholder:text-slate-600" aria-label={copy.trigger} />
-                <button type="button" onClick={closePalette} className="rounded-lg p-2 text-slate-500 transition-colors hover:bg-white/5 hover:text-white" aria-label={copy.close}><X size={18} /></button>
-              </div>
+            <div className="max-h-[58vh] overflow-y-auto p-2 sm:p-3">
+              {filteredCommands.length ? filteredCommands.map((command, index) => {
+                const Icon = command.icon;
+                const isActive = index === activeIndex;
+                return (
+                  <button key={command.id} type="button" onMouseEnter={() => setActiveIndex(index)} onClick={() => runCommand(command)} className={`w-full rounded-xl px-3 py-3 text-left transition-colors ${isActive ? "bg-indigo-600/15 text-white ring-1 ring-indigo-500/25" : "text-slate-300 hover:bg-white/[0.04]"}`}>
+                    <div className="flex items-center gap-3">
+                      <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border ${isActive ? "border-indigo-400/25 bg-indigo-500/15 text-indigo-300" : "border-white/8 bg-white/[0.03] text-slate-500"}`}><Icon size={18} /></div>
+                      <div className="min-w-0 flex-1"><p className="truncate text-sm font-semibold">{command.label}</p><p className="mt-0.5 truncate text-xs text-slate-500">{command.description}</p></div>
+                      <span className="hidden sm:block text-[10px] uppercase tracking-[0.14em] text-slate-600">{command.type === "external" ? copy.open : command.type === "route" ? copy.page : copy.jump}</span>
+                    </div>
+                  </button>
+                );
+              }) : (
+                <div className="px-4 py-12 text-center"><Search size={24} className="mx-auto mb-3 text-slate-700" /><p className="text-sm font-medium text-slate-400">{copy.noMatch}</p><p className="mt-1 text-xs text-slate-600">{copy.try}</p></div>
+              )}
+            </div>
 
-              <div className="max-h-[58vh] overflow-y-auto p-2 sm:p-3">
-                {filteredCommands.length ? filteredCommands.map((command, index) => {
-                  const Icon = command.icon;
-                  const isActive = index === activeIndex;
-                  return (
-                    <button key={command.id} type="button" onMouseEnter={() => setActiveIndex(index)} onClick={() => runCommand(command)} className={`w-full rounded-xl px-3 py-3 text-left transition-colors ${isActive ? "bg-indigo-600/15 text-white ring-1 ring-indigo-500/25" : "text-slate-300 hover:bg-white/[0.04]"}`}>
-                      <div className="flex items-center gap-3">
-                        <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border ${isActive ? "border-indigo-400/25 bg-indigo-500/15 text-indigo-300" : "border-white/8 bg-white/[0.03] text-slate-500"}`}><Icon size={18} /></div>
-                        <div className="min-w-0 flex-1"><p className="truncate text-sm font-semibold">{command.label}</p><p className="mt-0.5 truncate text-xs text-slate-500">{command.description}</p></div>
-                        <span className="hidden sm:block text-[10px] uppercase tracking-[0.14em] text-slate-600">{command.type === "external" ? copy.open : command.type === "route" ? copy.page : copy.jump}</span>
-                      </div>
-                    </button>
-                  );
-                }) : (
-                  <div className="px-4 py-12 text-center"><Search size={24} className="mx-auto mb-3 text-slate-700" /><p className="text-sm font-medium text-slate-400">{copy.noMatch}</p><p className="mt-1 text-xs text-slate-600">{copy.try}</p></div>
-                )}
-              </div>
-
-              <div className="hidden sm:flex items-center justify-between border-t border-white/8 px-5 py-3 text-[10px] font-mono text-slate-600"><span>{copy.footer}</span><span>Ctrl / ⌘ + K</span></div>
-            </motion.div>
+            <div className="hidden sm:flex items-center justify-between border-t border-white/8 px-5 py-3 text-[10px] font-mono text-slate-600"><span>{copy.footer}</span><span>Ctrl / ⌘ + K</span></div>
           </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 
