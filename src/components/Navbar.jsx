@@ -1,6 +1,16 @@
 import { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
-import { Home, User, Briefcase, Mail, Award, Clock, Monitor } from "lucide-react";
+import {
+  Home,
+  User,
+  Briefcase,
+  Mail,
+  Award,
+  Clock,
+  Monitor,
+  Search,
+  Languages,
+} from "lucide-react";
 import { useLanguage } from "../i18n/LanguageContext";
 
 const mobileSectionMap = {
@@ -8,7 +18,7 @@ const mobileSectionMap = {
 };
 
 const Navbar = () => {
-  const { isId } = useLanguage();
+  const { isId, language, toggleLanguage } = useLanguage();
   const [activeSection, setActiveSection] = useState("home");
 
   const navLinks = useMemo(
@@ -42,10 +52,7 @@ const Navbar = () => {
     const updateActiveSection = () => {
       const viewportHeight = window.visualViewport?.height || window.innerHeight;
       const focusY = viewportHeight * 0.42;
-
-      const sections = navLinks
-        .map((link) => document.getElementById(link.id))
-        .filter(Boolean);
+      const sections = navLinks.map((link) => document.getElementById(link.id)).filter(Boolean);
 
       const sectionAtFocus = sections.find((section) => {
         const rect = section.getBoundingClientRect();
@@ -59,10 +66,7 @@ const Navbar = () => {
       }
 
       const visibleSections = sections
-        .map((section) => ({
-          section,
-          rect: section.getBoundingClientRect(),
-        }))
+        .map((section) => ({ section, rect: section.getBoundingClientRect() }))
         .filter(({ rect }) => rect.bottom > 0 && rect.top < viewportHeight);
 
       if (visibleSections.length > 0) {
@@ -71,7 +75,6 @@ const Navbar = () => {
           const currentDistance = Math.abs(current.rect.top - focusY);
           return currentDistance < bestDistance ? current : best;
         });
-
         setActiveSection(closest.section.id);
       } else if (window.scrollY <= 8) {
         setActiveSection("home");
@@ -91,7 +94,6 @@ const Navbar = () => {
     window.addEventListener("resize", requestUpdate, { passive: true });
     window.visualViewport?.addEventListener("resize", requestUpdate, { passive: true });
     window.visualViewport?.addEventListener("scroll", requestUpdate, { passive: true });
-
     requestUpdate();
 
     return () => {
@@ -107,6 +109,10 @@ const Navbar = () => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
+  const openCommandPalette = () => {
+    window.dispatchEvent(new CustomEvent("portfolio:command-palette"));
+  };
+
   const mobileActiveSection = mobileSectionMap[activeSection] || activeSection;
 
   return (
@@ -114,7 +120,7 @@ const Navbar = () => {
       <div className="hidden xl:flex fixed top-6 left-1/2 -translate-x-1/2 z-50 max-w-[calc(100vw-2rem)]">
         <nav
           aria-label={isId ? "Navigasi utama" : "Primary navigation"}
-          className="flex gap-1 bg-black/60 backdrop-blur-xl border border-white/10 rounded-full p-1 shadow-2xl ring-1 ring-white/5 whitespace-nowrap"
+          className="flex items-center gap-1 bg-black/60 backdrop-blur-xl border border-white/10 rounded-full p-1 shadow-2xl ring-1 ring-white/5 whitespace-nowrap"
         >
           {navLinks.map((item) => (
             <button
@@ -134,6 +140,28 @@ const Navbar = () => {
               <span className="relative z-10">{item.label}</span>
             </button>
           ))}
+
+          <span className="mx-1 h-5 w-px bg-white/10" />
+
+          <button
+            type="button"
+            onClick={openCommandPalette}
+            className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-xs font-medium text-slate-500 hover:text-white hover:bg-white/5 transition-colors"
+            aria-label={isId ? "Cari di portfolio" : "Search portfolio"}
+            title="Ctrl / ⌘ + K"
+          >
+            <Search size={15} />
+            <span className="hidden 2xl:inline">{isId ? "Cari" : "Search"}</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={toggleLanguage}
+            className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-xs font-semibold text-slate-500 hover:text-white hover:bg-white/5 transition-colors"
+            aria-label={language === "en" ? "Switch to Indonesian" : "Ganti ke bahasa Inggris"}
+          >
+            <Languages size={15} /> {language.toUpperCase()}
+          </button>
         </nav>
       </div>
 
