@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Navigate,
   useLocation,
 } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
@@ -21,6 +20,7 @@ import Footer from "./components/Footer";
 import Archive from "./components/Archive";
 import ProjectDetail from "./components/ProjectDetail";
 import Resume from "./components/Resume";
+import NotFound from "./components/NotFound";
 import Preloader from "./components/Preloader";
 import CommandPalette from "./components/CommandPalette";
 import { LanguageProvider } from "./i18n/LanguageContext";
@@ -37,7 +37,7 @@ const SectionJumpHandler = () => {
         behavior: "smooth",
         block: "start",
       });
-    }, 140);
+    }, 180);
 
     return () => window.clearTimeout(timer);
   }, [location.pathname, location.state]);
@@ -78,13 +78,41 @@ const Home = ({ showScrollBtn, scrollToTop }) => (
   </>
 );
 
+const AnimatedRoutes = ({ showScrollBtn, scrollToTop }) => {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode="wait" initial={false}>
+      <motion.div
+        key={location.pathname}
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -6 }}
+        transition={{ duration: 0.22, ease: "easeOut" }}
+        className="min-h-screen"
+      >
+        <Routes location={location}>
+          <Route
+            path="/"
+            element={<Home showScrollBtn={showScrollBtn} scrollToTop={scrollToTop} />}
+          />
+          <Route path="/archive" element={<Archive />} />
+          <Route path="/projects/:slug" element={<ProjectDetail />} />
+          <Route path="/resume" element={<Resume />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </motion.div>
+    </AnimatePresence>
+  );
+};
+
 function AppContent() {
   const [loading, setLoading] = useState(true);
   const [showScrollBtn, setShowScrollBtn] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 1000);
-    return () => clearTimeout(timer);
+    return () => window.clearTimeout(timer);
   }, []);
 
   useEffect(() => {
@@ -102,17 +130,7 @@ function AppContent() {
       <Router>
         <SectionJumpHandler />
         <CommandPalette />
-
-        <Routes>
-          <Route
-            path="/"
-            element={<Home showScrollBtn={showScrollBtn} scrollToTop={scrollToTop} />}
-          />
-          <Route path="/archive" element={<Archive />} />
-          <Route path="/projects/:slug" element={<ProjectDetail />} />
-          <Route path="/resume" element={<Resume />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
+        <AnimatedRoutes showScrollBtn={showScrollBtn} scrollToTop={scrollToTop} />
       </Router>
 
       <AnimatePresence mode="wait">
