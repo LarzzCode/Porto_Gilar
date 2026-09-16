@@ -20,6 +20,7 @@ import { devProjects } from "../data/projectData";
 import { latestProjects } from "../data/latestProjects";
 import { useLanguage } from "../i18n/LanguageContext";
 import { localizeProject } from "../i18n/projectTranslations";
+import GitHubChangelog from "./GitHubChangelog";
 
 const allProjects = [...latestProjects, ...devProjects];
 
@@ -348,6 +349,8 @@ const ProjectDetail = () => {
             </div>
           </section>
         )}
+
+        <GitHubChangelog source={project.source} />
 
         <button
           onClick={() => navigate(`/projects/${nextProject.slug}`)}
