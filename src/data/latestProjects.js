@@ -1,4 +1,3 @@
-import collegeCommandCenterPreview from "./collegeCommandCenterPreview";
 import dityaToolsPreview from "./dityaToolsPreview";
 
 export const latestProjects = [
@@ -9,7 +8,8 @@ export const latestProjects = [
     tech: ["React", "TypeScript", "Vite", "PWA"],
     link: "https://college-command-center-lar.vercel.app/",
     source: "https://github.com/LarzzCode/college-command-center",
-    image: collegeCommandCenterPreview,
+    image: null,
+    livePreview: true,
     isNew: true,
     desc: "A personal study command center for Universitas Terbuka that organizes courses, Tuton activities, deadlines, targets, progress, and installable PWA workflows in one dashboard.",
   },
