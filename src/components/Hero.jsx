@@ -17,8 +17,7 @@ const Hero = () => {
   const copy = isId
     ? {
         badge: "SISTEM INFORMASI • WEB DEVELOPMENT • SOLUSI DIGITAL",
-        headlineA: "Saya mengubah alur kerja dunia nyata menjadi",
-        headlineB: " produk digital yang praktis.",
+        headlineA: "GILAR WAHIDITYA",
         intro: "Saya Gilar Wahiditya Eka Putra, mahasiswa Sistem Informasi yang menggabungkan web development, desain, dan pengalaman operasional langsung untuk membangun website, dashboard, dan tools digital yang benar-benar berguna—bukan hanya terlihat menarik.",
         work: "Lihat Project Saya",
         together: "Mari Bekerja Sama",
@@ -28,8 +27,7 @@ const Hero = () => {
       }
     : {
         badge: "INFORMATION SYSTEMS • WEB DEVELOPMENT • DIGITAL SOLUTIONS",
-        headlineA: "I turn real-world workflows into",
-        headlineB: " practical digital products.",
+        headlineA: "GILAR WAHIDITYA",
         intro: "I'm Gilar Wahiditya Eka Putra, an Information Systems student who combines web development, design, and hands-on operational experience to build websites, dashboards, and digital tools that are useful—not just visually impressive.",
         work: "Explore My Work",
         together: "Let's Work Together",
