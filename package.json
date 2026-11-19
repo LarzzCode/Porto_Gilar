@@ -1,7 +1,7 @@
 {
-  "name": "port.json",
+  "name": "porto-gilar",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,20 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@emailjs/browser": "^4.4.1",
     "@tailwindcss/vite": "^4.1.17",
-    "@tsparticles/engine": "^3.9.1",
-    "@tsparticles/react": "^3.0.0",
     "framer-motion": "^12.23.24",
     "lucide-react": "^0.555.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-parallax-tilt": "^1.7.314",
     "react-router-dom": "^7.9.6",
-    "react-scroll": "^1.9.3",
-    "swiper": "^12.0.3",
-    "tailwindcss": "^4.1.17",
-    "tsparticles-slim": "^2.12.0"
+    "tailwindcss": "^4.1.17"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

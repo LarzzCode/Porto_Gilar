@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+@theme {
+  --color-brand-black: #050505;
+  --color-brand-cream: #EFECE3;
+  --color-brand-blue-dark: #4A70A9;
+  --color-brand-blue-light: #8FABD4;
+}
+
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 6rem;
@@ -10,9 +17,9 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100%;
-  background-color: #000000;
+  background-color: #050505;
   color: #EFECE3;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins', system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -28,17 +35,52 @@ section[id] {
   scroll-margin-top: 6rem;
 }
 
+a[href],
 button,
-a {
+summary,
+select,
+label[for],
+input[type="checkbox"],
+input[type="radio"],
+[role="button"],
+[role="tab"],
+[role="switch"] {
+  cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Custom Scrollbar */
+button:disabled,
+input:disabled,
+select:disabled,
+textarea:disabled,
+[aria-disabled="true"] {
+  cursor: not-allowed;
+}
+
+:where(a[href], button, input, select, textarea, summary, [role="button"], [role="tab"]):focus-visible {
+  outline: 2px solid #8FABD4;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 ::-webkit-scrollbar {
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #000000;
+  background: #050505;
 }
 ::-webkit-scrollbar-thumb {
   background: #4A70A9;
@@ -46,11 +88,4 @@ a {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #8FABD4;
-}
-
-.nav-item-active {
-  background-color: #EFECE3 !important;
-  color: #000000 !important;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  font-weight: 600;
 }

@@ -3,6 +3,7 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
+  Navigate,
   useLocation,
 } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
@@ -49,7 +50,7 @@ const Home = ({ showScrollBtn, scrollToTop }) => (
   <>
     <Navbar />
 
-    <main className="pb-[calc(env(safe-area-inset-bottom)+7rem)] xl:pb-0">
+    <main id="main-content" className="pb-[calc(env(safe-area-inset-bottom)+7rem)] xl:pb-0">
       <Hero />
       <About />
       <Timeline />
@@ -57,21 +58,23 @@ const Home = ({ showScrollBtn, scrollToTop }) => (
       <Services />
       <Certificates />
       <ContactV2 />
-      <Footer />
     </main>
+
+    <Footer />
 
     <AnimatePresence>
       {showScrollBtn && (
         <motion.button
+          type="button"
           initial={{ opacity: 0, scale: 0, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0, y: 20 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.25 }}
           onClick={scrollToTop}
-          className="fixed bottom-[calc(env(safe-area-inset-bottom)+6.75rem)] right-4 sm:right-6 xl:bottom-8 xl:right-8 z-40 xl:z-50 p-3 rounded-full bg-[#151515]/90 backdrop-blur-md border border-white/20 text-white shadow-xl hover:bg-indigo-600 hover:border-indigo-500 hover:scale-110 transition-all duration-300 group"
+          className="fixed bottom-[calc(env(safe-area-inset-bottom)+6.75rem)] right-4 sm:right-6 xl:bottom-8 xl:right-8 z-40 xl:z-50 p-3.5 rounded-full bg-[#151515]/95 border border-white/20 text-white shadow-xl hover:bg-indigo-600 hover:border-indigo-500 active:scale-95 transition-all duration-200 group"
           aria-label="Scroll to top"
         >
-          <ArrowUp size={22} className="group-hover:-translate-y-1 transition-transform duration-300" />
+          <ArrowUp size={20} aria-hidden="true" className="group-hover:-translate-y-0.5 transition-transform duration-200" />
         </motion.button>
       )}
     </AnimatePresence>
@@ -88,7 +91,7 @@ const AnimatedRoutes = ({ showScrollBtn, scrollToTop }) => {
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -6 }}
-        transition={{ duration: 0.22, ease: "easeOut" }}
+        transition={{ duration: 0.2, ease: "easeOut" }}
         className="min-h-screen"
       >
         <Routes location={location}>
@@ -97,6 +100,7 @@ const AnimatedRoutes = ({ showScrollBtn, scrollToTop }) => {
             element={<Home showScrollBtn={showScrollBtn} scrollToTop={scrollToTop} />}
           />
           <Route path="/archive" element={<Archive />} />
+          <Route path="/projects" element={<Navigate to="/archive" replace />} />
           <Route path="/projects/:slug" element={<ProjectDetail />} />
           <Route path="/resume" element={<Resume />} />
           <Route path="*" element={<NotFound />} />
@@ -111,12 +115,12 @@ function AppContent() {
   const [showScrollBtn, setShowScrollBtn] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 1000);
+    const timer = setTimeout(() => setLoading(false), 650);
     return () => window.clearTimeout(timer);
   }, []);
 
   useEffect(() => {
-    const handleScroll = () => setShowScrollBtn(window.scrollY > 300);
+    const handleScroll = () => setShowScrollBtn(window.scrollY > 360);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);

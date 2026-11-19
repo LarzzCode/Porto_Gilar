@@ -116,60 +116,61 @@ const Navbar = () => {
   const mobileActiveSection = mobileSectionMap[activeSection] || activeSection;
 
   return (
-    <>
-      <div className="hidden xl:flex fixed top-6 left-1/2 -translate-x-1/2 z-50 max-w-[calc(100vw-2rem)]">
+    <header>
+      <div className="hidden xl:flex fixed top-5 left-1/2 -translate-x-1/2 z-50 max-w-[calc(100vw-2rem)]">
         <nav
-          aria-label={isId ? "Navigasi utama" : "Primary navigation"}
-          className="flex items-center gap-1 bg-black/60 backdrop-blur-xl border border-white/10 rounded-full p-1 shadow-2xl ring-1 ring-white/5 whitespace-nowrap"
+          aria-label={isId ? "Utama" : "Primary"}
+          className="flex items-center gap-1 bg-[#08080b]/90 backdrop-blur-xl border border-white/15 rounded-full p-1.5 shadow-2xl whitespace-nowrap"
         >
           {navLinks.map((item) => (
             <button
               key={item.id}
+              type="button"
               onClick={() => scrollToSection(item.id)}
-              className={`cursor-pointer relative px-4 py-2 text-sm font-medium rounded-full transition-colors duration-300 ${
-                activeSection === item.id ? "text-white" : "text-slate-400 hover:text-white"
+              aria-current={activeSection === item.id ? "location" : undefined}
+              className={`relative px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200 ${
+                activeSection === item.id ? "text-white" : "text-slate-300 hover:text-white"
               }`}
             >
               {activeSection === item.id && (
                 <motion.span
                   layoutId="activeDesktopTab"
                   className="absolute inset-0 bg-indigo-600 rounded-full -z-10"
-                  transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                  transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
                 />
               )}
               <span className="relative z-10">{item.label}</span>
             </button>
           ))}
 
-          <span className="mx-1 h-5 w-px bg-white/10" />
+          <span className="mx-1 h-5 w-px bg-white/15" aria-hidden="true" />
 
           <button
             type="button"
             onClick={openCommandPalette}
-            className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-xs font-medium text-slate-500 hover:text-white hover:bg-white/5 transition-colors"
-            aria-label={isId ? "Cari di portfolio" : "Search portfolio"}
-            title="Ctrl / ⌘ + K"
+            className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-2 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-colors"
+            aria-label={isId ? "Cari di portfolio (Ctrl+K)" : "Search portfolio (Ctrl+K)"}
           >
-            <Search size={15} />
+            <Search size={15} aria-hidden="true" />
             <span className="hidden 2xl:inline">{isId ? "Cari" : "Search"}</span>
           </button>
 
           <button
             type="button"
             onClick={toggleLanguage}
-            className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-xs font-semibold text-slate-500 hover:text-white hover:bg-white/5 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-2 text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/10 transition-colors"
             aria-label={language === "en" ? "Switch to Indonesian" : "Ganti ke bahasa Inggris"}
           >
-            <Languages size={15} /> {language.toUpperCase()}
+            <Languages size={15} aria-hidden="true" /> {language.toUpperCase()}
           </button>
         </nav>
       </div>
 
       <nav
-        aria-label={isId ? "Navigasi mobile dan tablet" : "Mobile and tablet navigation"}
-        className="xl:hidden fixed left-3 right-3 sm:left-6 sm:right-6 md:left-1/2 md:right-auto md:-translate-x-1/2 md:w-[min(680px,calc(100vw-3rem))] bottom-[calc(env(safe-area-inset-bottom)+12px)] z-50 rounded-2xl border border-white/10 bg-black/80 backdrop-blur-2xl shadow-2xl shadow-black/40 p-1.5"
+        aria-label={isId ? "Mobile dan tablet" : "Mobile and tablet"}
+        className="xl:hidden fixed left-3 right-3 sm:left-6 sm:right-6 md:left-1/2 md:right-auto md:-translate-x-1/2 md:w-[min(680px,calc(100vw-3rem))] bottom-[calc(env(safe-area-inset-bottom)+12px)] z-50 rounded-2xl border border-white/15 bg-[#08080b]/95 backdrop-blur-xl shadow-2xl p-1.5"
       >
-        <div className="grid grid-cols-6 gap-0.5 sm:gap-1">
+        <div className="grid grid-cols-6 gap-1">
           {mobileLinks.map((item) => {
             const Icon = item.icon;
             const isActive = mobileActiveSection === item.id;
@@ -177,22 +178,23 @@ const Navbar = () => {
             return (
               <button
                 key={item.id}
+                type="button"
                 onClick={() => scrollToSection(item.id)}
                 aria-label={`${isId ? "Ke" : "Go to"} ${item.label}`}
-                aria-current={isActive ? "page" : undefined}
-                className={`relative min-w-0 rounded-xl py-2.5 px-0.5 sm:px-1 flex flex-col items-center justify-center gap-1 transition-colors ${
-                  isActive ? "text-white" : "text-slate-500 active:text-slate-200"
+                aria-current={isActive ? "location" : undefined}
+                className={`relative min-w-0 min-h-[48px] rounded-xl py-2 px-1 flex flex-col items-center justify-center gap-1 transition-colors ${
+                  isActive ? "text-white" : "text-slate-300 hover:text-white"
                 }`}
               >
                 {isActive && (
                   <motion.span
                     layoutId="activeMobileTab"
-                    className="absolute inset-0 bg-indigo-600/90 rounded-xl -z-10 shadow-lg shadow-indigo-600/20"
-                    transition={{ type: "spring", bounce: 0.25, duration: 0.5 }}
+                    className="absolute inset-0 bg-indigo-600 rounded-xl -z-10"
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.45 }}
                   />
                 )}
-                <Icon size={17} strokeWidth={isActive ? 2.4 : 2} />
-                <span className="text-[9px] min-[390px]:text-[10px] sm:text-[11px] font-medium leading-none truncate max-w-full">
+                <Icon size={17} strokeWidth={isActive ? 2.4 : 2} aria-hidden="true" />
+                <span className="text-[10px] sm:text-[11px] font-medium leading-none truncate max-w-full">
                   {item.label}
                 </span>
               </button>
@@ -200,7 +202,7 @@ const Navbar = () => {
           })}
         </div>
       </nav>
-    </>
+    </header>
   );
 };
 

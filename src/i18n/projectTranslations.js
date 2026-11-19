@@ -15,7 +15,7 @@ const developmentId = {
     desc: "Portal akses ujian digital yang membantu siswa membuka ujian berdasarkan kelas dan program melalui alur yang lebih jelas dan terstruktur.",
     caseStudy: {
       eyebrow: "Alur Kerja Pendidikan",
-      summary: "Portal ringan yang mengubah proses akses ujian yang lebih manual menjadi satu titik masuk digital sederhana untuk siswa di mobile maupun desktop.",
+      summary: "Portal ringan yang mengubah proses akses ujian manual menjadi satu titik masuk digital sederhana untuk siswa di mobile maupun desktop.",
       problem: "Siswa membutuhkan cara yang lebih jelas untuk mengakses ujian yang tepat. Alur sebelumnya terlalu bergantung pada arahan manual dan belum memiliki satu tempat yang jelas untuk memilih kelas lalu membuka tes yang sesuai.",
       solution: "Saya membangun portal Bagja College Test dengan pengelompokan kelas, pilihan program, dan tautan langsung ke formulir ujian yang relevan. Antarmuka sengaja dibuat ringan dan responsif agar mudah dibuka dari perangkat siswa.",
       role: "Saya mengusulkan pendekatan digital, memetakan alur akses ujian, merancang antarmuka, dan mengimplementasikan portal front-end.",
@@ -24,7 +24,7 @@ const developmentId = {
         "Pengelompokan program di dalam pilihan kelas",
         "Integrasi Google Forms untuk pelaksanaan ujian",
         "Layout responsif untuk desktop dan mobile",
-        "Interaksi ringan dan pesan sambutan animatif",
+        "Interaksi ringan dan panduan sambutan yang jelas",
       ],
       challenge: "Tantangan utamanya adalah menjaga perjalanan siswa sesederhana mungkin. Alih-alih menambah banyak fitur, alurnya dipadatkan menjadi tiga tindakan: pilih kelas, pilih program, lalu buka ujian.",
       outcome: "Portal ini menjadi bagian dari alur ujian Bagja College dan memberi siswa cara yang lebih terstruktur untuk mencapai ujian dibanding pendekatan manual sebelumnya.",
@@ -52,7 +52,7 @@ const developmentId = {
         "Dukungan PWA untuk pengalaman seperti aplikasi",
       ],
       challenge: "Tantangan terbesar adalah membuat banyak modul terasa sebagai satu produk yang utuh. Transaksi, dompet, kategori, budget, dan laporan harus tetap saling terhubung tanpa membuat proses input menjadi rumit.",
-      outcome: "Lar-Finance menggantikan alur pencatatan yang lebih manual dengan satu dashboard untuk mencatat aktivitas, melihat ringkasan, dan mengevaluasi kondisi keuangan pribadi lintas perangkat.",
+      outcome: "Lar-Finance menggantikan alur pencatatan manual dengan satu dashboard untuk mencatat aktivitas, melihat ringkasan, dan mengevaluasi kondisi keuangan pribadi lintas perangkat.",
     },
   },
   "lar-ai": {
@@ -94,37 +94,54 @@ const developmentId = {
   },
 };
 
-const designId = {
-  "Independence Day Poster": {
-    title: "Poster Hari Kemerdekaan",
-    desc: "Poster yang dibuat untuk kompetisi desain di SMKN 1 Kertajati.",
-  },
-  "Bagja College Super Camp Poster": {
-    title: "Poster Super Camp Bagja College",
-    desc: "Poster promosi untuk program Super Camp Bagja College.",
-  },
-  "Instagram Feed Design": {
-    title: "Desain Feed Instagram",
-    desc: "Konten feed Instagram yang dirancang untuk Bagja College.",
-  },
-  "Student Admission Brochure": {
-    title: "Brosur Penerimaan Siswa",
-    desc: "Brosur penerimaan siswa yang dirancang untuk Bagja College.",
-  },
-  "Admission Banner": {
-    title: "Banner Penerimaan Siswa",
-    desc: "Banner penerimaan siswa yang dirancang untuk Bagja College.",
-  },
-  "Super Camp Banner": {
-    title: "Banner Super Camp",
-    desc: "Banner promosi untuk program Super Camp Bagja College.",
-  },
+const translateDesignProject = (project) => {
+  const { title } = project;
+  if (title === "Independence Day Poster") {
+    return {
+      title: "Poster Hari Kemerdekaan",
+      desc: "Poster yang dibuat untuk kompetisi desain di SMKN 1 Kertajati.",
+    };
+  }
+  if (title === "Bagja College Super Camp Poster") {
+    return {
+      title: "Poster Super Camp Bagja College",
+      desc: "Poster promosi untuk program Super Camp Bagja College.",
+    };
+  }
+  if (title.startsWith("Instagram Feed Design")) {
+    const suffix = title.replace("Instagram Feed Design", "").trim();
+    return {
+      title: `Desain Feed Instagram ${suffix}`.trim(),
+      desc: "Konten feed Instagram yang dirancang untuk Bagja College.",
+    };
+  }
+  if (title.startsWith("Student Admission Brochure")) {
+    const suffix = title.replace("Student Admission Brochure", "").trim();
+    return {
+      title: `Brosur Penerimaan Siswa ${suffix}`.trim(),
+      desc: "Brosur penerimaan siswa yang dirancang untuk Bagja College.",
+    };
+  }
+  if (title.startsWith("Admission Banner")) {
+    const suffix = title.replace("Admission Banner", "").trim();
+    return {
+      title: `Banner Penerimaan Siswa ${suffix}`.trim(),
+      desc: "Banner penerimaan siswa yang dirancang untuk Bagja College.",
+    };
+  }
+  if (title === "Super Camp Banner") {
+    return {
+      title: "Banner Super Camp",
+      desc: "Banner promosi untuk program Super Camp Bagja College.",
+    };
+  }
+  return null;
 };
 
 export const localizeProject = (project, language) => {
   if (language !== "id") return project;
 
-  const translated = project.slug ? developmentId[project.slug] : designId[project.title];
+  const translated = project.slug ? developmentId[project.slug] : translateDesignProject(project);
   if (!translated) return project;
 
   return {

@@ -47,7 +47,7 @@ export const devProjects = [
     featuredCaseStudy: true,
     caseStudy: {
       eyebrow: "Education Workflow",
-      summary: "A lightweight portal that turned a more manual exam-access process into a simple digital entry point for students on mobile and desktop.",
+      summary: "A lightweight portal that turned a manual exam-access process into a simple digital entry point for students on mobile and desktop.",
       problem: "Students needed a clearer way to access the correct exam. The existing flow depended too much on manual guidance and did not provide one obvious place to choose a class and open the right test.",
       solution: "I built the Bagja College Test portal with class grouping, program dropdowns, and direct links to the relevant exam forms. The interface was intentionally kept lightweight and responsive so students could open it easily from their own devices.",
       role: "I proposed the digital approach, mapped the exam-access flow, designed the interface, and implemented the front-end portal.",
@@ -56,7 +56,7 @@ export const devProjects = [
         "Program grouping inside class-based dropdowns",
         "Google Forms integration for exam delivery",
         "Responsive layout for desktop and mobile",
-        "Small interactions and an animated welcome message"
+        "Small interactions and a clear welcome prompt"
       ],
       challenge: "The main challenge was keeping the student journey as simple as possible. Instead of adding more features, the flow was reduced to three actions: choose a class, choose a program, then open the test.",
       outcome: "The portal became part of Bagja College's exam workflow and gave students a more structured way to reach their tests than the previous manual approach."
@@ -98,7 +98,7 @@ export const devProjects = [
         "PWA support for an app-like experience"
       ],
       challenge: "The biggest challenge was making many modules feel like one coherent product. Transactions, wallets, categories, budgets, and reports had to stay connected without making the input flow feel complicated.",
-      outcome: "Lar-Finance replaced a more manual tracking workflow with one dashboard for recording activity, reviewing summaries, and evaluating personal finances across devices."
+      outcome: "Lar-Finance replaced a manual tracking workflow with one dashboard for recording activity, reviewing summaries, and evaluating personal finances across devices."
     }
   },
   {
@@ -164,56 +164,56 @@ export const designProjects = [
     year: "2023",
     title: "Independence Day Poster",
     tech: ["Canva"],
-    image: "/Project_Poster.png",
+    image: "/project-poster-independence.jpg",
     desc: "Poster created for a design competition at SMKN 1 Kertajati."
   },
   {
     year: "2024",
     title: "Bagja College Super Camp Poster",
     tech: ["Canva"],
-    image: "/Project_Poster.jpg",
+    image: "/project-poster-supercamp.jpg",
     desc: "Promotional poster for the Bagja College Super Camp program."
   },
   ...Array.from({ length: 10 }, (_, index) => ({
     year: "2024",
-    title: "Instagram Feed Design",
+    title: `Instagram Feed Design #${index + 1}`,
     tech: ["Canva"],
-    image: `/Project_Feeds (${index + 1}).jpg`,
+    image: `/project-feeds-${index + 1}.jpg`,
     desc: "Instagram feed content designed for Bagja College."
   })),
   {
     year: "2024",
-    title: "Instagram Feed Design",
+    title: "Instagram Feed Design #11",
     tech: ["Canva"],
-    image: "/Project_Feeds (1).png",
+    image: "/project-feeds-11.jpg",
     desc: "Instagram feed content designed for Bagja College."
   },
   ...Array.from({ length: 4 }, (_, index) => ({
     year: "2024",
-    title: "Student Admission Brochure",
+    title: `Student Admission Brochure #${index + 1}`,
     tech: ["Canva"],
-    image: `/Project_Brosur (${index + 1}).png`,
+    image: `/project-brosur-${index + 1}.jpg`,
     desc: "Student-admission brochure designed for Bagja College."
   })),
   {
     year: "2024",
-    title: "Admission Banner",
+    title: "Admission Banner #1",
     tech: ["Canva"],
-    image: "/Project_Banner (1).png",
+    image: "/project-banner-1.jpg",
     desc: "Student-admission banner designed for Bagja College."
   },
   {
     year: "2024",
-    title: "Admission Banner",
+    title: "Admission Banner #2",
     tech: ["Canva"],
-    image: "/Project_Banner (3).png",
+    image: "/project-banner-3.jpg",
     desc: "Student-admission banner designed for Bagja College."
   },
   {
     year: "2024",
     title: "Super Camp Banner",
     tech: ["Canva"],
-    image: "/Project_Banner (2).png",
+    image: "/project-banner-2.jpg",
     desc: "Promotional banner for the Bagja College Super Camp program."
   },
 ];
